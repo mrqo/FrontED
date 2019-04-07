@@ -35,10 +35,25 @@ class App extends Component {
           </div>}
           <DetailsDrawer/>
       */
-      <div>
-          <ControlsWidget/>
+      <div className="App" height="1000px">
+        <div className="row">
+          <div className="col-2 App-area">
+            <div className="App-subarea">
+              <ControlsWidget/>
+            </div>
+            <div>
+              <Widget/>
+            </div>
+          </div>
+          <div className="col App-area">
+            <Widget />
+          </div>
+          <div className="col-2 App-area">
+            <Widget />
+          </div>
+        </div>
       </div>
-      
+
     );
   }
 }
