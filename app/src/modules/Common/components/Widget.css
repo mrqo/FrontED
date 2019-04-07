@@ -1,0 +1,41 @@
+.widget {
+    background-color: #E9E9E9;
+    border-radius: 8px;
+    max-width: 325px;
+}
+
+.widget-header {
+    background-color: #FFFFFF;
+    color: #192A59;
+    border-color: #E9E9E9;
+    border-width: 4px;
+    border-radius: 8px;
+    border-style: solid;
+    padding: 7px;
+}
+
+.widget-header-title {
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+.widget-header-btns {
+    text-align: right;
+    padding-right: 25px;
+}
+
+.widget-content {
+    padding: 10px;
+}
+
+.widget-footer {
+    background-color: #3F5AA6;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: #FFFFFF;
+    text-align: right;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 8px;
+}

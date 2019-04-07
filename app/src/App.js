@@ -10,6 +10,10 @@ import ControlsBrowser from './modules/IDE/components/ControlsBrowser';
 import PageBar from './modules/IDE/components/PageBar';
 import ProjectDrawer from './modules/IDE/components/ProjectDrawer';
 import DetailsDrawer from './modules/IDE/components/DetailsDrawer';
+
+import Widget from './modules/Common/components/Widget';
+import ControlsWidget from './modules/Manipulation/components/ControlsWidget';
+
 const styles = {
   card: {
     width: '500px',
@@ -20,16 +24,19 @@ const styles = {
 class App extends Component {
   render() {
     return (
-      <div>
-          <CssBaseline/>
+      /*
+       <CssBaseline/>
           <ProjectDrawer/>
-          {/*<PageBar/>*/}
+          {<PageBar/>}
           
           
-          {/*<div style={styles.card}>
+          {<div style={styles.card}>
             <ControlsBrowser/>
-          </div>*/}
+          </div>}
           <DetailsDrawer/>
+      */
+      <div>
+          <ControlsWidget/>
       </div>
       
     );
