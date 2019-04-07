@@ -13,6 +13,7 @@ import DetailsDrawer from './modules/IDE/components/DetailsDrawer';
 
 import Widget from './modules/Common/components/Widget';
 import ControlsWidget from './modules/Manipulation/components/ControlsWidget';
+import StructureWidget from './modules/Manipulation/components/StructureWidget';
 
 const styles = {
   card: {
@@ -35,14 +36,14 @@ class App extends Component {
           </div>}
           <DetailsDrawer/>
       */
-      <div className="App" height="1000px">
+      <div className="App">
         <div className="row">
           <div className="col-2 App-area">
             <div className="App-subarea">
               <ControlsWidget/>
             </div>
             <div>
-              <Widget/>
+              <StructureWidget/>
             </div>
           </div>
           <div className="col App-area">

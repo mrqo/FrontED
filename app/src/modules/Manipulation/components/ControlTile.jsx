@@ -36,8 +36,6 @@ class ControlTile extends React.Component {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                </CardActions>
             </Card>
         );
     }
