@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import './Widget.css';
 
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+
 import { SearchIcon } from '../icons/search.png';
 require('../icons/search.png');
+
+const styles = theme => ({
+    button: {
+    }
+});
 
 class Widget extends React.Component {
     state = {
@@ -31,7 +41,20 @@ class Widget extends React.Component {
                         {this.state["widgetName"]}
                     </div>
                     <div className="widget-header-btns col">
-                        <img src={require('../icons/search.svg')} width="16" height="16" />
+                        <IconButton 
+                            iconStyle={{ width: '24px', height: '24px' }}
+                            style={{ width: '34px', height: '34px', padding: '0px'}}
+                            size="small"
+                            color="white">
+                            <Icon>search</Icon>
+                        </IconButton>
+                        <IconButton 
+                            iconStyle={{ width: '24px', height: '24px' }}
+                            style={{ width: '34px', height: '34px', padding: '0px'}}
+                            size="small"
+                            color="white">
+                            <Icon>clear_all</Icon>
+                        </IconButton>
                     </div>
                 </div>
 
@@ -48,12 +71,15 @@ class Widget extends React.Component {
     }
 
     getFooter() {
+        const { classes } = this.props;
+
         return (
             <div className="widget-footer">
-                Footer
+                
             </div>
         );
     }
 }
 
+//export default withStyles(styles)(Widget);
 export default Widget;

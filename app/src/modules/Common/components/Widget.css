@@ -12,18 +12,21 @@
     border-width: 4px;
     border-radius: 8px;
     border-style: solid;
-    padding: 7px;
+
 }
 
 .widget-header-title {
     text-align: left;
-    font-size: 20px;
+    font-size: 17px;
     font-family: 'Archivo Black', sans-serif;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
 }
 
 .widget-header-btns {
     text-align: right;
-    padding-right: 25px;
+    padding: 6px;
 }
 
 .widget-content {
