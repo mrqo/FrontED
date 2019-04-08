@@ -15,6 +15,7 @@ import Widget from './modules/Common/components/Widget';
 import ControlsWidget from './modules/Manipulation/components/ControlsWidget';
 import StructureWidget from './modules/Manipulation/components/StructureWidget';
 import EditingWidget from './modules/Design/components/EditingWidget';
+import PropertiesWidget from './modules/Customization/components/PropertiesWidget';
 
 const styles = {
   card: {
@@ -51,7 +52,7 @@ class App extends Component {
             <EditingWidget />
           </div>
           <div className="col-2 App-area">
-            <Widget />
+            <PropertiesWidget />
           </div>
         </div>
       </div>
