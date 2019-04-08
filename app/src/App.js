@@ -14,6 +14,7 @@ import DetailsDrawer from './modules/IDE/components/DetailsDrawer';
 import Widget from './modules/Common/components/Widget';
 import ControlsWidget from './modules/Manipulation/components/ControlsWidget';
 import StructureWidget from './modules/Manipulation/components/StructureWidget';
+import EditingWidget from './modules/Design/components/EditingWidget';
 
 const styles = {
   card: {
@@ -47,7 +48,7 @@ class App extends Component {
             </div>
           </div>
           <div className="col-7 App-area">
-            <Widget />
+            <EditingWidget />
           </div>
           <div className="col-2 App-area">
             <Widget />
