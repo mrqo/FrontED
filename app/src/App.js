@@ -38,7 +38,7 @@ class App extends Component {
       */
       <div className="App">
         <div className="row">
-          <div className="col-2 App-area">
+          <div className="col-3 App-area">
             <div className="App-subarea">
               <ControlsWidget/>
             </div>
@@ -46,7 +46,7 @@ class App extends Component {
               <StructureWidget/>
             </div>
           </div>
-          <div className="col App-area">
+          <div className="col-7 App-area">
             <Widget />
           </div>
           <div className="col-2 App-area">

@@ -1,42 +1,59 @@
 import React from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Checkbox from '@material-ui/core/Checkbox';
+
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-
 import { withStyles } from '@material-ui/core/styles';
-import { CardActionArea } from '@material-ui/core';
+import { CardActionArea, ListItemText } from '@material-ui/core';
 
-const styles = {
+const styles = theme => ({
     tile: {
-        maxWidth: 100
+        maxWidth: 100,
+        backgroundColor: theme.palette.background.paper,
+    },
+
+    inline: {
+        display: 'inline'
     }
-};
+});
 
 class ControlTile extends React.Component {
+    state = {
+        title: "",
+        description: ""
+    }
+
+
     render() {
-        const { classes } = this.props;
+        const { classes } = styles;
 
         return (
-            <Card className={classes.tile}>
-                <CardActionArea>
-                    {/*<CardMedia
-                        component="img"
-                        alt="Element image"
-                        className={classes.media}
-                        width="20"
-                        title="Element image"
-                    />*/}
-                    <CardContent>
-                        <Typography component="p">
-                            Container
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
+            <ListItem 
+                button
+                alignItems="flex-start"
+                role={undefined}
+                className={styles.tile}>
+                <ListItemAvatar>
+                    <Avatar alt="Control icon"/>
+                </ListItemAvatar>
+                <ListItemText
+                    primary={this.props.title}
+                    secondary = {
+                        <React.Fragment>
+                            <Typography component="span" className={styles.inline} color="textPrimary">
+                                {this.props.description}
+                            </Typography>
+                        </React.Fragment>
+                    }
+                />  
+                <ListItemSecondaryAction>
+                    <Checkbox checked={false}/>
+                </ListItemSecondaryAction>
+            </ListItem>
         );
     }
 }
