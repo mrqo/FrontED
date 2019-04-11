@@ -31,8 +31,8 @@ class App extends Component {
        <CssBaseline/>
           <ProjectDrawer/>
           {<PageBar/>}
-          
-          
+
+
           {<div style={styles.card}>
             <ControlsBrowser/>
           </div>}
@@ -48,7 +48,7 @@ class App extends Component {
               <StructureWidget/>
             </div>
           </div>
-          <div className="col-7 App-area">
+          <div className="col-7 App-area" id="design">
             <EditingWidget />
           </div>
           <div className="col-2 App-area">

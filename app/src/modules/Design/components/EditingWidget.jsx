@@ -25,6 +25,7 @@ class ColoredRect extends React.Component {
           fill={this.state.color}
           shadowBlur={5}
           onClick={this.handleClick}
+          draggable
         />
       );
     }
@@ -32,7 +33,9 @@ class ColoredRect extends React.Component {
 
 class EditingWidget extends Widget {
     state = {
-        "widgetName": "Design"
+        "widgetName": "Design",
+        "height": 500,
+        "width": 500,
     }
 
     constructor(props) {
@@ -44,6 +47,10 @@ class EditingWidget extends Widget {
     }
 
     componentDidMount() {
+        let parent = document.querySelector("#design .widget-content")
+        this.setState({height: parent.clientHeight, width: parent.clientWidth})
+        console.log(parent)
+        console.log(parent.clientHeight)
         //this.stage.current.on('dragstart', (evt) => { this.onDragStart(evt.target) });
         //this.stage.current.on('dragend', (evt) => { this.onDragEnd(evt.target) });
     }
@@ -51,8 +58,8 @@ class EditingWidget extends Widget {
     getContent() {
         return (
             <Stage 
-                width={200} 
-                height={200} 
+                width={this.state.width}
+                height={this.state.height}
                 className="widget-content"
                 ref={this.stage}>
                 <Layer 
