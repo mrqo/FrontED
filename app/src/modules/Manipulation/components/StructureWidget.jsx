@@ -27,7 +27,13 @@ class StructureWidget extends Widget {
             nodes = this.state.model.content.map((child) => {
                 return <TreeNode
                     type={child.meta.type}
-                    name={child.name}/>
+                    name={child.name}
+                    onClick={() => {
+                        PubSub.publish(topic.ElemSelectionChanged, {
+                            oldSel: null,
+                            newSel: child
+                        })
+                    }}/>
                 }
             );
         }

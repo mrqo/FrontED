@@ -1,82 +1,73 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
 
-import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 
 import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
 
+import GeneralProperties from './GeneralProperties';
+import ImageProperties from './ImageProperties';
+import LabelProperties from './LabelProperties';
 
+import { elementType } from '../../Domain/Enums/Elements';
+import { topic } from '../../Domain/Enums/PubSubTopics';
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap'
-    },
-    textField: {
-        marginLeft: 0,
-        marginRight: 0,
-        width: 220
-    },
-    switchLabel: {
-    }
 });
 
 class PropertiesWidget extends Widget {
     state = {
         widgetName: "Properties",
-        deriveStyleChecked: true,
+        model: null,
+        modelType: elementType.Unknown,
     }
 
     constructor(props) {
         super(props);
+
+        this._modelChangedEventToken = PubSub.subscribe(topic.ElemSelectionChanged, this.onModelChanged.bind(this));
     }
 
     getContent() {
-        const { classes } = this.props;
+        var propGroups = [];
 
-        return (
-            <div className="widget-content">
-                <FormControl component="fieldset">
-                    <FormLabel component="legend">
-                        General
-                    </FormLabel>
-                    <FormGroup>
-                        <TextField 
-                            label="Name"
-                            value={this.state.name}
-                            className={classes.textField}/>
+        if (this.state.model != null)
+        {
+            console.log(this.state.model.name);
+            
+            if (this.state.modelType != elementType.Unknown) {
+                propGroups.push();
+            }
+            
+            if (this.state.modelType == elementType.Label) {
+                propGroups.push(<LabelProperties/>);
+            }
+    
+            if (this.state.modelType == elementType.Image) {
+                propGroups.push(<ImageProperties/>);
+            }
+    
+            return (
+                <div className="widget-content" width={1}>
+                    { this.state.modelType != elementType.Unknown
+                        ? <GeneralProperties
+                            name={this.state.model.name}
+                            aliasName={""}
+                        />
+                        : <div/>
+                    }
+                    { propGroups }
+                </div>
+            )
+        }
+    }
 
-                        
-                        <TextField 
-                            label="Alias name"
-                            value={this.state.name}
-                            className={classes.textField}/>
-
-                        <FormControlLabel
-                            control={
-                                <Switch 
-                                    checked={this.state.deriveStyleChecked}
-                                    value="deriveStyleChecked"
-                                    className={classes.switch}/>
-                            }
-                            label={
-                            <div 
-                                minWidth="200"
-                                className={classes.switchLabel}>
-                                Inherit styles
-                            </div>
-                            }
-                            labelPlacement="start"/>    
-                    </FormGroup>
-                </FormControl>
-            </div>
-        )
+    onModelChanged(msg, data) {
+        this.setState({
+            model: data.newSel,
+            modelType: data.newSel.meta.type
+        });
     }
 }
 

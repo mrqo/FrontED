@@ -32,8 +32,9 @@ class ProjectController {
     }
 
     initSubscriptions() {
-        var container = this._elementsFactory.createContainer(this);
         /*
+        var container = this._elementsFactory.createContainer(this);
+        
         var root = this._elementsFactory.createElement(elementType.Container, null, 50, 50);
         this._structureController.addElement(elementType.Label, root, 10, 10);
         console.log(root);
@@ -69,11 +70,6 @@ class ProjectController {
             this._propertiesController.onPropertyChanged
                 .bind(this._propertiesController)
         )
-
-        PubSub.publish(topic.ElemSelectionChanged, {
-            oldSel: null,
-            newSel: container
-        });
     }
 }
 

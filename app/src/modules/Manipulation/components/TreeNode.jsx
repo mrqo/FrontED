@@ -39,7 +39,8 @@ class TreeNode extends Widget {
         var listItem = (
             <ListItem 
                 button
-                dense={true}>
+                dense={true}
+                onClick={this.props.onClick}>
                 {this.state.expanded 
                     ? <ExpandLess/> 
                     : <ExpandMore/>}
