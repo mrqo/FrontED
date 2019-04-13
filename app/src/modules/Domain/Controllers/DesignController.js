@@ -7,7 +7,8 @@ class DesignController {
 
     // PubSub Callback
     onSelectionChanged(msg, data) {
-
+        console.log("design")
+        console.log(msg)
     }
 }
 

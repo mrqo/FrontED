@@ -44,19 +44,12 @@ class EditingWidget extends Widget {
 
     constructor(props) {
         super(props);
-
-        let stage = React.createRef();
-        let srcLayer = React.createRef();
-        let dragLayer = React.createRef();
-
         this._modelChangedEventToken = PubSub.subscribe(topic.ModelChanged, this.onModelChanged.bind(this));
     }
 
     componentDidMount() {
         let parent = document.querySelector("#design .widget-content")
-        this.setState({height: parent.clientHeight, width: parent.clientWidth})
-        console.log(parent)
-        console.log(parent.clientHeight)
+        this.setState({height: parent.clientHeight+40, width: parent.clientWidth-30})
         //this.stage.current.on('dragstart', (evt) => { this.onDragStart(evt.target) });
         //this.stage.current.on('dragend', (evt) => { this.onDragEnd(evt.target) });
     }
@@ -67,16 +60,11 @@ class EditingWidget extends Widget {
                 width={this.state.width}
                 height={this.state.height}
                 className="widget-content"
-                ref={this.stage}>
+                ref="stage">
                 <Layer 
                     id="srcLayer"
-                    ref={this.srcLayer}>
-                    <Text text="Try click on rect" />
-                    <ColoredRect draggable="true"/>
-                </Layer>
-                <Layer 
-                    id="dragLayer"
-                    ref = {this.dragLayer}>
+                    ref="srcLayer">
+                    <ColoredRect/>
                 </Layer>
             </Stage>
         )
@@ -100,8 +88,17 @@ class EditingWidget extends Widget {
     }
 
     onModelChanged(msg, model) {
-      console.log("Model changed: ");
-      console.log(model);
+        this.refs.srcLayer.add(
+            new Konva.Rect({
+                  x : 200,
+                  y : 200,
+                  width : 50,
+                  height : 50,
+                  fill : "black",
+                  draggable : "true"
+            })
+        )
+        this.refs.stage.draw()
     }
 }
 
