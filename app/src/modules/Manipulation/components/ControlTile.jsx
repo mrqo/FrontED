@@ -34,6 +34,7 @@ class ControlTile extends React.Component {
         return (
             <ListItem 
                 button
+                onClick={this.props.onClick}
                 alignItems="flex-start"
                 role={undefined}
                 className={styles.tile}>
@@ -50,9 +51,6 @@ class ControlTile extends React.Component {
                         </React.Fragment>
                     }
                 />  
-                <ListItemSecondaryAction>
-                    <Checkbox checked={false}/>
-                </ListItemSecondaryAction>
             </ListItem>
         );
     }

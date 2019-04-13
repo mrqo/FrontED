@@ -11,6 +11,7 @@
     "electron": "^1.4.14",
     "konva": "^3.2.4",
     "prop-types": "^15.7.2",
+    "pubsub-js": "^1.7.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-konva": "^16.8.6",

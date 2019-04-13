@@ -1,4 +1,5 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
 
 import List from '@material-ui/core/List';
 
@@ -6,6 +7,9 @@ import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
 
 import ControlTile from './ControlTile';
+
+import { elementType } from '../../Domain/Enums/Elements';
+import { topic } from '../../Domain/Enums/PubSubTopics';
 
 const styles = theme => ({
     root: {
@@ -26,6 +30,11 @@ class ControlsWidget extends Widget {
         "widgetName": "Controls"
     }
 
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     getContent() {
         return (
             <div className={styles.root}>
@@ -39,11 +48,13 @@ class ControlsWidget extends Widget {
                         <ControlTile 
                             title={controlData.name}
                             description={controlData.desc}
+                            onClick={() => {
+                                this.handleClick(controlData.type);
+                            }}
                         />
                     ))
                 }
                 </List>
-
             </div>
         );
     }
@@ -52,21 +63,32 @@ class ControlsWidget extends Widget {
         return [
             {
                 name: "Container",
-                desc: "Holds other elements."
+                desc: "Holds other elements.",
+                type: elementType.Container
             },
             {
                 name: "Button",
-                desc: "Responsible for intercepting user reactions."
+                desc: "Responsible for intercepting user reactions.",
+                type: elementType.Button
             }, 
             {
-                name: "TextBox",
-                desc: "Holds text informations."
+                name: "Label",
+                desc: "Holds text informations.",
+                type: elementType.Label
             },
             {
                 name: "Image",
-                desc: "Shows static image."
+                desc: "Shows static image.",
+                type: elementType.Image
             }
         ];
+    }
+
+    handleClick(elemType) {
+        console.log("Handle element creation of " + elemType);
+        PubSub.publish(topic.ElemCreationRequested, {
+            type: elemType
+        });
     }
 }
 
