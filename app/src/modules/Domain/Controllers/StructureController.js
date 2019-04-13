@@ -24,17 +24,18 @@ class StructureController {
         this._addElement(type, this.selectedNode, width, height);
     }
 
-    removeElement(elemId) {
-
-    }
-
     _addElement(type, parent, width, height) {
         if (parent == null)
             return false;
         
         var elem = this._elementsFactory.createElement(type, parent, width, height);
         parent.content.push(elem);
+        parent.commit();
         return elem;
+    }
+
+    removeElement(elemId) {
+    
     }
 }
 

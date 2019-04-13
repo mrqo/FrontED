@@ -1,4 +1,6 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
+import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
@@ -10,11 +12,13 @@ class ColoredRect extends React.Component {
     state = {
       color: 'green'
     };
+
     handleClick = () => {
       this.setState({
         color: Konva.Util.getRandomColor()
       });
     };
+
     render() {
       return (
         <Rect
@@ -44,6 +48,8 @@ class EditingWidget extends Widget {
         let stage = React.createRef();
         let srcLayer = React.createRef();
         let dragLayer = React.createRef();
+
+        this._modelChangedEventToken = PubSub.subscribe(topic.ModelChanged, this.onModelChanged.bind(this));
     }
 
     componentDidMount() {
@@ -91,6 +97,11 @@ class EditingWidget extends Widget {
     onDragEnd(shape) {
         shape.moveTo(this.srcLayer.current);
         this.stage.current.draw();
+    }
+
+    onModelChanged(msg, model) {
+      console.log("Model changed: ");
+      console.log(model);
     }
 }
 

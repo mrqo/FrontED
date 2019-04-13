@@ -1,4 +1,7 @@
+import PubSub from 'pubsub-js';
+
 import { elementType } from '../Enums/Elements';
+import { topic } from '../Enums/PubSubTopics';
 
 class ElementsFactory {
     createElement(type, parent, width, height) {
@@ -15,6 +18,7 @@ class ElementsFactory {
         var container = this._createBoilerplate(parent, width, height);
 
         // #TODO: Configure container properties here
+        container.name = "Container";
         container.meta.type = elementType.Container;
 
         return container;
@@ -24,6 +28,7 @@ class ElementsFactory {
         var label = this._createBoilerplate(parent, width, height);
 
         // #TODO: Configure label properties here
+        label.name = "Label";
         label.content.text = "text";
         label.meta.type = elementType.Label;
 
@@ -34,6 +39,7 @@ class ElementsFactory {
         var image = this._createBoilerplate(parent, width, height);
         
         // #TODO: Configure image properties here
+        image.name = "Image"
         image.content.src = "source";
         image.meta.type = elementType.Image;
         
@@ -41,8 +47,10 @@ class ElementsFactory {
     }
 
     _createBoilerplate(parent, width, height) {
-        return {
+        var model = {
             parent: parent,
+            id: "id",
+            name: "unk",
             properties: {
                 width: width,
                 height: height,
@@ -52,6 +60,14 @@ class ElementsFactory {
                 type: elementType.Unknown
             }
         };
+
+        model.commit = function() {
+            PubSub.publish(topic.ModelChanged, {
+                model: model   
+            });
+        };
+
+        return model;
     }
 }
 
