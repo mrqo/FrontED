@@ -38,7 +38,7 @@ class Widget extends React.Component {
             <div className="widget-header container">
                 <div className="row justify-content-around">
                     <div className="widget-header-title col">
-                        {this.state["widgetName"]}
+                        {this.state.widgetName}
                     </div>
                     <div className="widget-header-btns col">
                         <IconButton 

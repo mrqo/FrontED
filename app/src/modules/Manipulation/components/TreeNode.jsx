@@ -52,13 +52,13 @@ class TreeNode extends Widget {
                             variant="body2"
                             style={{color: '#192A59', display: 'inline-block'}}
                             >
-                            Container
+                            {this.props.type}
                         </Typography>
                         <Typography
                             variant="caption"
                             style={{marginLeft: '5px', color: '#3F5AA6', display: 'inline-block'}}
                             >
-                            MainCont
+                            {this.props.name}
                         </Typography>
                     </div>   
                 } />
