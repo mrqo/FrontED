@@ -12,6 +12,9 @@ import ControlTile from './ControlTile';
 import { elementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 
+import ContainerIcon from '../icons/container-icon.png';
+import ButtonIcon from '../icons/button-icon.png';
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -39,7 +42,14 @@ class ControlsWidget extends Widget {
         return (
             <Paper 
                 className={styles.root}
-                style={{maxHeight: 340, overflow: 'auto'}}>
+                style={{
+                    maxHeight: 340, 
+                    height: 340,
+                    overflow: 'auto',
+                    background: 'transparent',
+                    margin: 10
+                }}
+                square>
                 <List
                     dense 
                     cellHeight={75}
@@ -50,6 +60,7 @@ class ControlsWidget extends Widget {
                         <ControlTile 
                             title={controlData.name}
                             description={controlData.desc}
+                            icon={controlData.icon}
                             onClick={() => {
                                 this.handleClick(controlData.type);
                             }}
@@ -66,12 +77,14 @@ class ControlsWidget extends Widget {
             {
                 name: "Container",
                 desc: "Holds other elements.",
-                type: elementType.Container
+                type: elementType.Container,
+                icon: ContainerIcon,
             },
             {
                 name: "Button",
                 desc: "Responsible for intercepting user reactions.",
-                type: elementType.Button
+                type: elementType.Button,
+                icon: ButtonIcon,
             }, 
             {
                 name: "Label",

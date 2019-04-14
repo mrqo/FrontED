@@ -41,7 +41,15 @@ class StructureWidget extends Widget {
 
         return (
             <Paper 
-                style={{maxHeight: 320, overflow: 'auto'}}>
+                style={{
+                    maxHeight: 320, 
+                    height: 320, 
+                    overflow: 'auto',
+                    background: 'transparent',
+                    margin: 10,
+                    boxShadow: 0
+                }}
+                square>
                 <List dense className="widget-content">
                     { nodes }
                 </List>

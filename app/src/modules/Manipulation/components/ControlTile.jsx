@@ -10,9 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { CardActionArea, ListItemText } from '@material-ui/core';
 
-import containerIcon from '../icons/container-icon.png';
-import buttonIcon from '../icons/button-icon.png';
-
 const styles = theme => ({
     tile: {
         maxWidth: 100,
@@ -44,7 +41,7 @@ class ControlTile extends React.Component {
                 <ListItemAvatar>
                     <Avatar 
                         alt="Control icon"
-                        src={buttonIcon}/>
+                        src={this.props.icon}/>
                 </ListItemAvatar>
                 <ListItemText
                     primary={this.props.title}
