@@ -3,6 +3,7 @@ import PubSub from 'pubsub-js';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
@@ -39,9 +40,12 @@ class StructureWidget extends Widget {
         }
 
         return (
-            <List dense className="widget-content">
-                { nodes }
-            </List>
+            <Paper 
+                style={{maxHeight: 320, overflow: 'auto'}}>
+                <List dense className="widget-content">
+                    { nodes }
+                </List>
+            </Paper>
         )
     };
 

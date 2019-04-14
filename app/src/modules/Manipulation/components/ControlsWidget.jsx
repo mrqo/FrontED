@@ -2,6 +2,7 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
@@ -16,7 +17,6 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        overflow: 'hidden',
         backgroundColor: theme.palette.background.paper
     },
     gridList: {
@@ -37,7 +37,9 @@ class ControlsWidget extends Widget {
 
     getContent() {
         return (
-            <div className={styles.root}>
+            <Paper 
+                className={styles.root}
+                style={{maxHeight: 340, overflow: 'auto'}}>
                 <List
                     dense 
                     cellHeight={75}
@@ -55,7 +57,7 @@ class ControlsWidget extends Widget {
                     ))
                 }
                 </List>
-            </div>
+            </Paper>
         );
     }
 
@@ -75,6 +77,26 @@ class ControlsWidget extends Widget {
                 name: "Label",
                 desc: "Holds text informations.",
                 type: elementType.Label
+            },
+            {
+                name: "Image",
+                desc: "Shows static image.",
+                type: elementType.Image
+            },
+            {
+                name: "Image",
+                desc: "Shows static image.",
+                type: elementType.Image
+            },
+            {
+                name: "Image",
+                desc: "Shows static image.",
+                type: elementType.Image
+            },
+            {
+                name: "Image",
+                desc: "Shows static image.",
+                type: elementType.Image
             },
             {
                 name: "Image",
