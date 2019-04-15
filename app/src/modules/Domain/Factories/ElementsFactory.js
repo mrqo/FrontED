@@ -67,6 +67,16 @@ class ElementsFactory {
             });
         };
 
+        model.getRoot = function() {
+            var _getRoot = function(node) {
+                if (node.parent == null)
+                    return node;
+                return _getRoot(node.parent);
+            };
+
+            return _getRoot(model);
+        }
+
         return model;
     }
 }

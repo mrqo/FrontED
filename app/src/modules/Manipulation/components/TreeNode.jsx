@@ -1,11 +1,13 @@
 import React from 'react';
 
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import Adjust from '@material-ui/icons/Adjust';
+import ExpandLess from '@material-ui/icons/ArrowDropDown';
+import ExpandMore from '@material-ui/icons/ArrowRight';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -15,7 +17,9 @@ import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
 
 const styles = theme => ({
-
+    root: {
+        paddingLeft: theme.spacing.unit * 4,
+    },
 });
 
 class TreeNode extends Widget {
@@ -23,8 +27,7 @@ class TreeNode extends Widget {
         expanded: false,
         elementName: "",
         elementClass: "",
-        isVisible: true,
-        childs: [{name: "hehe1"}]
+        isVisible: true
     };
 
     constructor(props) {
@@ -32,54 +35,64 @@ class TreeNode extends Widget {
     }
 
     render() {
+        const { classes } = this.props;
+
         var textStyle = {
-            padding: '0px'
+            paddingLeft: '7px'
         }
 
-        var listItem = (
-            <ListItem 
-                button
-                dense={true}
-                onClick={this.props.onClick}>
-                {this.state.expanded 
-                    ? <ExpandLess/> 
-                    : <ExpandMore/>}
-                <ListItemText
-                    inset 
-                    style={textStyle}
-                    primary={
-                    <div>
-                        <Typography
-                            variant="body2"
-                            style={{color: '#192A59', display: 'inline-block'}}
-                            >
-                            {this.props.type}
-                        </Typography>
-                        <Typography
-                            variant="caption"
-                            style={{marginLeft: '5px', color: '#3F5AA6', display: 'inline-block'}}
-                            >
-                            {this.props.name}
-                        </Typography>
-                    </div>   
-                } />
-                <ListItemSecondaryAction>
-                    <Checkbox/>
-                </ListItemSecondaryAction>
-            </ListItem>
+        return (
+            <React.Fragment>
+                <ListItem 
+                    button
+                    dense={true}
+                    onClick={() => {
+                        this.setState(state => ({expanded: !state.expanded}));
+                        this.props.onClick();
+                    }}
+                    style={{
+                        paddingLeft: this.props.level * 20
+                    }}>
+                    {
+                        this.props.children.length > 0
+                        ? (
+                            this.state.expanded 
+                            ? <ExpandLess/> 
+                            : <ExpandMore/>
+                        )
+                        : []
+                    }
+                    <ListItemText
+                        inset 
+                        style={textStyle}
+                        primary={
+                        <div>
+                            <Typography
+                                variant="body2"
+                                style={{color: '#192A59', display: 'inline-block'}}>
+                                {this.props.type}
+                            </Typography>
+                            <Typography
+                                variant="caption"
+                                style={{marginLeft: '5px', color: '#3F5AA6', display: 'inline-block'}}>
+                                {this.props.name}
+                            </Typography>
+                        </div>   
+                    } />
+                    <ListItemSecondaryAction>
+                        <Checkbox/>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Collapse
+                    in={this.state.expanded && (this.props.children.length > 0)}
+                    timeout="auto"
+                    >
+                        <List>
+                            {this.props.children}
+                        </List>
+                </Collapse>
+            </React.Fragment>
         );
-
-        if (this.hasChildren()) {
-            return (
-            <Collapse 
-                in={this.state.isVisible}
-                timeout="auto"
-                unmountOnExit>
-                {listItem}
-            </Collapse>
-            );
-        }
-        return listItem;
     }
 
     hasChildren() {
