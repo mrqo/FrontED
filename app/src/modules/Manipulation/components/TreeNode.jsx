@@ -84,7 +84,7 @@ class TreeNode extends Widget {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Collapse
-                    in={this.state.expanded && (this.props.children.length > 0)}
+                    in={this.state.expanded && this.hasChildren()}
                     timeout="auto"
                     >
                         <List>
@@ -96,7 +96,7 @@ class TreeNode extends Widget {
     }
 
     hasChildren() {
-        return this.state.childs.length > 0;
+        return this.props.children.length > 0;
     }
 }
 
