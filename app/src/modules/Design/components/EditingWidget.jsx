@@ -37,9 +37,10 @@ class ColoredRect extends React.Component {
 
 class EditingWidget extends Widget {
     state = {
-        "widgetName": "Design",
-        "height": 500,
-        "width": 500,
+        widgetName: "Design",
+        stageWidth: 400,
+        stageHeight: 320,
+        margin: 2
     }
 
     constructor(props) {
@@ -48,17 +49,30 @@ class EditingWidget extends Widget {
     }
 
     componentDidMount() {
-        let parent = document.querySelector("#design .widget-content")
-        this.setState({height: parent.clientHeight+40, width: parent.clientWidth-30})
-        //this.stage.current.on('dragstart', (evt) => { this.onDragStart(evt.target) });
-        //this.stage.current.on('dragend', (evt) => { this.onDragEnd(evt.target) });
+        this.windowResized();
+        window.addEventListener("resize", this.windowResized.bind(this));
     }
 
+    windowResized() {
+      const width  = this.refs.container.offsetWidth;
+      const height = this.refs.container.offsetHeight;
+
+      this.setState( {
+        stageWidth:  width - this.state.margin*2,
+        stageHeight: height - this.state.margin*2
+      });
+    }
+  
     getContent() {
         return (
+          <div
+            style={{ margin: "0", padding: "0px", width: "100%", height: "93.3%", border: "0px solid red" }}
+            ref="container"
+          >
             <Stage 
-                width={this.state.width}
-                height={this.state.height}
+                width={this.state.stageWidth}
+                height={this.state.stageHeight}
+                style={{ margin: this.state.margin, padding: "0", position: "absolute" }}
                 className="widget-content"
                 ref="stage">
                 <Layer 
@@ -67,6 +81,7 @@ class EditingWidget extends Widget {
                     <ColoredRect/>
                 </Layer>
             </Stage>
+          </div>
         )
     }
     

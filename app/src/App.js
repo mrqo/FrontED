@@ -36,8 +36,8 @@ class App extends Component {
               <StructureWidget />
             </div>
           </div>
-          <div className="col-7 App-area" id="design">
-            <EditingWidget />
+          <div className="col-7 App-area">
+              <EditingWidget />
           </div>
           <div className="col-2 App-area">
             <PropertiesWidget />
