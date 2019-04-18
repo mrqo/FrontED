@@ -19,7 +19,6 @@ const styles = {
 class App extends Component {
   constructor(props) {
     super(props);
-
     this._projManager = new ProjectManager();
     this._projManager.initSubscriptions();
   }
