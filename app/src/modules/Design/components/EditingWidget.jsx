@@ -27,28 +27,50 @@ class WorkspaceSheet extends React.Component {
   }
 }
 
-class TheElement extends React.Component {
-  state = {
-    type: "container",
-    tag: Circle,
-    x: 20,
-    y: 40,
-    width: 50,
-    height: 80,
-    color: 'red'
+class Element 
+{
+  constructor()
+  {
+    this.type = "container";
+    this.x = 20;
+    this.y = 40;
+    this.width = 50;
+    this.height = 80;
+    this.color ='red';
+  }
+}
+
+class RenderElement extends React.Component {
+
+  getTag(type) {
+    switch (type)
+    {
+      case "container": return Rect;
+      case "image":     return Image;
+      case "label":     return Text;
+      case "button":    return Circle;
+    }
+    return "";
   }
 
   render() {
-    const Tag = this.state.tag;
+    const e = this.props.element;
+    const Tag = this.getTag(e.type);
     const cam = this.props.camera;
     return <Tag
-      x={cam.transformX(this.state.x)}
-      y={cam.transformY(this.state.y)}
-      width={cam.scale(this.state.width)}
-      height={cam.scale(this.state.height)}
-      fill={this.state.color}
+      x={cam.transformX(e.x)}
+      y={cam.transformY(e.y)}
+      width ={cam.scale(e.width)}
+      height={cam.scale(e.height)}
+      fill={e.color}
       draggable={true}
-      onDragEnd={(e) => { this.setState({x: cam.untransformX(e.target.x()), y: cam.untransformY(e.target.y())}) }}
+      onDragEnd={(e) => { this.props.updateElementPosition(
+                              this.props.idx, 
+                              cam.untransformX(e.target.x()),
+                              cam.untransformY(e.target.y())
+                          )
+                        }
+      } 
     />
   }
 }
@@ -94,6 +116,7 @@ class EditingWidget extends Widget {
         camera: new Camera(),
         sheetWidth: 400,
         sheetHeight: 600,
+        elements: []
     }
 
     constructor(props) {
@@ -127,6 +150,16 @@ class EditingWidget extends Widget {
       });
     }
 
+    updateElementPosition(idx, x, y) {
+      const e = this.state.elements[idx];
+      e.x = x;
+      e.y = y;
+
+      this.state.elements[idx] = e;
+
+      this.setState( { elements: this.state.elements } );
+    }
+
     getContent() {
         return (
           <div
@@ -150,9 +183,17 @@ class EditingWidget extends Widget {
                 <Layer 
                     id="srcLayer"
                     ref="srcLayer">
-                    <TheElement camera={this.state.camera}/>
-                    <TheElement camera={this.state.camera}/>
-                    <TheElement camera={this.state.camera}/>
+                    {
+                        this.state.elements.map( 
+                            (element,i) => 
+                              <RenderElement 
+                                  idx={i}
+                                  updateElementPosition={this.updateElementPosition.bind(this)}
+                                  camera={this.state.camera} 
+                                  element={element}
+                              /> 
+                        ) 
+                    }
                 </Layer>
             </Stage>
           </div>
@@ -177,20 +218,10 @@ class EditingWidget extends Widget {
     
     onModelChanged(msg, model) {
         console.info(model);
-
-        var shape = new Konva.Rect({
-                  x : this.state.camera.transformX(200),
-                  y : this.state.camera.transformY(200),
-                  width : this.state.camera.scale(50),
-                  height : this.state.camera.scale(50),
-                  fill : "black",
-                  draggable : "true"
-            });
-          
-        shape.on("mousedown", this.mouseDown );
-      
-        this.refs.srcLayer.add(shape);
-        this.refs.stage.draw();
+        
+        let element = new Element();
+        this.state.elements.push(element);
+        this.setState({elements: this.state.elements});
     }
 }
 
