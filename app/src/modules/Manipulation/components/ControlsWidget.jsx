@@ -9,7 +9,7 @@ import '../../Common/components/Widget.css';
 
 import ControlTile from './ControlTile';
 
-import { elementType } from '../../Domain/Enums/Elements';
+import { ElementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import ContainerIcon from '../icons/container-icon.png';
@@ -77,44 +77,44 @@ class ControlsWidget extends Widget {
             {
                 name: "Container",
                 desc: "Holds other elements.",
-                type: elementType.Container,
+                type: ElementType.Container,
                 icon: ContainerIcon,
             },
             {
                 name: "Button",
                 desc: "Responsible for intercepting user reactions.",
-                type: elementType.Button,
+                type: ElementType.Button,
                 icon: ButtonIcon,
             }, 
             {
                 name: "Label",
                 desc: "Holds text informations.",
-                type: elementType.Label
+                type: ElementType.Label
             },
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: elementType.Image
+                type: ElementType.Image
             },
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: elementType.Image
+                type: ElementType.Image
             },
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: elementType.Image
+                type: ElementType.Image
             },
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: elementType.Image
+                type: ElementType.Image
             },
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: elementType.Image
+                type: ElementType.Image
             }
         ];
     }

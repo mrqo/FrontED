@@ -10,7 +10,7 @@ import GeneralProperties from './GeneralProperties';
 import ImageProperties from './ImageProperties';
 import LabelProperties from './LabelProperties';
 
-import { elementType } from '../../Domain/Enums/Elements';
+import { ElementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 
 const styles = theme => ({
@@ -20,7 +20,7 @@ class PropertiesWidget extends Widget {
     state = {
         widgetName: "Properties",
         model: null,
-        modelType: elementType.Unknown,
+        modelType: ElementType.Unknown,
     }
 
     constructor(props) {
@@ -36,21 +36,21 @@ class PropertiesWidget extends Widget {
         {
             console.log(this.state.model.name);
             
-            if (this.state.modelType != elementType.Unknown) {
+            if (this.state.modelType != ElementType.Unknown) {
                 propGroups.push();
             }
             
-            if (this.state.modelType == elementType.Label) {
+            if (this.state.modelType == ElementType.Label) {
                 propGroups.push(<LabelProperties/>);
             }
     
-            if (this.state.modelType == elementType.Image) {
+            if (this.state.modelType == ElementType.Image) {
                 propGroups.push(<ImageProperties/>);
             }
     
             return (
                 <div className="widget-content" width={1}>
-                    { this.state.modelType != elementType.Unknown
+                    { this.state.modelType != ElementType.Unknown
                         ? <GeneralProperties
                             name={this.state.model.name}
                             aliasName={""}

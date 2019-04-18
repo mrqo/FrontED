@@ -1,4 +1,4 @@
-export const elementType = {
+export const ElementType = {
     Container: "container",
     Image: "image",
     Label: "label",

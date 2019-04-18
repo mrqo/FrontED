@@ -1,14 +1,15 @@
 import PubSub from 'pubsub-js';
 
-import { elementType } from '../Enums/Elements';
+import { ElementType } from '../Enums/Elements';
 import { topic } from '../Enums/PubSubTopics';
 
 class ElementsFactory {
     createElement(type, parent, width, height) {
+        console.trace();
         switch (type) {
-            case elementType.Container: return this.createContainer(parent, width, height);
-            case elementType.Label: return this.createLabel(parent, width, height);
-            case elementType.Image: return this.createImage(parent, width, height);
+            case ElementType.Container: return this.createContainer(parent, width, height);
+            case ElementType.Label:     return this.createLabel(parent, width, height);
+            case ElementType.Image:     return this.createImage(parent, width, height);
         }
 
         return this._createBoilerplate(parent, width, height);
@@ -19,7 +20,7 @@ class ElementsFactory {
 
         // #TODO: Configure container properties here
         container.name = "Container";
-        container.meta.type = elementType.Container;
+        container.meta.type = ElementType.Container;
 
         return container;
     }
@@ -30,7 +31,7 @@ class ElementsFactory {
         // #TODO: Configure label properties here
         label.name = "Label";
         label.content.text = "text";
-        label.meta.type = elementType.Label;
+        label.meta.type = ElementType.Label;
 
         return label;
     }
@@ -41,7 +42,7 @@ class ElementsFactory {
         // #TODO: Configure image properties here
         image.name = "Image"
         image.content.src = "source";
-        image.meta.type = elementType.Image;
+        image.meta.type = ElementType.Image;
         
         return image;
     }
@@ -50,14 +51,16 @@ class ElementsFactory {
         var model = {
             parent: parent,
             id: "id",
-            name: "unk",
+            name: "undefined_name",
             properties: {
+                x: 0,
+                y: 0,
                 width: width,
                 height: height,
             },
             content: [],
             meta: {
-                type: elementType.Unknown
+                type: ElementType.Unknown
             }
         };
 
