@@ -15,8 +15,9 @@ class WorkspaceSheet extends React.Component {
         y={cam.transformY(-this.props.height/2.)}
         width={cam.scale(this.props.width)}
         height={cam.scale(this.props.height)}
-        shadowBlur={30}
-        shadowOffset={ {x: 10, y: 20} }
+        shadowOpacity={0.2}
+        shadowBlur={20}
+        shadowOffset={ {x: 2, y: 2} }
         fill={"white"}
       />
     )
