@@ -1,5 +1,8 @@
 import React from 'react';
 
+import PubSub from 'pubsub-js';
+import { topic } from '../../Domain/Enums/PubSubTopics';
+
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -8,6 +11,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { withStyles } from '@material-ui/core/styles';
+
+import { SketchPicker } from 'react-color';
+
 
 const styles = theme => ({
     container: {
@@ -49,9 +55,9 @@ class GeneralProperties extends React.Component {
                     <TextField 
                         id="genNameField"
                         label="Name"
-                        value={this.props.name}
+                        defaultValue={this.props.name}
                         className={classes.textField}
-                        onChange={this._onNameChange}/>
+                        onChange={this.onNameChangeCb}/>
 
                     
                     <TextField 
@@ -60,6 +66,14 @@ class GeneralProperties extends React.Component {
                         placeholder="aliasName"
                         value={this.props.aliasName}
                         className={classes.textField}/>
+
+                    <TextField 
+                        name="genColorNameField"
+                        type="color"
+                        label="Color"
+                        value={this.props.aliasName}
+                        className={classes.textField}/>
+                    {/*<SketchPicker/>*/}
 
                     <div>
                         <TextField
@@ -123,13 +137,20 @@ class GeneralProperties extends React.Component {
             </FormControl>
         );
     }
-
-    _onNameChange = (e) => {
-        /*
+    
+    onNameChangeCb = (e) => {
         this.setState({
             modelName: e.target.value
         });
-        */
+        PubSub.publish(topic.ElemPropertyChanged, {name : e.target.value});
+    }
+    
+
+    onNameChangeCb2(e) {
+        console.log("Callback mój!!!");
+        this.setState({
+            modelName: e.target.value
+        });
     }
 }
 

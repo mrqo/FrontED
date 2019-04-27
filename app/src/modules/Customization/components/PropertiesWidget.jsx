@@ -9,6 +9,7 @@ import '../../Common/components/Widget.css';
 import GeneralProperties from './GeneralProperties';
 import ImageProperties from './ImageProperties';
 import LabelProperties from './LabelProperties';
+import ButtonProperties from './ButtonProperties';
 
 import { ElementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
@@ -44,6 +45,14 @@ class PropertiesWidget extends Widget {
             if (this.state.modelType == ElementType.Image) {
                 propGroups.push(<ImageProperties/>);
             }
+
+            if (this.state.modelType == ElementType.Button) {
+                propGroups.push(<ButtonProperties/>);
+            }
+
+            /*if (this.state.modelType == ElementType.Container) {
+                propGroups.push(<ContainerProperties/>);
+            }*/
     
             return (
                 <div className="widget-content" width={1}>

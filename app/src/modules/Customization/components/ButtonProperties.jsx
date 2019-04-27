@@ -1,15 +1,18 @@
 import React from 'react';
+
+import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
+
 import { withStyles } from '@material-ui/core/styles';
-import { FormGroup, TextField } from '@material-ui/core';
 
 
 const styles = theme => ({
 
 });
 
-class ImageProperties extends React.Component {
+class ButtonProperties extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -20,15 +23,19 @@ class ImageProperties extends React.Component {
                 component="fieldset"
                 fullWidth="true">
                 <FormLabel component="legend">
-                    Image
+                    Button
                 </FormLabel>
                 <FormGroup>
-                    <TextField id="imageSourceTextField" label="Image source" />
-                    <TextField id="imageTextTextField" label="Description" />
+                    <TextField
+                        id="buttonTextField"
+                        label="Text"/>
+					<TextField
+                        id="buttonActionTextField"
+                        label="Action"/>
                 </FormGroup>
             </FormControl>
         )
     }
 }
 
-export default withStyles(styles)(ImageProperties);
+export default withStyles(styles)(ButtonProperties);
