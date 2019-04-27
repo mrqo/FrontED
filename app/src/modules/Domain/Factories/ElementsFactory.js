@@ -10,6 +10,7 @@ class ElementsFactory {
             case ElementType.Container: return this.createContainer(parent, width, height);
             case ElementType.Label:     return this.createLabel(parent, width, height);
             case ElementType.Image:     return this.createImage(parent, width, height);
+            case ElementType.Button:    return this.createButton(parent, width, height);
         }
 
         return this._createBoilerplate(parent, width, height);
@@ -40,11 +41,21 @@ class ElementsFactory {
         var image = this._createBoilerplate(parent, width, height);
         
         // #TODO: Configure image properties here
-        image.name = "Image"
+        image.name = "Image";
         image.content.src = "source";
         image.meta.type = ElementType.Image;
         
         return image;
+    }
+
+    createButton(parent, width, height) {
+        var button = this._createBoilerplate(parent, width, height);
+
+        button.name = "Button";
+        button.content.text = "button";
+        button.meta.type = ElementType.Button;
+
+        return button;
     }
 
     _createBoilerplate(parent, width, height) {
