@@ -32,19 +32,16 @@ class WidgetsManager {
 
     // Has context of StructureWidget
     _initStructureSubs() {
-        console.log("Init structure subs");
         this._modelChangedEventToken = PubSub.subscribe(topic.ModelChanged, this.onModelChanged.bind(this));
     }
 
     // Has context of EditingWidget
     _initEditingSubs() {
-        console.log("Init editing subs");
         this._modelChangedEventToken = PubSub.subscribe(topic.ModelChanged, this.onModelChanged.bind(this));
     }
 
     // Has context of PropertiesWidget
     _initPropertiesSubs() {
-        console.log("Init properties subs");
         this._modelChangedEventToken = PubSub.subscribe(topic.ElemSelectionChanged, this.onModelChanged.bind(this));
     }
 }
