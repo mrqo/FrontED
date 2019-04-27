@@ -28,41 +28,46 @@ class RenderElement extends React.Component {
     const cam = this.props.camera;
     const width  = mdl.properties.width  == null ? 64 : mdl.properties.width; // weird hack because it is undefined
     const height = mdl.properties.height == null ? 64 : mdl.properties.height;
-    return <Tag
-      x = { cam.transformX(mdl.properties.x) }
-      y = { cam.transformY(mdl.properties.y) }
-      width  = { cam.scale(width)  }
-      height = { cam.scale(height) }
-      type    = { mdl.meta.type }
-      content = { mdl.content }
+    return <Group 
+              draggable={true}
 
-      draggable={true}
-      onDragEnd={(e) => 
-          { this.props.updateElementPosition(
-                this.props.idx, 
-                cam.untransformX(e.target.x()),
-                cam.untransformY(e.target.y())
-          )}
-        }
-
-    />
+              onDragEnd={(e) => 
+              { 
+                console.log("dragEnd");
+                this.props.updateElementPosition(
+                    this.props.idx, 
+                    cam.untransformX(e.target.x()),
+                    cam.untransformY(e.target.y())
+                )}
+              }
+        
+              x = { cam.transformX(mdl.properties.x) }
+              y = { cam.transformY(mdl.properties.y) }
+      >
+        <Tag
+          width  = { cam.scale(width)  }
+          height = { cam.scale(height) }
+          type    = { mdl.meta.type }
+          content = { mdl.content }
+        />
+      </Group>
   }
 }
 
 
 class UnknownRenderElement extends React.Component {
   render() {
-    return <Group draggable={true}>
+    return <Group>
       <Rect 
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={15} 
         height={15}
         fill={"red"}
       />
       <Text
-        x={this.props.x-200} 
-        y={this.props.y-10} 
+        x={-200} 
+        y={-10} 
         width={400} 
         align={"center"}
         text={"Unknown element: " + this.props.type}
@@ -73,10 +78,10 @@ class UnknownRenderElement extends React.Component {
 
 class ContainerRenderElement extends React.Component {
   render() {
-    return <Group draggable={true}>
+    return <Group>
       <Rect 
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height} 
         stroke={"black"}
@@ -87,25 +92,25 @@ class ContainerRenderElement extends React.Component {
 
 class ImageRenderElement extends React.Component {
   render() {
-    return <Group draggable={true}>
+    return <Group>
       <Rect 
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height} 
         fill={"red"}
       />
       <Text
-        x={this.props.x} 
-        y={this.props.y-10} 
+        x={0} 
+        y={0-10} 
         width={this.props.width} 
         height={this.props.height} 
         align={"center"}
         text={"IMAGE PLACEHOLDER"}
       />
       <Image
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height} 
         src={this.props.content.src}
@@ -116,17 +121,17 @@ class ImageRenderElement extends React.Component {
 
 class ButtonRenderElement extends React.Component {
   render() {
-    return <Group draggable={true}>
+    return <Group>
       <Rect 
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height} 
         fill={"red"}
       />
       <Text
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height} 
         align={"center"}
@@ -138,10 +143,10 @@ class ButtonRenderElement extends React.Component {
 
 class LabelRenderElement extends React.Component {
   render() {
-    return <Group draggable={true}>
+    return <Group>
       <Text
-        x={this.props.x} 
-        y={this.props.y} 
+        x={0} 
+        y={0} 
         width={this.props.width} 
         height={this.props.height}
         align={"center"}

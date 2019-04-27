@@ -60,10 +60,12 @@ class EditingWidget extends Widget {
     }
 
     updateElementPosition(idx, x, y) {
-        const e = this.state.elements[idx];
-        e.x = x;
-        e.y = y;
+        console.log("updateElementPosition " + idx + ": " + x + ", " + y);
 
+        const e = this.state.elements[idx];
+        e.properties.x = x;
+        e.properties.y = y;
+      
         this.state.elements[idx] = e;
 
         this.setState( { elements: this.state.elements } );
