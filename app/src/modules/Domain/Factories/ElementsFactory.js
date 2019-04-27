@@ -49,6 +49,12 @@ class ElementsFactory {
     }
 
     createButton(parent, width, height) {
+        const DEF_WIDTH = 105;
+        const DEF_HEIGHT = 45;
+
+        width = width == undefined ? DEF_WIDTH : width;
+        height = height == undefined ? DEF_HEIGHT : height;
+        
         var button = this._createBoilerplate(parent, width, height);
 
         button.name = "Button";

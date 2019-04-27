@@ -127,15 +127,20 @@ class ButtonRenderElement extends React.Component {
         y={0} 
         width={this.props.width} 
         height={this.props.height} 
-        fill={"red"}
+        fill={"transparent"}
+        cornerRadius={3}
+        strokeWidth={2}
+        stroke={"green"}
       />
       <Text
         x={0} 
-        y={0} 
+        y={this.props.height / 2 - 5} 
         width={this.props.width} 
-        height={this.props.height} 
+        height={10} 
         align={"center"}
         text={"BUTTON"}
+        fill={"green"}
+        fontSize={13}
       />
     </Group>
   }
