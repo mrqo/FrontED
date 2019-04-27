@@ -12,6 +12,7 @@ import '../../Common/components/Widget.css';
 import Camera from './Camera';
 import WorkspaceSheet from './WorkspaceSheet';
 import { RenderElement, UnknownRenderElement, ImageRenderElement, ButtonRenderElement, ContainerRenderElement, LabelRenderElement } from './RenderElements';
+import Selector from './Selector';
 
 import Button from '@material-ui/core/Button';
 
@@ -25,7 +26,8 @@ class EditingWidget extends Widget {
         camera: new Camera(),
         sheetWidth: 400,
         sheetHeight: 600,
-        elements: []
+        elements: [],
+        selectedElement: null
     }
 
     constructor(props) {
@@ -92,8 +94,8 @@ class EditingWidget extends Widget {
                     <WorkspaceSheet width={this.state.sheetWidth} height={this.state.sheetHeight} camera={this.state.camera}/>
                 </Layer>
                 <Layer 
-                    id="srcLayer"
-                    ref="srcLayer">
+                    id="mainLayer"
+                    ref="mainLayer">
                     {
                         this.state.elements.map( 
                             (element,i) => 
@@ -102,9 +104,16 @@ class EditingWidget extends Widget {
                                   updateElementPosition={this.updateElementPosition.bind(this)}
                                   camera={this.state.camera} 
                                   model={element}
-                              /> 
-                        ) 
+                              />
+                            
+                        )
                     }
+                </Layer>
+                <Layer
+                  id="uiLayer"
+                  ref="uiLayer"
+                  listening={false}>
+                    <Selector element={this.state.selectedElement} camera={this.state.camera}/>
                 </Layer>
             </Stage>
           </div>
@@ -132,7 +141,7 @@ class EditingWidget extends Widget {
     }
 
     onSelectionChangedCb(msg, data) {
-
+        this.setState({selectedElement: data.newSel});
     }
 
     onElemCreatedCb(msg, data) {
