@@ -28,6 +28,8 @@ class RenderElement extends React.Component {
     const cam = this.props.camera;
     const width  = mdl.properties.width  == null ? 64 : mdl.properties.width; // weird hack because it is undefined
     const height = mdl.properties.height == null ? 64 : mdl.properties.height;
+    const scale = 1.0
+    
     return <Group 
               draggable={true}
 
@@ -49,6 +51,7 @@ class RenderElement extends React.Component {
           height = { cam.scale(height) }
           type    = { mdl.meta.type }
           content = { mdl.content }
+          scale = { cam.scale(scale) }
         />
       </Group>
   }
@@ -120,6 +123,10 @@ class ImageRenderElement extends React.Component {
 }
 
 class ButtonRenderElement extends React.Component {
+  scaled(val) {
+    return this.props.scale * val;
+  }
+
   render() {
     return <Group>
       <Rect 
@@ -128,19 +135,21 @@ class ButtonRenderElement extends React.Component {
         width={this.props.width} 
         height={this.props.height} 
         fill={"transparent"}
-        cornerRadius={3}
-        strokeWidth={2}
+        cornerRadius={this.scaled(3)}
+        strokeWidth={this.scaled(2)}
         stroke={"green"}
+        lineCap={"round"}
       />
       <Text
         x={0} 
-        y={this.props.height / 2 - 5} 
+        y={this.props.height / 2 - (this.scaled(13 / 2))} 
         width={this.props.width} 
         height={10} 
         align={"center"}
         text={"BUTTON"}
         fill={"green"}
-        fontSize={13}
+        fontSize={this.scaled(13)}
+        scale = {this.props.scale}
       />
     </Group>
   }
