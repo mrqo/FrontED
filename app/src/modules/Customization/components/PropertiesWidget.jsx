@@ -25,8 +25,7 @@ class PropertiesWidget extends Widget {
 
     constructor(props) {
         super(props);
-
-        this._modelChangedEventToken = PubSub.subscribe(topic.ElemSelectionChanged, this.onModelChanged.bind(this));
+        props.manager.initSubscriptions(this);
     }
 
     getContent() {

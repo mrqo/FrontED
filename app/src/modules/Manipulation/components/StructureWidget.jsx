@@ -19,8 +19,7 @@ class StructureWidget extends Widget {
 
     constructor(props) {
         super(props);
-
-        this._modelChangedEventToken = PubSub.subscribe(topic.ModelChanged, this.onModelChanged.bind(this));
+        props.manager.initSubscriptions(this);
     }
 
     _makeNodes(parent, level) {

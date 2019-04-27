@@ -10,7 +10,7 @@ import PropertiesController from '../Controllers/PropertiesController';
 import StructureController from '../Controllers/StructureController';
 
 
-class ProjectController {
+class ControllersManager {
     constructor() {
         this._elementsFactory = new ElementsFactory();
 
@@ -73,4 +73,4 @@ class ProjectController {
     }
 }
 
-export default ProjectController;
+export default ControllersManager;

@@ -7,7 +7,8 @@ import StructureWidget from './modules/Manipulation/components/StructureWidget';
 import EditingWidget from './modules/Design/components/EditingWidget';
 import PropertiesWidget from './modules/Customization/components/PropertiesWidget';
 
-import ProjectManager from './modules/Domain/Managers/ProjectManager';
+import ControllersManager from './modules/Domain/Managers/ControllersManager';
+import WidgetsManager from './modules/Domain/Managers/WidgetsManager';
 
 const styles = {
   card: {
@@ -19,8 +20,9 @@ const styles = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this._projManager = new ProjectManager();
-    this._projManager.initSubscriptions();
+    this._widgetsManager = new WidgetsManager();
+    this._controllersManager = new ControllersManager();
+    this._controllersManager.initSubscriptions();
   }
 
   render() {
@@ -29,17 +31,17 @@ class App extends Component {
         <div className="row">
           <div className="col-3 App-area">
             <div className="App-subarea">
-              <ControlsWidget />
+              <ControlsWidget manager={this._widgetsManager}/>
             </div>
             <div>
-              <StructureWidget />
+              <StructureWidget manager={this._widgetsManager}/>
             </div>
           </div>
           <div className="col-7 App-area">
-              <EditingWidget />
+              <EditingWidget manager={this._widgetsManager}/>
           </div>
           <div className="col-2 App-area">
-            <PropertiesWidget />
+            <PropertiesWidget manager={this._widgetsManager}/>
           </div>
         </div>
       </div>
