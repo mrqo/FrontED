@@ -120,7 +120,6 @@ class ControlsWidget extends Widget {
     }
 
     handleClick(elemType) {
-        console.log("Handle element creation of " + elemType);
         PubSub.publish(topic.ElemCreationRequested, {
             type: elemType
         });

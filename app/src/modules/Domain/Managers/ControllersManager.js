@@ -32,43 +32,42 @@ class ControllersManager {
     }
 
     initSubscriptions() {
-        /*
-        var container = this._elementsFactory.createContainer(this);
-        
-        var root = this._elementsFactory.createElement(elementType.Container, null, 50, 50);
-        this._structureController.addElement(elementType.Label, root, 10, 10);
-        console.log(root);
-        */
-        
-        var elemSelChangedForStructureToken = PubSub.subscribe(
+        this._initStructureSubs.bind(this._structureController)()
+        this._initDesignSubs.bind(this._designController)()
+        this._initPropertiesSubs.bind(this._propertiesController)()
+    }
+
+    // Has context of StructureController
+    _initStructureSubs() {
+        this._selectionChangedCbToken = PubSub.subscribe(
             topic.ElemSelectionChanged,
-            this._structureController.onSelectionChanged
-                .bind(this._structureController)
+            this.onSelectionChangedCb.bind(this)
         );
-        
-        var elemCreateForStructureToken = PubSub.subscribe(
+
+        this._creationRequestedCbToken = PubSub.subscribe(
             topic.ElemCreationRequested,
-            (msg, data) => {
-                this.structureController.addElement(data.type);
-            }
+            this.onCreationRequestedCb.bind(this)
         );
+    }
 
-        var elemSelChangedForDesignToken = PubSub.subscribe(
+    // Has context of DesignController
+    _initDesignSubs() {
+        this._selectionChangedCbToken = PubSub.subscribe(
             topic.ElemSelectionChanged, 
-            this._designController.onSelectionChanged
-                .bind(this._designController)
+            this.onSelectionChangedCb.bind(this)
         );
+    }
 
-        var elemSelChangedForPropsToken = PubSub.subscribe(
+    // Has context of PropertiesController
+    _initPropertiesSubs() {
+        this._selectionChangedCbToken = PubSub.subscribe(
             topic.ElemSelectionChanged,
-            this._propertiesController.onSelectionChanged
-                .bind(this._propertiesController)
+            this.onSelectionChangedCb.bind(this)
         );
 
-        var elemPropChangedToken = PubSub.subscribe(
+        this.propertyChangedCbToken = PubSub.subscribe(
             topic.ElemPropertyChanged,
-            this._propertiesController.onPropertyChanged
-                .bind(this._propertiesController)
+            this.onPropertyChangedCb.bind(this)
         )
     }
 }

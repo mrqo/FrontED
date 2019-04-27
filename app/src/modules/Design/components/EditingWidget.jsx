@@ -125,13 +125,16 @@ class EditingWidget extends Widget {
         this.setState({camera:this.state.camera});
     }
     
-    onModelChanged(msg, data) {
-        var model = data.model;
+    onModelChangedCb(msg, data) {
         
-        console.log("new RenderElement type: " + model.meta.type);
-        console.log("model:\n");
-        console.info(model);
-        this.state.elements.push(model);
+    }
+
+    onSelectionChangedCb(msg, data) {
+
+    }
+
+    onElemCreatedCb(msg, data) {
+        this.state.elements.push(data);
         this.setState({elements: this.state.elements});
     }
 }

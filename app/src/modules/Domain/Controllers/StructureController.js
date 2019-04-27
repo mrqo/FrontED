@@ -13,15 +13,19 @@ class StructureController {
         return this._selectedNode; 
     }
 
-    onSelectionChanged(msg, data) {
-        console.log(data);
+    onSelectionChangedCb(msg, data) {
         this._selectedNode = data.newSel;
-        console.log("StructureController: Selection changed to");
-        console.log(this._selectedNode);
+    }
+
+    onCreationRequestedCb(msg, data) {
+        this.addElement(data.type);
     }
 
     addElement(type, width, height) {
-        this._addElement(type, this.selectedNode, width, height);
+        var elem = this._addElement(type, this.selectedNode, width, height);
+        
+        PubSub.publish(topic.ElemCreated, elem);
+        return elem;
     }
 
     _addElement(type, parent, width, height) {

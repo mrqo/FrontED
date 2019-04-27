@@ -5,9 +5,7 @@ class DesignController {
         this._structureController = structureController;
     }
 
-    // PubSub Callback
-    onSelectionChanged(msg, data) {
-        console.log("design")
+    onSelectionChangedCb(msg, data) {
         console.log(msg)
     }
 }

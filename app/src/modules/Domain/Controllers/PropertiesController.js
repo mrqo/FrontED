@@ -6,13 +6,12 @@ class PropertiesController {
         this._curSelection = null;
     }
 
-    // PubSub Callback
-    onSelectionChanged(msg, data) {
+    onSelectionChangedCb(msg, data) {
         this._curSelection = data.new;
     }
 
     // PubSub Callback
-    onPropertyChanged(msg, data) {
+    onPropertyChangedCb(msg, data) {
 
     }
 }

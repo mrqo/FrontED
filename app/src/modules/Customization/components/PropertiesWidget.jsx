@@ -13,9 +13,6 @@ import LabelProperties from './LabelProperties';
 import { ElementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 
-const styles = theme => ({
-});
-
 class PropertiesWidget extends Widget {
     state = {
         widgetName: "Properties",
@@ -26,6 +23,7 @@ class PropertiesWidget extends Widget {
     constructor(props) {
         super(props);
         props.manager.initSubscriptions(this);
+        console.log(props.manager)
     }
 
     getContent() {
@@ -62,7 +60,7 @@ class PropertiesWidget extends Widget {
         }
     }
 
-    onModelChanged(msg, data) {
+    onSelectionChangedCb(msg, data) {
         this.setState({
             model: data.newSel,
             modelType: data.newSel.meta.type
@@ -70,4 +68,4 @@ class PropertiesWidget extends Widget {
     }
 }
 
-export default withStyles(styles)(PropertiesWidget);
+export default (PropertiesWidget);

@@ -79,7 +79,7 @@ class StructureWidget extends Widget {
         )
     };
 
-    onModelChanged(msg, data) {
+    onModelChangedCb(msg, data) {
         console.log(data.model);
         this.setState({model: data.model.getRoot()});
     }
