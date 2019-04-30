@@ -12,23 +12,23 @@ class ButtonRenderElement extends React.Component {
                 <Rect
                     x={0}
                     y={0}
-                    width={this.props.width}
-                    height={this.props.height}
+                    width={this.props.model.properties.width}
+                    height={this.props.model.properties.height}
                     fill={"transparent"}
                     cornerRadius={this.scaled(3)}
                     strokeWidth={this.scaled(2)}
                     stroke={"green"}
-                    lineCap={"round"} />
+                    lineCap={"round"}/>
                 <Text
                     x={0}
-                    y={this.props.height / 2 - (this.scaled(13 / 2))}
-                    width={this.props.width}
+                    y={this.props.model.properties.height / 2 - (this.scaled(13 / 2))}
+                    width={this.props.model.properties.width}
                     height={10}
                     align={"center"}
-                    text={"BUTTON"}
+                    text={this.props.model.text}
                     fill={"green"}
                     fontSize={this.scaled(13)}
-                    scale={this.props.scale} />
+                    scale={this.props.scale}/>
             </Group>
         );
     }

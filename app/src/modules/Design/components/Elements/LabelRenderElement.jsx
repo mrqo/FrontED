@@ -8,10 +8,10 @@ class LabelRenderElement extends React.Component {
             <Text
                 x={0} 
                 y={0} 
-                width={this.props.width} 
-                height={this.props.height}
                 align={"center"}
-                text={this.props.content.text}/>
+                width={this.props.model.properties.width} 
+                height={this.props.model.properties.height}
+                text={this.props.model.properties.text}/>
         </Group>
       );
     }

@@ -8,8 +8,8 @@ class ContainerRenderElement extends React.Component {
                 <Rect
                     x={0}
                     y={0}
-                    width={this.props.width}
-                    height={this.props.height}
+                    width={this.props.model.properties.width}
+                    height={this.props.model.properties.height}
                     stroke={"black"}/>
             </Group>
         );

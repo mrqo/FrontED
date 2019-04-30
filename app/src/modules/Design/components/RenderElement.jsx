@@ -41,6 +41,7 @@ class RenderElement extends React.Component {
                   height={cam.scale(height)}
                   type={mdl.meta.type}
                   content={mdl.content}
+                  model={mdl}
                   scale={cam.scale(scale)}/>
           </Group>
         );

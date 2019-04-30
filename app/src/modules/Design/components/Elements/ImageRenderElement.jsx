@@ -8,22 +8,22 @@ class ImageRenderElement extends React.Component {
                 <Rect
                     x={0}
                     y={0}
-                    width={this.props.width}
-                    height={this.props.height}
+                    width={this.props.model.properties.width}
+                    height={this.props.model.properties.height}
                     fill={"red"}/>
                 <Text
                     x={0}
                     y={0 - 10}
-                    width={this.props.width}
-                    height={this.props.height}
+                    width={this.props.model.properties.width}
+                    height={this.props.model.properties.height}
                     align={"center"}
                     text={"IMAGE PLACEHOLDER"}/>
                 <Image
                     x={0}
                     y={0}
-                    width={this.props.width}
-                    height={this.props.height}
-                    src={this.props.content.src}/>
+                    width={this.props.model.properties.width}
+                    height={this.props.model.properties.height}
+                    src={this.props.model.properties.src}/>
             </Group>
         );
     }
