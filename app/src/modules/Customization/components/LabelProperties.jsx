@@ -9,7 +9,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 const styles = theme => ({
-
+    container: {
+        marginTop: 15,
+    },
+    textField: {
+        marginTop: 10,
+    },
 });
 
 class LabelProperties extends React.Component {
@@ -18,17 +23,21 @@ class LabelProperties extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true">
+                fullWidth="true"
+                className={classes.container}>
                 <FormLabel component="legend">
                     Label
                 </FormLabel>
                 <FormGroup>
                     <TextField
                         id="labelTextField"
-                        label="Text"/>
+                        label="Text"
+                        className={classes.textField}/>
                 </FormGroup>
             </FormControl>
         )

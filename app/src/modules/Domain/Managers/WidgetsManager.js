@@ -18,7 +18,6 @@ class WidgetsManager {
         } else if (widget instanceof EditingWidget) {
             this._initEditingSubs.bind(widget)()
         } else if (widget instanceof PropertiesWidget) {
-            console.log("PROPERTY SUBS")
             this._initPropertiesSubs.bind(widget)()
         } else {
             console.log("Could not match widget.")
@@ -62,6 +61,11 @@ class WidgetsManager {
             topic.ElemSelectionChanged, 
             this.onSelectionChangedCb.bind(this)
         );
+
+        this._modelChangedEventCbToken = PubSub.subscribe(
+            topic.ModelChanged,
+            this.onModelChangedCb.bind(this)
+        )
     }
 }
 

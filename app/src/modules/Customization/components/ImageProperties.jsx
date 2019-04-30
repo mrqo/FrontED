@@ -6,7 +6,12 @@ import { FormGroup, TextField } from '@material-ui/core';
 
 
 const styles = theme => ({
-
+    container: {
+        marginTop: 15,
+    },
+    textField: {
+        marginTop: 10,
+    },
 });
 
 class ImageProperties extends React.Component {
@@ -15,10 +20,13 @@ class ImageProperties extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true">
+                fullWidth="true"
+                className={classes.container}>
                 <FormLabel component="legend">
                     Image
                 </FormLabel>

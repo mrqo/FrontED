@@ -27,7 +27,7 @@ class StructureWidget extends Widget {
             return (
                 <TreeNode
                     type={child.meta.type}
-                    name={child.name}
+                    name={child.properties.name}
                     level={level}
                     onClick={() => {
                         PubSub.publish(topic.ElemSelectionChanged, {
@@ -50,7 +50,7 @@ class StructureWidget extends Widget {
             nodes = this.state.model.content.map((child) => {
                 return <TreeNode
                     type={child.meta.type}
-                    name={child.name}
+                    name={child.properties.name}
                     onClick={() => {
                         PubSub.publish(topic.ElemSelectionChanged, {
                             oldSel: null,
@@ -80,7 +80,6 @@ class StructureWidget extends Widget {
     };
 
     onModelChangedCb(msg, data) {
-        console.log(data.model);
         this.setState({model: data.model.getRoot()});
     }
 }

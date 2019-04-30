@@ -5,7 +5,6 @@ import { topic } from '../Enums/PubSubTopics';
 
 class ElementsFactory {
     createElement(type, parent, width, height) {
-        console.trace();
         switch (type) {
             case ElementType.Container: return this.createContainer(parent, width, height);
             case ElementType.Label:     return this.createLabel(parent, width, height);
@@ -19,8 +18,7 @@ class ElementsFactory {
     createContainer(parent, width, height) {
         var container = this._createBoilerplate(parent, width, height);
 
-        // #TODO: Configure container properties here
-        container.name = "Container";
+        container.properties.name = "Container";
         container.meta.type = ElementType.Container;
 
         return container;
@@ -29,9 +27,8 @@ class ElementsFactory {
     createLabel(parent, width, height) {
         var label = this._createBoilerplate(parent, width, height);
 
-        // #TODO: Configure label properties here
-        label.name = "Label";
-        label.content.text = "text";
+        label.properties.name = "Label";
+        label.properties.text = "text";
         label.meta.type = ElementType.Label;
 
         return label;
@@ -39,10 +36,9 @@ class ElementsFactory {
 
     createImage(parent, width, height) {
         var image = this._createBoilerplate(parent, width, height);
-        
-        // #TODO: Configure image properties here
-        image.name = "Image";
-        image.content.src = "source";
+
+        image.properties.name = "Image";
+        image.properties.src = "source";
         image.meta.type = ElementType.Image;
         
         return image;
@@ -57,8 +53,8 @@ class ElementsFactory {
         
         var button = this._createBoilerplate(parent, width, height);
 
-        button.name = "Button";
-        button.content.text = "button";
+        button.properties.name = "Button";
+        button.properties.text = "button";
         button.meta.type = ElementType.Button;
 
         return button;
@@ -68,8 +64,8 @@ class ElementsFactory {
         var model = {
             parent: parent,
             id: "id",
-            name: "undefined_name",
             properties: {
+                name: "undefined_name",
                 x: 0,
                 y: 0,
                 width: width,

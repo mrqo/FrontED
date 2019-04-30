@@ -34,7 +34,12 @@ class GeneralProperties extends React.Component {
     state = {
         modelName: "",
         aliasName: "",
+        bgColor: "",
         deriveStyle: false,
+        width: 0,
+        height: 0,
+        x: 0,
+        y: 0
     }
 
     constructor(props) {
@@ -55,31 +60,34 @@ class GeneralProperties extends React.Component {
                     <TextField 
                         id="genNameField"
                         label="Name"
-                        defaultValue={this.props.name}
+                        value={this.props.model.properties.name}
                         className={classes.textField}
-                        onChange={this.onNameChangeCb}/>
+                        onChange={this.onNameChanged}/>
 
-                    
                     <TextField 
                         name="genAliasNameField"
                         label="Alias name"
                         placeholder="aliasName"
-                        value={this.props.aliasName}
-                        className={classes.textField}/>
+                        value={this.props.model.properties.name}
+                        className={classes.textField}
+                        onChange={this.onAliasNameChanged}/>
 
                     <TextField 
                         name="genColorNameField"
                         type="color"
-                        label="Color"
-                        value={this.props.aliasName}
-                        className={classes.textField}/>
+                        label="Background color"
+                        value={this.props.bgColor}
+                        className={classes.textField}
+                        onChange={this.onBgColorChanged}/>
                     {/*<SketchPicker/>*/}
 
                     <div>
                         <TextField
                             label="Width"
                             type="number"
+                            value={this.props.model.properties.width}
                             className={classes.textField}
+                            onChange={this.onWidthChanged}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -88,7 +96,9 @@ class GeneralProperties extends React.Component {
                         <TextField
                             label="Height"
                             type="number"
+                            value={this.props.model.properties.height}
                             className={classes.textField}
+                            onChange={this.onHeightChanged}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -100,6 +110,8 @@ class GeneralProperties extends React.Component {
                             label="Position X"
                             type="number"
                             className={classes.textField}
+                            value={this.props.model.properties.x}
+                            onChange={this.onXChanged}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -109,6 +121,8 @@ class GeneralProperties extends React.Component {
                             label="Position Y"
                             type="number"
                             className={classes.textField}
+                            value={this.props.model.properties.y}
+                            onChange={this.onYChanged}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -138,19 +152,39 @@ class GeneralProperties extends React.Component {
         );
     }
     
-    onNameChangeCb = (e) => {
-        this.setState({
-            modelName: e.target.value
-        });
-        PubSub.publish(topic.ElemPropertyChanged, {name : e.target.value});
+    onNameChanged = (e) => {
+        this.setState({modelName: e.target.value});
+        this.props.onChange("name", e.target.value);
     }
     
+    onAliasNameChanged = (e) => {
+        this.setState({aliasName: e.target.value});
+        this.props.onChange("aliasName", e.target.value);
+    }
 
-    onNameChangeCb2(e) {
-        console.log("Callback mój!!!");
-        this.setState({
-            modelName: e.target.value
-        });
+    onBgColorChanged = (e) => {
+        this.setState({bgColor: e.target.value});
+        this.props.onChange("bgColor", e.target.value);
+    }
+
+    onWidthChanged = (e) => {
+        this.setState({width: e.target.value});
+        this.props.onChange("width", e.target.value);
+    }
+
+    onHeightChanged = (e) => {
+        this.setState({height: e.target.value});
+        this.props.onChange("height", e.target.value);
+    }
+
+    onXChanged = (e) => {
+        this.setState({x: e.target.value});
+        this.props.onChange("x", e.target.value);
+    }
+
+    onYChanged = (e) => {
+        this.setState({y: e.target.value});
+        this.props.onChange("y", e.target.value);
     }
 }
 

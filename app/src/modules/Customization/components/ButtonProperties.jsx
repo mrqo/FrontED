@@ -9,7 +9,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 const styles = theme => ({
-
+    container: {
+        marginTop: 15,
+    },
+    textField: {
+        marginTop: 10,
+    },
 });
 
 class ButtonProperties extends React.Component {
@@ -18,20 +23,27 @@ class ButtonProperties extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true">
+                fullWidth="true"
+                className={classes.container}>
                 <FormLabel component="legend">
                     Button
                 </FormLabel>
                 <FormGroup>
                     <TextField
                         id="buttonTextField"
-                        label="Text"/>
+                        label="Text"
+                        value={this.props.model.properties.text}
+                        onChange={this.props.onChange}
+                        className={classes.textField}/>
 					<TextField
                         id="buttonActionTextField"
-                        label="Action"/>
+                        label="Action"
+                        className={classes.textField}/>
                 </FormGroup>
             </FormControl>
         )

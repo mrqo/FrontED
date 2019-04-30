@@ -24,7 +24,6 @@ class PropertiesWidget extends Widget {
     constructor(props) {
         super(props);
         props.manager.initSubscriptions(this);
-        console.log(props.manager)
     }
 
     getContent() {
@@ -35,19 +34,31 @@ class PropertiesWidget extends Widget {
             console.log(this.state.model.name);
             
             if (this.state.modelType != ElementType.Unknown) {
-                propGroups.push();
+                //propGroups.push();
             }
             
             if (this.state.modelType == ElementType.Label) {
-                propGroups.push(<LabelProperties/>);
+                propGroups.push(
+                    <LabelProperties 
+                        model={this.state.model} 
+                        onChange={this.onPropertyChanged}/>
+                );
             }
     
             if (this.state.modelType == ElementType.Image) {
-                propGroups.push(<ImageProperties/>);
+                propGroups.push(
+                    <ImageProperties 
+                        model={this.state.model}
+                        onChange={this.onPropertyChanged}/>
+                );
             }
 
             if (this.state.modelType == ElementType.Button) {
-                propGroups.push(<ButtonProperties/>);
+                propGroups.push(
+                    <ButtonProperties 
+                        model={this.state.model}
+                        onChange={this.onPropertyChanged}/>
+                );
             }
 
             /*if (this.state.modelType == ElementType.Container) {
@@ -58,8 +69,8 @@ class PropertiesWidget extends Widget {
                 <div className="widget-content" width={1}>
                     { this.state.modelType != ElementType.Unknown
                         ? <GeneralProperties
-                            name={this.state.model.name}
-                            aliasName={""}
+                            model={this.state.model}
+                            onChange={this.onPropertyChanged}
                         />
                         : <div/>
                     }
@@ -69,10 +80,25 @@ class PropertiesWidget extends Widget {
         }
     }
 
+    onModelChangedCb(msg, data) {
+        console.log("model changed");
+        this.setState({
+            model: data.model,
+            modelType: data.model.meta.type
+        });
+    }
+
     onSelectionChangedCb(msg, data) {
         this.setState({
             model: data.newSel,
             modelType: data.newSel.meta.type
+        });
+    }
+
+    onPropertyChanged(key, value) {
+        PubSub.publish(topic.ElemPropertyChanged, {
+            key: key,
+            value: value
         });
     }
 }

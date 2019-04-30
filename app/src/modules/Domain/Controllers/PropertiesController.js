@@ -3,16 +3,23 @@ class PropertiesController {
 
     constructor(structureController) {
         this._structureController = structureController;
-        this._curSelection = null;
+        this._curSelModel = null;
     }
 
     onSelectionChangedCb(msg, data) {
-        this._curSelection = data.new;
+        this._curSelModel = data.newSel;
     }
 
-    // PubSub Callback
     onPropertyChangedCb(msg, data) {
+        this.setProperty(data.key, data.value);      
+    }
 
+    setProperty(key, value) {
+        if (this._curSelModel == null)
+            return;
+
+        this._curSelModel.properties[key] = value;
+        this._curSelModel.commit();
     }
 }
 
