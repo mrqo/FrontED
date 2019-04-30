@@ -11,7 +11,7 @@ import '../../Common/components/Widget.css';
 
 import Camera from './Camera';
 import WorkspaceSheet from './WorkspaceSheet';
-import { RenderElement, UnknownRenderElement, ImageRenderElement, ButtonRenderElement, ContainerRenderElement, LabelRenderElement } from './RenderElements';
+import RenderElement from './RenderElement';
 import Selector from './Selector';
 
 import Button from '@material-ui/core/Button';
