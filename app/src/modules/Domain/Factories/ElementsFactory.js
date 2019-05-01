@@ -18,6 +18,7 @@ class ElementsFactory {
     createContainer(parent, width, height) {
         var container = this._createBoilerplate(parent, width, height);
 
+        container.id = "containter@" + this._makeUniqueIdentifier();
         container.properties.name = "Container";
         container.meta.type = ElementType.Container;
 
@@ -26,7 +27,8 @@ class ElementsFactory {
 
     createLabel(parent, width, height) {
         var label = this._createBoilerplate(parent, width, height);
-
+        
+        label.id = "label@" + this._makeUniqueIdentifier();
         label.properties.name = "Label";
         label.properties.text = "text";
         label.meta.type = ElementType.Label;
@@ -37,6 +39,7 @@ class ElementsFactory {
     createImage(parent, width, height) {
         var image = this._createBoilerplate(parent, width, height);
 
+        image.id = "image@" + this._makeUniqueIdentifier();
         image.properties.name = "Image";
         image.properties.src = "source";
         image.meta.type = ElementType.Image;
@@ -53,6 +56,7 @@ class ElementsFactory {
         
         var button = this._createBoilerplate(parent, width, height);
 
+        button.id = "button@" + this._makeUniqueIdentifier();
         button.properties.name = "Button";
         button.properties.text = "button";
         button.meta.type = ElementType.Button;
@@ -63,7 +67,7 @@ class ElementsFactory {
     _createBoilerplate(parent, width, height) {
         var model = {
             parent: parent,
-            id: "id",
+            id: "" + this._makeUniqueIdentifier(),
             properties: {
                 name: "undefined_name",
                 x: 0,
@@ -94,6 +98,10 @@ class ElementsFactory {
         }
 
         return model;
+    }
+
+    _makeUniqueIdentifier() {
+        return 0;
     }
 }
 

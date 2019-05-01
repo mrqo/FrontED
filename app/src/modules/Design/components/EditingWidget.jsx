@@ -67,7 +67,8 @@ class EditingWidget extends Widget {
         const e = this.state.elements[idx];
         e.properties.x = x;
         e.properties.y = y;
-      
+        e.commit();
+
         this.state.elements[idx] = e;
 
         this.setState( { elements: this.state.elements } );
@@ -137,7 +138,14 @@ class EditingWidget extends Widget {
     }
     
     onModelChangedCb(msg, data) {
-        
+        // #TODO
+        //find idx where this.state.elements[idx].id == data.id
+        /*
+        var idx = 0;
+        this.state.elements[idx] = data;
+
+        this.setState({elements: this.state.elements});
+        */
     }
 
     onSelectionChangedCb(msg, data) {
