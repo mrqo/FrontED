@@ -138,14 +138,10 @@ class EditingWidget extends Widget {
     }
     
     onModelChangedCb(msg, data) {
-        // #TODO
-        //find idx where this.state.elements[idx].id == data.id
-        /*
-        var idx = 0;
+        var idx = this.state.elements.indexOf(data);
         this.state.elements[idx] = data;
 
         this.setState({elements: this.state.elements});
-        */
     }
 
     onSelectionChangedCb(msg, data) {
