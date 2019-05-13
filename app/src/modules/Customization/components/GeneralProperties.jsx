@@ -168,23 +168,34 @@ class GeneralProperties extends React.Component {
     }
 
     onWidthChanged = (e) => {
-        this.setState({width: e.target.value});
-        this.props.onChange("width", e.target.value);
+        var val = parseInt(e.target.value);
+        this.setState({width: val});
+        if (!isNaN(val)) this.props.onChange("width", val);
     }
 
     onHeightChanged = (e) => {
-        this.setState({height: e.target.value});
-        this.props.onChange("height", e.target.value);
+        var val = parseInt(e.target.value);
+        this.setState({height: val});
+        if (!isNaN(val)) this.props.onChange("height", val);
     }
 
     onXChanged = (e) => {
-        this.setState({x: e.target.value});
-        this.props.onChange("x", e.target.value);
+        //console.log("|"+e.target.value+"|");
+        var val = parseInt(e.target.value);
+        this.setState({x: e.target.value}); 
+        if (!isNaN(val)) 
+        {  
+          this.props.onChange("x", val);
+        }
     }
 
     onYChanged = (e) => {
+        var val = parseInt(e.target.value);
         this.setState({y: e.target.value});
-        this.props.onChange("y", e.target.value);
+        if (!isNaN(val)) 
+        {
+          this.props.onChange("y", val);
+        } 
     }
 }
 
