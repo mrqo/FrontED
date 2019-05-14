@@ -35,7 +35,8 @@ class RenderElement extends React.Component {
         return (
           <Group
               draggable={true}
-              onDragEnd={this.onDragEnd}
+              onDragMove={this.onDrag} // sometimes laggy, but necessary for selector and properties
+              onDragEnd= {this.onDrag}
               x={cam.transformX(mdl.properties.x)}
               y={cam.transformY(mdl.properties.y)}>
               <Tag
@@ -49,7 +50,7 @@ class RenderElement extends React.Component {
         );
     }
 
-    onDragEnd = (e) => {
+    onDrag = (e) => {
         this.props.updateElementPosition(
             this.props.idx,
             this.props.camera.untransformX(e.target.x()),
