@@ -32,14 +32,7 @@ const styles = theme => ({
 
 class GeneralProperties extends React.Component {
     state = {
-        modelName: "",
-        aliasName: "",
-        bgColor: "",
-        deriveStyle: false,
-        width: 0,
-        height: 0,
-        x: 0,
-        y: 0
+        deriveStyle: false
     }
 
     constructor(props) {
@@ -153,49 +146,59 @@ class GeneralProperties extends React.Component {
     }
     
     onNameChanged = (e) => {
-        this.setState({modelName: e.target.value});
         this.props.onChange("name", e.target.value);
     }
     
     onAliasNameChanged = (e) => {
-        this.setState({aliasName: e.target.value});
         this.props.onChange("aliasName", e.target.value);
     }
 
     onBgColorChanged = (e) => {
-        this.setState({bgColor: e.target.value});
         this.props.onChange("bgColor", e.target.value);
     }
 
     onWidthChanged = (e) => {
         var val = parseInt(e.target.value);
-        this.setState({width: val});
-        if (!isNaN(val)) this.props.onChange("width", val);
+        if (!isNaN(val)) 
+        {  
+            this.props.onChange("width", val);
+        } else
+        {
+            this.props.onChange("width", e.target.value);
+        }
     }
 
     onHeightChanged = (e) => {
         var val = parseInt(e.target.value);
-        this.setState({height: val});
-        if (!isNaN(val)) this.props.onChange("height", val);
+        if (!isNaN(val)) 
+        {  
+            this.props.onChange("height", val);
+        } else
+        {
+            this.props.onChange("height", e.target.value);
+        }
     }
 
     onXChanged = (e) => {
-        //console.log("|"+e.target.value+"|");
         var val = parseInt(e.target.value);
-        this.setState({x: e.target.value}); 
         if (!isNaN(val)) 
         {  
-          this.props.onChange("x", val);
+            this.props.onChange("x", val);
+        } else
+        {
+            this.props.onChange("x", e.target.value);
         }
     }
 
     onYChanged = (e) => {
         var val = parseInt(e.target.value);
-        this.setState({y: e.target.value});
         if (!isNaN(val)) 
+        {  
+            this.props.onChange("y", val);
+        } else
         {
-          this.props.onChange("y", val);
-        } 
+            this.props.onChange("y", e.target.value);
+        }
     }
 }
 

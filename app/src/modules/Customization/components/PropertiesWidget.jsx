@@ -31,8 +31,6 @@ class PropertiesWidget extends Widget {
 
         if (this.state.model != null)
         {
-            console.log(this.state.model.name);
-            
             if (this.state.modelType != ElementType.Unknown) {
                 //propGroups.push();
             }

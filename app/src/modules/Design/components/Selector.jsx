@@ -15,11 +15,13 @@ class Selector extends React.Component
     
     if (e)
     {
-      console.info(e);
       const cam = this.props.camera;
 
       var w = e.properties.width  == null ? 64 : e.properties.width;
       var h = e.properties.height == null ? 64 : e.properties.height;
+    
+      if (w == "" || w < 0) w = 1;
+      if (h == "" || h < 0) h = 1;
 
       w = w + this.state.border;
       h = h + this.state.border;
@@ -34,7 +36,8 @@ class Selector extends React.Component
         y={cam.transformY(y)}
         width={cam.scale(w)}
         height={cam.scale(h)}
-        dash={[20,2]}
+        dash={[10,6]}
+        strokeWidth={0.6}
       />
     }
 

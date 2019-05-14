@@ -12,8 +12,8 @@ class ButtonRenderElement extends React.Component {
                 <Rect
                     x={0}
                     y={0}
-                    width={this.props.model.properties.width}
-                    height={this.props.model.properties.height}
+                    width= {this.props.width}
+                    height={this.props.height}
                     fill={"transparent"}
                     cornerRadius={this.scaled(3)}
                     strokeWidth={this.scaled(2)}
@@ -21,8 +21,8 @@ class ButtonRenderElement extends React.Component {
                     lineCap={"round"}/>
                 <Text
                     x={0}
-                    y={this.props.model.properties.height / 2 - (this.scaled(13 / 2))}
-                    width={this.props.model.properties.width}
+                    y={this.props.height / 2 - (this.scaled(13 / 2))}
+                    width={this.props.width}
                     height={10}
                     align={"center"}
                     text={this.props.model.properties.text}

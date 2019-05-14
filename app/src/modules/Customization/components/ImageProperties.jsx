@@ -31,11 +31,26 @@ class ImageProperties extends React.Component {
                     Image
                 </FormLabel>
                 <FormGroup>
-                    <TextField id="imageSourceTextField" label="Image source" />
-                    <TextField id="imageTextTextField" label="Description" />
+                    <TextField 
+                        id="imageSourceTextField"
+                        onChange={this.onSourceChanged}
+                        label="Image source" />
+                    <TextField 
+                        id="imageTextTextField" 
+                        onChange={this.onDescriptionChanged}
+                        label="Description" />
                 </FormGroup>
             </FormControl>
         )
+    }
+    
+    onSourceChanged = (e) => {
+        //TODO: test if it works
+        this.props.onChange("source", e.target.value);
+    }
+    onDescriptionChanged = (e) => {
+        //TODO: test if it works
+        this.props.onChange("description", e.target.value);
     }
 }
 

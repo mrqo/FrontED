@@ -38,15 +38,19 @@ class ButtonProperties extends React.Component {
                         id="buttonTextField"
                         label="Text"
                         value={this.props.model.properties.text}
-                        onChange={this.props.onChange}
+                        onChange={this.onTextChanged}
                         className={classes.textField}/>
-					<TextField
+				    <TextField
                         id="buttonActionTextField"
                         label="Action"
                         className={classes.textField}/>
                 </FormGroup>
             </FormControl>
         )
+    }
+
+    onTextChanged = (e) => {
+        this.props.onChange("text", e.target.value);
     }
 }
 

@@ -37,10 +37,15 @@ class LabelProperties extends React.Component {
                     <TextField
                         id="labelTextField"
                         label="Text"
+                        onChange={this.onTextChanged}
                         className={classes.textField}/>
                 </FormGroup>
             </FormControl>
         )
+    }
+    
+    onTextChanged = (e) => {
+        this.props.onChange("text", e.target.value);
     }
 }
 
