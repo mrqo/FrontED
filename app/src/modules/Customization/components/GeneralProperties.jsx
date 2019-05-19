@@ -68,8 +68,8 @@ class GeneralProperties extends React.Component {
                     <TextField 
                         name="genColorNameField"
                         type="color"
-                        label="Background color"
-                        value={this.props.bgColor}
+                        label="Main color"
+                        value={this.props.model.properties.bgColor}
                         className={classes.textField}
                         onChange={this.onBgColorChanged}/>
                     
@@ -77,7 +77,7 @@ class GeneralProperties extends React.Component {
                         name="genColorNameField"
                         type="color"
                         label="Border color"
-                        value={this.props.borderColor}
+                        value={this.props.model.properties.borderColor}
                         className={classes.textField}
                         onChange={this.onBorderColorChanged}/>
 

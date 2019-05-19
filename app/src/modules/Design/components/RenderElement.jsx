@@ -40,6 +40,7 @@ class RenderElement extends React.Component {
               draggable={true}
               onDragMove={this.onDrag} // sometimes laggy, but necessary for selector and properties
               onDragEnd= {this.onDrag}
+              onClick={this.onClick}
               x={cam.transformX(mdl.properties.x)}
               y={cam.transformY(mdl.properties.y)}>
               <Tag
@@ -59,6 +60,14 @@ class RenderElement extends React.Component {
             this.props.camera.untransformX(e.target.x()),
             this.props.camera.untransformY(e.target.y())
         )
+        // Selecting element in Design view
+        PubSub.publish(topic.ElemSelectionChanged, {
+            oldSel: null,
+            newSel: this.props.model
+        })
+    }
+
+    onClick = (e) => {
         // Selecting element in Design view
         PubSub.publish(topic.ElemSelectionChanged, {
             oldSel: null,
