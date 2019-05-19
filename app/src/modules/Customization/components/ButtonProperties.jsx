@@ -40,6 +40,20 @@ class ButtonProperties extends React.Component {
                         value={this.props.model.properties.text}
                         onChange={this.onTextChanged}
                         className={classes.textField}/>
+                    <TextField
+                        id="buttonTextSizeTextField"
+                        type="number"
+                        label="Text size"
+                        value={this.props.model.properties.textSize}
+                        onChange={this.onTextSizeChanged}
+                        className={classes.textField}/>
+                    <TextField 
+                        name="buttonTextColorNameField"
+                        type="color"
+                        label="Text color"
+                        value={this.props.TextColor}
+                        className={classes.textField}
+                        onChange={this.onTextColorChanged}/>
 				    <TextField
                         id="buttonActionTextField"
                         label="Action"
@@ -51,6 +65,14 @@ class ButtonProperties extends React.Component {
 
     onTextChanged = (e) => {
         this.props.onChange("text", e.target.value);
+    }
+
+    onTextSizeChanged = (e) => {
+        this.props.onChange("textSize", e.target.value);
+    }
+
+    onTextColorChanged = (e) => {
+        this.props.onChange("textColor", e.target.value);
     }
 }
 

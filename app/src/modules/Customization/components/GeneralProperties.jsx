@@ -72,7 +72,38 @@ class GeneralProperties extends React.Component {
                         value={this.props.bgColor}
                         className={classes.textField}
                         onChange={this.onBgColorChanged}/>
-                    {/*<SketchPicker/>*/}
+                    
+                    <TextField 
+                        name="genColorNameField"
+                        type="color"
+                        label="Border color"
+                        value={this.props.borderColor}
+                        className={classes.textField}
+                        onChange={this.onBorderColorChanged}/>
+
+                    <div>
+                        <TextField
+                            label="Border width"
+                            type="number"
+                            value={this.props.model.properties.strokeWidth}
+                            className={classes.textField}
+                            onChange={this.onStrokeWidthChanged}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style = {{width: "45%"}}/>
+
+                        <TextField
+                            label="Border radius"
+                            type="number"
+                            value={this.props.model.properties.borderRadius}
+                            className={classes.textField}
+                            onChange={this.onBorderRadiusChanged}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style = {{width: "45%", marginLeft: "10%"}}/>
+                    </div>
 
                     <div>
                         <TextField
@@ -155,6 +186,32 @@ class GeneralProperties extends React.Component {
 
     onBgColorChanged = (e) => {
         this.props.onChange("bgColor", e.target.value);
+    }
+
+    onBorderColorChanged = (e) => {
+        this.props.onChange("borderColor", e.target.value);
+    }
+
+    onStrokeWidthChanged = (e) => {
+        var val = parseInt(e.target.value);
+        if (!isNaN(val)) 
+        {  
+            this.props.onChange("strokeWidth", val);
+        } else
+        {
+            this.props.onChange("strokeWidth", e.target.value);
+        }
+    }
+
+    onBorderRadiusChanged = (e) => {
+        var val = parseInt(e.target.value);
+        if (!isNaN(val)) 
+        {  
+            this.props.onChange("borderRadius", val);
+        } else
+        {
+            this.props.onChange("borderRadius", e.target.value);
+        }
     }
 
     onWidthChanged = (e) => {

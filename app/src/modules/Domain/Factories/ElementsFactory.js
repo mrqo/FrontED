@@ -31,7 +31,9 @@ class ElementsFactory {
         label.id = "label@" + this._makeUniqueIdentifier();
         label.properties.name = "Label";
         label.properties.text = "text";
+        label.properties.textSize = 13;
         label.meta.type = ElementType.Label;
+        label.properties.bgColor = "#000000";
 
         return label;
     }
@@ -59,6 +61,8 @@ class ElementsFactory {
         button.id = "button@" + this._makeUniqueIdentifier();
         button.properties.name = "Button";
         button.properties.text = "button";
+        button.properties.textSize = 13;
+        button.properties.textColor = "#000000";
         button.meta.type = ElementType.Button;
 
         return button;
@@ -74,6 +78,10 @@ class ElementsFactory {
                 y: 0,
                 width: width,
                 height: height,
+                bgColor: "#ffffff",
+                borderColor: "#44cc44",
+                strokeWidth: 3,
+                borderRadius: 3,
             },
             content: [],
             meta: {

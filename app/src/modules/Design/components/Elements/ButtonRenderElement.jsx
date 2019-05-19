@@ -14,10 +14,10 @@ class ButtonRenderElement extends React.Component {
                     y={0}
                     width= {this.props.width}
                     height={this.props.height}
-                    fill={"transparent"}
-                    cornerRadius={this.scaled(3)}
-                    strokeWidth={this.scaled(2)}
-                    stroke={"green"}
+                    cornerRadius={this.scaled(this.props.model.properties.borderRadius)}
+                    strokeWidth={this.scaled(this.props.model.properties.strokeWidth)}
+                    stroke={this.props.model.properties.borderColor}
+                    fill={this.props.model.properties.bgColor}
                     lineCap={"round"}/>
                 <Text
                     x={0}
@@ -26,8 +26,8 @@ class ButtonRenderElement extends React.Component {
                     height={10}
                     align={"center"}
                     text={this.props.model.properties.text}
-                    fill={"green"}
-                    fontSize={this.scaled(13)}
+                    fill={this.props.model.properties.textColor}
+                    fontSize={this.scaled(this.props.model.properties.textSize)}
                     scale={this.props.scale}/>
             </Group>
         );
