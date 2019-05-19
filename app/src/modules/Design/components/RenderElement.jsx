@@ -7,6 +7,9 @@ import ImageRenderElement from './Elements/ImageRenderElement';
 import LabelRenderElement from './Elements/LabelRenderElement';
 import UnknownRenderElement from './Elements/UnknownRenderElement';
 
+import PubSub from 'pubsub-js';
+import { topic } from '../../Domain/Enums/PubSubTopics';
+
 import { Group } from 'react-konva';
 
 class RenderElement extends React.Component {
@@ -56,6 +59,11 @@ class RenderElement extends React.Component {
             this.props.camera.untransformX(e.target.x()),
             this.props.camera.untransformY(e.target.y())
         )
+        // Selecting element in Design view
+        PubSub.publish(topic.ElemSelectionChanged, {
+            oldSel: null,
+            newSel: this.props.model
+        })
     }
 }
 

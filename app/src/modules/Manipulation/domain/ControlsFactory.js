@@ -11,7 +11,7 @@ class ControlsFactory extends React.Component {
 
     createControls() {
         return {
-            Container: 
+            //Container: 
         }
     }
 }
@@ -28,4 +28,4 @@ class TextControl extends Control {
 
 }
 
-class 
+//class
