@@ -23,7 +23,9 @@ class ImageRenderElement extends React.Component {
                     y={0}
                     width={this.props.model.properties.width}
                     height={this.props.model.properties.height}
-                    src={this.props.model.properties.src}/>
+                    src={this.props.model.properties.src}
+                    image={this.props.model.properties.image}
+                    />
             </Group>
         );
     }

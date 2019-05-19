@@ -33,6 +33,7 @@ class ImageProperties extends React.Component {
                 <FormGroup>
                     <TextField 
                         id="imageSourceTextField"
+                        type="file"
                         onChange={this.onSourceChanged}
                         label="Image source" />
                     <TextField 
@@ -46,11 +47,13 @@ class ImageProperties extends React.Component {
     
     onSourceChanged = (e) => {
         //TODO: test if it works
-        this.props.onChange("source", e.target.value);
+        this.props.onChange("source", e.target.files[0]);
     }
     onDescriptionChanged = (e) => {
         //TODO: test if it works
+        // <img alt=description>
         this.props.onChange("description", e.target.value);
+        console.log(this.props.model.properties.image);
     }
 }
 
