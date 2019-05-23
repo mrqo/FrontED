@@ -25,6 +25,7 @@ class ButtonRenderElement extends React.Component {
                     width={this.props.width}
                     height={10}
                     align={"center"}
+                    verticalAlign={'middle'}
                     text={this.props.model.properties.text}
                     fill={this.props.model.properties.textColor}
                     fontSize={this.scaled(this.props.model.properties.textSize)}

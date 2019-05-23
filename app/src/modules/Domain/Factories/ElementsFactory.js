@@ -50,12 +50,6 @@ class ElementsFactory {
     }
 
     createButton(parent, width, height) {
-        const DEF_WIDTH = 105;
-        const DEF_HEIGHT = 45;
-
-        width = width == undefined ? DEF_WIDTH : width;
-        height = height == undefined ? DEF_HEIGHT : height;
-        
         var button = this._createBoilerplate(parent, width, height);
 
         button.id = "button@" + this._makeUniqueIdentifier();
@@ -63,12 +57,22 @@ class ElementsFactory {
         button.properties.text = "button";
         button.properties.textSize = 13;
         button.properties.textColor = "#000000";
+        button.properties.bgColor = "#ffffff";
+        button.properties.borderColor = "#44cc44";
+        button.properties.strokeWidth = 3;
+        button.properties.borderRadius = 3;
         button.meta.type = ElementType.Button;
-
+                
         return button;
     }
 
     _createBoilerplate(parent, width, height) {
+        const DEF_WIDTH = 120;
+        const DEF_HEIGHT = 60;
+
+        width  = width  == undefined ? DEF_WIDTH  : width;
+        height = height == undefined ? DEF_HEIGHT : height;
+
         var model = {
             parent: parent,
             id: "" + this._makeUniqueIdentifier(),
@@ -77,11 +81,7 @@ class ElementsFactory {
                 x: 0,
                 y: 0,
                 width: width,
-                height: height,
-                bgColor: "#ffffff",
-                borderColor: "#44cc44",
-                strokeWidth: 3,
-                borderRadius: 3,
+                height: height
             },
             content: [],
             meta: {
