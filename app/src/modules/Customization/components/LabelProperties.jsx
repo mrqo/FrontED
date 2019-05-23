@@ -34,6 +34,13 @@ class LabelProperties extends React.Component {
                     Label
                 </FormLabel>
                 <FormGroup>
+                    <TextField 
+                        name="genColorNameField"
+                        type="color"
+                        label="Text color"
+                        value={this.props.model.properties.bgColor}
+                        className={classes.textField}
+                        onChange={this.onBgColorChanged}/>
                     <TextField
                         id="labelTextField"
                         label="Text"
@@ -57,6 +64,10 @@ class LabelProperties extends React.Component {
 
     onTextSizeChanged = (e) => {
         this.props.onChange("textSize", e.target.value);
+    }
+
+    onBgColorChanged = (e) => {
+        this.props.onChange("bgColor", e.target.value);
     }
 }
 
