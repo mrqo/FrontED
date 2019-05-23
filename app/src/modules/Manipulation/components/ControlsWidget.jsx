@@ -52,13 +52,13 @@ class ControlsWidget extends Widget {
                 square>
                 <List
                     dense 
-                    cellHeight={75}
                     className={styles.gridList}
                     cols={1}
                 > {
                     this.getControlsData().map(controlData => (
-                        <ControlTile 
+                        <ControlTile
                             title={controlData.name}
+                            key={controlData.name}
                             description={controlData.desc}
                             icon={controlData.icon}
                             onClick={() => {
@@ -90,26 +90,6 @@ class ControlsWidget extends Widget {
                 name: "Label",
                 desc: "Holds text informations.",
                 type: ElementType.Label
-            },
-            {
-                name: "Image",
-                desc: "Shows static image.",
-                type: ElementType.Image
-            },
-            {
-                name: "Image",
-                desc: "Shows static image.",
-                type: ElementType.Image
-            },
-            {
-                name: "Image",
-                desc: "Shows static image.",
-                type: ElementType.Image
-            },
-            {
-                name: "Image",
-                desc: "Shows static image.",
-                type: ElementType.Image
             },
             {
                 name: "Image",

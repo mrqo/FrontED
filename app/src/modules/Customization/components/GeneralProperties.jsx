@@ -45,7 +45,7 @@ class GeneralProperties extends React.Component {
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true">
+                fullWidth={true}>
                 <FormLabel component="legend">
                     General
                 </FormLabel>

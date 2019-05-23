@@ -46,8 +46,8 @@ class EditingWidget extends Widget {
     }
 
     mouseDown(ev) {
-        console.log(ev);
-        console.log(this);
+        //console.log(ev);
+        //console.log(this);
         ev.evt.preventDefault();
     }
 
@@ -62,7 +62,7 @@ class EditingWidget extends Widget {
     }
 
     updateElementPosition(idx, x, y) {
-        console.log("updateElementPosition " + idx + ": " + x + ", " + y);
+        //console.log("updateElementPosition " + idx + ": " + x + ", " + y);
 
         const e = this.state.elements[idx];
         e.properties.x = x;
@@ -102,6 +102,7 @@ class EditingWidget extends Widget {
                             (element,i) => 
                               <RenderElement 
                                   idx={i}
+                                  key={"element_"+i}
                                   updateElementPosition={this.updateElementPosition.bind(this)}
                                   camera={this.state.camera} 
                                   model={element}

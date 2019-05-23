@@ -70,8 +70,8 @@ class ElementsFactory {
         const DEF_WIDTH = 120;
         const DEF_HEIGHT = 60;
 
-        width  = width  == undefined ? DEF_WIDTH  : width;
-        height = height == undefined ? DEF_HEIGHT : height;
+        width  = width  === undefined ? DEF_WIDTH  : width;
+        height = height === undefined ? DEF_HEIGHT : height;
 
         var model = {
             parent: parent,

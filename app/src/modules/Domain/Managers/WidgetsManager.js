@@ -8,7 +8,7 @@ import EditingWidget from '../../Design/components/EditingWidget';
 import PropertiesWidget from '../../Customization/components/PropertiesWidget';
 
 class WidgetsManager {
-    constructor() { }
+    //constructor() { }
 
     initSubscriptions(widget) {
         if (widget instanceof ControlsWidget) {

@@ -28,6 +28,7 @@ class StructureWidget extends Widget {
                 <TreeNode
                     type={child.meta.type}
                     name={child.properties.name}
+                    key={child.properties.name}
                     level={level}
                     onClick={() => {
                         PubSub.publish(topic.ElemSelectionChanged, {
@@ -39,8 +40,8 @@ class StructureWidget extends Widget {
             );  
         });
 
-        console.log("new parent generated");
-        console.log(ret);
+        //console.log("new parent generated");
+        //console.log(ret);
         return ret;
     }
 

@@ -42,17 +42,15 @@ class Widget extends React.Component {
                     </div>
                     <div className="widget-header-btns col">
                         <IconButton 
-                            iconStyle={{ width: '24px', height: '24px' }}
                             style={{ width: '34px', height: '34px', padding: '0px'}}
                             size="small"
-                            color="white">
+                            color="default">
                             <Icon>search</Icon>
                         </IconButton>
                         <IconButton 
-                            iconStyle={{ width: '24px', height: '24px' }}
                             style={{ width: '34px', height: '34px', padding: '0px'}}
                             size="small"
-                            color="white">
+                            color="default">
                             <Icon>clear_all</Icon>
                         </IconButton>
                     </div>

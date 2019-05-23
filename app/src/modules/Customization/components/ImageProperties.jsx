@@ -15,9 +15,7 @@ const styles = theme => ({
 });
 
 class ImageProperties extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    //constructor(props) { super(props); }
 
     render() {
         const { classes } = this.props;
@@ -25,7 +23,7 @@ class ImageProperties extends React.Component {
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true"
+                fullWidth={true}
                 className={classes.container}>
                 <FormLabel component="legend">
                     Image

@@ -28,7 +28,7 @@ class LabelProperties extends React.Component {
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth="true"
+                fullWidth={true}
                 className={classes.container}>
                 <FormLabel component="legend">
                     Label

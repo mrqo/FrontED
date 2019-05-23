@@ -6,7 +6,7 @@ class DesignController {
     }
 
     onSelectionChangedCb(msg, data) {
-        console.log(msg)
+        console.log(msg, data);
     }
 }
 

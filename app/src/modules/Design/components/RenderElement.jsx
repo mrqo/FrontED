@@ -20,8 +20,9 @@ class RenderElement extends React.Component {
             case ElementType.Image: return ImageRenderElement;
             case ElementType.Label: return LabelRenderElement;
             case ElementType.Button: return ButtonRenderElement;
+            default: console.warn("Unknown RenderElement type: " + type);
         }
-        console.warn("Unknown RenderElement type: " + type);
+
         return UnknownRenderElement;
     }
 
@@ -30,9 +31,9 @@ class RenderElement extends React.Component {
         const mdl = this.props.model;
         const cam = this.props.camera;
         let width = mdl.properties.width == null ? 64 : mdl.properties.width; // weird hack because it is undefined
-        if (width == "" || width < 0) width = "auto";
+        if (width === "" || width < 0) width = "auto";
         let height = mdl.properties.height == null ? 64 : mdl.properties.height;
-        if (height == "" || height < 0) height = "auto";
+        if (height === "" || height < 0) height = "auto";
         const scale = 1.0;
 
         return (

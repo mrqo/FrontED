@@ -1,10 +1,11 @@
 import React from 'react';
-import PubSub from 'pubsub-js';
+//import PubSub from 'pubsub-js';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 import { ElementType } from '../../Domain/Enums/Elements.js';
 
-import { Stage, Layer, Rect, Text, Circle, Group, Image } from 'react-konva';
-import Konva from 'konva';
+import { Rect } from 'react-konva';
+//import { Stage, Layer, Rect, Text, Circle, Group, Image } from 'react-konva';
+//import Konva from 'konva';
 
 class WorkspaceSheet extends React.Component {
   render() {

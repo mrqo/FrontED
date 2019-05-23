@@ -26,9 +26,9 @@ class ButtonProperties extends React.Component {
         const { classes } = this.props;
 
         return (
-            <FormControl 
+            <FormControl
                 component="fieldset"
-                fullWidth="true"
+                fullWidth={true}
                 className={classes.container}>
                 <FormLabel component="legend">
                     Button
@@ -78,8 +78,8 @@ class ButtonProperties extends React.Component {
                             }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
-                    
-                    <TextField 
+
+                    <TextField
                         name="genColorNameField"
                         type="color"
                         label="Border color"
@@ -88,7 +88,7 @@ class ButtonProperties extends React.Component {
                         onChange={this.onBorderColorChanged}/>
 
 
-				            <TextField
+                    <TextField
                         id="buttonActionTextField"
                         label="Action"
                         className={classes.textField}/>
@@ -109,15 +109,15 @@ class ButtonProperties extends React.Component {
     onTextColorChanged = (e) => {
         this.props.onChange("textColor", e.target.value);
     }
-    
+
     onBorderColorChanged = (e) => {
         this.props.onChange("borderColor", e.target.value);
     }
 
     onStrokeWidthChanged = (e) => {
         var val = parseInt(e.target.value);
-        if (!isNaN(val)) 
-        {  
+        if (!isNaN(val))
+        {
             this.props.onChange("strokeWidth", val);
         } else
         {
@@ -127,8 +127,8 @@ class ButtonProperties extends React.Component {
 
     onBorderRadiusChanged = (e) => {
         var val = parseInt(e.target.value);
-        if (!isNaN(val)) 
-        {  
+        if (!isNaN(val))
+        {
             this.props.onChange("borderRadius", val);
         } else
         {
