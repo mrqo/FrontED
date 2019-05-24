@@ -14,6 +14,7 @@ import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import ContainerIcon from '../icons/container-icon.png';
 import ButtonIcon from '../icons/button-icon.png';
+import LabelIcon from '../icons/label-icon.png';
 
 const styles = theme => ({
     root: {
@@ -89,7 +90,8 @@ class ControlsWidget extends Widget {
             {
                 name: "Label",
                 desc: "Holds text informations.",
-                type: ElementType.Label
+                type: ElementType.Label,
+                icon: LabelIcon
             },
             {
                 name: "Image",
