@@ -15,6 +15,7 @@ import { topic } from '../../Domain/Enums/PubSubTopics';
 import ContainerIcon from '../icons/container-icon.png';
 import ButtonIcon from '../icons/button-icon.png';
 import LabelIcon from '../icons/label-icon.png';
+import ImageIcon from '../icons/image-icon.png';
 
 const styles = theme => ({
     root: {
@@ -96,7 +97,8 @@ class ControlsWidget extends Widget {
             {
                 name: "Image",
                 desc: "Shows static image.",
-                type: ElementType.Image
+                type: ElementType.Image,
+                icon: ImageIcon
             }
         ];
     }
