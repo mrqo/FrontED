@@ -15,6 +15,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.source = validated_data.get('source', instance.source)
         instance.save()
+        return instance
 
     class Meta:
         model = Project
