@@ -8,6 +8,7 @@ class ElementsFactory {
     static guidCounter = 1;
 
     createElement(type, parent, width, height) {
+        console.log("Creating element " + type);
         switch (type) {
             case ElementType.Container: return this.createContainer(parent, width, height);
             case ElementType.Label:     return this.createLabel(parent, width, height);

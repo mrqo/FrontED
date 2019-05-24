@@ -24,7 +24,7 @@ const styles = theme => ({
 
 class TreeNode extends Widget {
     state = {
-        expanded: false,
+        expanded: true,
         elementName: "",
         elementClass: "",
         isVisible: true
@@ -47,20 +47,20 @@ class TreeNode extends Widget {
                     button
                     dense={true}
                     onClick={() => {
-                        this.setState(state => ({expanded: !state.expanded}));
                         this.props.onClick();
                     }}
                     style={{
-                        paddingLeft: this.props.level * 20
+                        paddingLeft: this.props.level * 10,
+                        background: this.props.selected ? "#648FFF" : "none"
                     }}>
                     {
                         this.props.children.length > 0
                         ? (
-                            this.state.expanded 
-                            ? <ExpandLess/> 
-                            : <ExpandMore/>
+                            this.state.expanded
+                            ? <ExpandLess onClick={this.toggleExpanded.bind(this)}/>
+                            : <ExpandMore onClick={this.toggleExpanded.bind(this)}/>
                         )
-                        : []
+                        : <ExpandLess style={{ opacity: 0 }}/> // to keep the same width for all nodes
                     }
                     <ListItemText
                         inset 
@@ -97,6 +97,10 @@ class TreeNode extends Widget {
 
     hasChildren() {
         return this.props.children.length > 0;
+    }
+
+    toggleExpanded() {
+        this.setState({expanded: !this.state.expanded});
     }
 }
 

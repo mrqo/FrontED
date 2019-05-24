@@ -15,6 +15,7 @@ class StructureWidget extends Widget {
     state = {
         widgetName: "Structure",
         model: null,
+        selectedElement: null
     }
 
     constructor(props) {
@@ -29,6 +30,7 @@ class StructureWidget extends Widget {
                     type={child.meta.type}
                     name={child.properties.name}
                     key={child.id + "_" + child.properties.name}
+                    selected={this.state.selectedElement === child}
                     level={level}
                     onClick={() => {
                         PubSub.publish(topic.ElemSelectionChanged, {
@@ -83,6 +85,12 @@ class StructureWidget extends Widget {
 
     onModelChangedCb(msg, data) {
         this.setState({model: data.model.getRoot()});
+    }
+    
+    onSelectionChangedCb(msg, data) {
+        this.setState({
+            selectedElement: data.newSel
+        });
     }
 }
 

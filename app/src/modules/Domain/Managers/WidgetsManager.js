@@ -35,6 +35,11 @@ class WidgetsManager {
             topic.ModelChanged, 
             this.onModelChangedCb.bind(this)
         );
+        
+        this._selectionChangedCbToken = PubSub.subscribe(
+            topic.ElemSelectionChanged,
+            this.onSelectionChangedCb.bind(this)
+        );
     }
 
     // Has context of EditingWidget
