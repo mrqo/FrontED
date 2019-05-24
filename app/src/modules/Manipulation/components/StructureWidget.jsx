@@ -39,10 +39,11 @@ class StructureWidget extends Widget {
                         })
                     }}
                     onVisibilityChanged={(value) => {
-                        //console.log(child.id + " visibility: " + value);
+                        console.log(child.id + " visibility: " + value);
                         PubSub.publish(topic.ElemPropertyChanged, {
                             key: 'visible',
-                            value: value
+                            value: value,
+                            model: child
                         });
                     }}
                     children={this._makeNodes(child, level + 1)}/>

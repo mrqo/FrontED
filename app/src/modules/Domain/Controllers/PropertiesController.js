@@ -11,16 +11,19 @@ class PropertiesController {
     }
 
     onPropertyChangedCb(msg, data) {
-        this.setProperty(data.key, data.value);      
+        this.setProperty(data.key, data.value, data.model);      
     }
 
-    setProperty(key, value) {
-        if (this._curSelModel == null)
+    setProperty(key, value, model) {
+        if (!model)
+          model = this._curSelModel; // currently selected model by default
+
+        if (!model)
             return;
 
         console.log("Setting property '" + key + "' to: " + value);
-        this._curSelModel.properties[key] = value;
-        this._curSelModel.commit();
+        model.properties[key] = value;
+        model.commit();
     }
 }
 

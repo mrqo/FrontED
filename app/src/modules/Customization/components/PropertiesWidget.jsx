@@ -90,10 +90,15 @@ class PropertiesWidget extends Widget {
 
     onModelChangedCb(msg, data) {
         //console.log("model changed");
-        this.setState({
-            model: data.model,
-            modelType: data.model.meta.type
-        });
+        
+        //only if currently inspected model was changed or first time selected
+        if (!this.state.model || this.state.model.id == data.model.id)
+        {
+          this.setState({
+              model: data.model,
+              modelType: data.model.meta.type
+          });
+        }
     }
 
     onSelectionChangedCb(msg, data) {
