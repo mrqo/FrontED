@@ -59,13 +59,17 @@ class ElementsFactory {
 
         button.id = "button@" + this._makeUniqueIdentifier();
         button.properties.name = "Button";
-        button.properties.text = "button";
+        button.properties.text = "Button";
         button.properties.textSize = 13;
         button.properties.textColor = "#000000";
         button.properties.bgColor = "#ffffff";
         button.properties.borderColor = "#44cc44";
         button.properties.strokeWidth = 3;
         button.properties.borderRadius = 3;
+        button.properties.shadowOffsetX = 5;
+        button.properties.shadowOffsetY = 5;
+        button.properties.shadowBlur = 5;
+        button.properties.shadowColor = "#aaaaaa";
         button.meta.type = ElementType.Button;
                 
         return button;

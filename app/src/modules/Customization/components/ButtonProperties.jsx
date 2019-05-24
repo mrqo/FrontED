@@ -34,33 +34,54 @@ class ButtonProperties extends React.Component {
                     Button
                 </FormLabel>
                 <FormGroup>
-                    <TextField 
-                        name="genColorNameField"
-                        type="color"
-                        label="Background color"
-                        value={this.props.model.properties.bgColor}
-                        className={classes.textField}
-                        onChange={this.onBgColorChanged}/>
                     <TextField
                         id="buttonTextField"
                         label="Text"
                         value={this.props.model.properties.text}
                         onChange={this.onTextChanged}
                         className={classes.textField}/>
-                    <TextField
-                        id="buttonTextSizeTextField"
-                        type="number"
-                        label="Text size"
-                        value={this.props.model.properties.textSize}
-                        onChange={this.onTextSizeChanged}
-                        className={classes.textField}/>
-                    <TextField 
-                        name="buttonTextColorNameField"
-                        type="color"
-                        label="Text color"
-                        value={this.props.TextColor}
-                        className={classes.textField}
-                        onChange={this.onTextColorChanged}/>
+
+                    <div>
+                        <TextField
+                            id="buttonTextSizeTextField"
+                            type="number"
+                            label="Font size"
+                            value={this.props.model.properties.textSize}
+                            onChange={this.onTextSizeChanged}
+                            className={classes.textField}
+                            style = {{width: "45%"}}/>
+
+                        <TextField 
+                            name="buttonTextColorNameField"
+                            type="color"
+                            label="Foreground color"
+                            value={this.props.model.properties.textColor}
+                            className={classes.textField}
+                            onChange={this.onTextColorChanged}
+                            style = {{width: "45%", marginLeft: "10%"}}/>
+                    </div>
+
+
+                    <div>
+                        <TextField 
+                            name="genColorNameField"
+                            type="color"
+                            label="Background color"
+                            value={this.props.model.properties.bgColor}
+                            className={classes.textField}
+                            onChange={this.onBgColorChanged}
+                            style = {{width: "45%"}}/>
+
+                        <TextField
+                            name="genColorNameField"
+                            type="color"
+                            label="Border color"
+                            value={this.props.model.properties.borderColor}
+                            className={classes.textField}
+                            onChange={this.onBorderColorChanged}
+                            style = {{width: "45%", marginLeft: "10%"}}/>
+                    </div>
+
 
                     <div>
                         <TextField
@@ -85,21 +106,48 @@ class ButtonProperties extends React.Component {
                             }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
+                    
+                    <div>
+                        <TextField
+                            label="Shadow blur"
+                            type="number"
+                            value={this.props.model.properties.shadowBlur}
+                            onChange={this.onShadowBlurChanged}
+                            className={classes.textField}
+                            style = {{width: "45%"}}/>
 
-                    <TextField
-                        name="genColorNameField"
-                        type="color"
-                        label="Border color"
-                        value={this.props.model.properties.borderColor}
-                        className={classes.textField}
-                        onChange={this.onBorderColorChanged}/>
+                        <TextField
+                            type="color"
+                            label="Shadow color"
+                            value={this.props.model.properties.shadowColor}
+                            className={classes.textField}
+                            onChange={this.onShadowColorChanged}
+                            style = {{width: "45%", marginLeft: "10%"}}/>
+                    </div>
 
+                    <div>
+                        <TextField
+                            label="Shadow X"
+                            type="number"
+                            value={this.props.model.properties.shadowOffsetX}
+                            className={classes.textField}
+                            onChange={this.onShadowXChanged}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style = {{width: "45%"}}/>
 
-                    <TextField
-                        id="buttonActionTextField"
-                        label="Action"
-                        className={classes.textField}/>
-
+                        <TextField
+                            label="Shadow Y"
+                            type="number"
+                            value={this.props.model.properties.shadowOffsetY}
+                            className={classes.textField}
+                            onChange={this.onShadowYChanged}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style = {{width: "45%", marginLeft: "10%"}}/>
+                    </div>
                 </FormGroup>
             </FormControl>
         )
@@ -126,25 +174,27 @@ class ButtonProperties extends React.Component {
     }
 
     onStrokeWidthChanged = (e) => {
-        var val = parseInt(e.target.value);
-        if (!isNaN(val))
-        {
-            this.props.onChange("strokeWidth", val);
-        } else
-        {
-            this.props.onChange("strokeWidth", e.target.value);
-        }
+        this.props.onChange("strokeWidth", parseInt(e.target.value));
     }
 
     onBorderRadiusChanged = (e) => {
-        var val = parseInt(e.target.value);
-        if (!isNaN(val))
-        {
-            this.props.onChange("borderRadius", val);
-        } else
-        {
-            this.props.onChange("borderRadius", e.target.value);
-        }
+        this.props.onChange("borderRadius", parseInt(e.target.value));
+    }
+
+    onShadowBlurChanged = (e) => {
+        this.props.onChange("shadowBlur", parseInt(e.target.value));
+    }
+    
+    onShadowColorChanged = (e) => {
+        this.props.onChange("shadowColor", e.target.value);
+    }
+
+    onShadowXChanged = (e) => {
+        this.props.onChange("shadowOffsetX", parseInt(e.target.value));
+    }
+
+    onShadowYChanged = (e) => {
+        this.props.onChange("shadowOffsetY", parseInt(e.target.value));
     }
 }
 

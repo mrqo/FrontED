@@ -18,7 +18,11 @@ class ButtonRenderElement extends React.Component {
                     strokeWidth={this.scaled(this.props.model.properties.strokeWidth)}
                     stroke={this.props.model.properties.borderColor}
                     fill={this.props.model.properties.bgColor}
-                    lineCap={"round"}/>
+                    lineCap={"round"}
+                    shadowOffsetX={this.scaled(this.props.model.properties.shadowOffsetX)}
+                    shadowOffsetY={this.scaled(this.props.model.properties.shadowOffsetY)}
+                    shadowBlur={this.props.model.properties.shadowBlur}
+                    shadowColor={this.props.model.properties.shadowColor}/>
                 <Text
                     x={0}
                     y={this.props.height / 2}
