@@ -20,7 +20,7 @@ class Selector extends React.Component
 
       var w = e.properties.width  == null ? 64 : e.properties.width;
       var h = e.properties.height == null ? 64 : e.properties.height;
-    
+
       if (w === "" || w < 0) w = 1;
       if (h === "" || h < 0) h = 1;
 
@@ -29,6 +29,25 @@ class Selector extends React.Component
 
       var x = e.properties.x - this.state.border/2;
       var y = e.properties.y - this.state.border/2;
+
+      var right = x + w;
+      var down  = y + h;
+
+      e.content.map(child => {
+        const chX = child.properties.x;
+        const chY = child.properties.y;
+        const chW = child.properties.width;
+        const chH = child.properties.height;
+
+        if (chX < x) x = chX;
+        if (chY < y) y = chY;
+
+        if (right < chX+chW) right = chX+chW;
+        if (down  < chY+chH) down  = chY+chH;
+      });
+
+      w = right - x;
+      h = down  - y;
 
       return <Rect
         stroke={this.state.strokeColor}
