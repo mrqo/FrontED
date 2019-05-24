@@ -21,9 +21,9 @@ class ButtonRenderElement extends React.Component {
                     lineCap={"round"}/>
                 <Text
                     x={0}
-                    y={this.props.height / 2 - (this.scaled(13 / 2))}
+                    y={this.props.height / 2}
                     width={this.props.width}
-                    height={10}
+                    height={this.props.height / 8}
                     align={"center"}
                     verticalAlign={'middle'}
                     text={this.props.model.properties.text}
