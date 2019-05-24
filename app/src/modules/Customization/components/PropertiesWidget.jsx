@@ -10,6 +10,7 @@ import GeneralProperties from './GeneralProperties';
 import ImageProperties from './ImageProperties';
 import LabelProperties from './LabelProperties';
 import ButtonProperties from './ButtonProperties';
+import ContainerProperties from './ContainerProperties';
 
 import { ElementType } from '../../Domain/Enums/Elements';
 import { topic } from '../../Domain/Enums/PubSubTopics';
@@ -62,9 +63,14 @@ class PropertiesWidget extends Widget {
                 );
             }
 
-            /*if (this.state.modelType == ElementType.Container) {
-                propGroups.push(<ContainerProperties/>);
-            }*/
+            if (this.state.modelType == ElementType.Container) {
+                propGroups.push(
+                    <ContainerProperties
+                        model={this.state.model}
+                        key={this.state.model.id}
+                        onChange={this.onPropertyChanged}/>
+                );
+            }
     
             return (
                 <div className="widget-content" width={1}>

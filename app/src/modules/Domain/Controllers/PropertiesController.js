@@ -18,6 +18,7 @@ class PropertiesController {
         if (this._curSelModel == null)
             return;
 
+        console.log("Setting property '" + key + "' to: " + value);
         this._curSelModel.properties[key] = value;
         this._curSelModel.commit();
     }

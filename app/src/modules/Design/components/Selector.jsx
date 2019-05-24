@@ -1,12 +1,13 @@
 import React from 'react';
-import { Stage, Layer, Rect, Text, Circle, Group, Image } from 'react-konva';
-import Konva from 'konva';
+//import { Stage, Layer, Rect, Text, Circle, Group, Image } from 'react-konva';
+import { Rect } from 'react-konva';
+//import Konva from 'konva';
 
 class Selector extends React.Component
 {
   state = {
-    border: 10,
-    strokeWidth: 0.6,
+    border: 6,
+    strokeWidth: 0.9,
     strokeColor: 'blue'
   }
 
@@ -36,7 +37,7 @@ class Selector extends React.Component
         y={cam.transformY(y)}
         width={cam.scale(w)}
         height={cam.scale(h)}
-        dash={[10,6]}
+        dash={[12,6]}
       />
     }
 

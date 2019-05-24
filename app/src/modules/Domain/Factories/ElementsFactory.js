@@ -2,6 +2,7 @@ import PubSub from 'pubsub-js';
 
 import { ElementType } from '../Enums/Elements';
 import { topic } from '../Enums/PubSubTopics';
+import { ContainerLayoutType } from '../Enums/ContainerLayoutTypes';
 
 class ElementsFactory {
     createElement(type, parent, width, height) {
@@ -20,6 +21,7 @@ class ElementsFactory {
 
         container.id = "containter@" + this._makeUniqueIdentifier();
         container.properties.name = "Container";
+        container.properties.layoutType = ContainerLayoutType.Free;
         container.meta.type = ElementType.Container;
 
         return container;
@@ -32,8 +34,8 @@ class ElementsFactory {
         label.properties.name = "Label";
         label.properties.text = "text";
         label.properties.textSize = 13;
-        label.meta.type = ElementType.Label;
         label.properties.bgColor = "#000000";
+        label.meta.type = ElementType.Label;
 
         return label;
     }

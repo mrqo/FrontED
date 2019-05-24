@@ -10,7 +10,10 @@ class ContainerRenderElement extends React.Component {
                     y={0}
                     width={this.props.model.properties.width}
                     height={this.props.model.properties.height}
-                    stroke={"black"}/>
+                    stroke={"black"}
+                    strokeWidth={1}
+                    dash={[2,1]}
+                />
             </Group>
         );
     }
