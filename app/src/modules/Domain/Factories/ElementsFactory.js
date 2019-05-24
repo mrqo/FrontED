@@ -82,6 +82,7 @@ class ElementsFactory {
             parent: parent,
             id: "" + this._makeUniqueIdentifier(),
             properties: {
+                visible: true,
                 name: "undefined_name",
                 x: 0,
                 y: 0,

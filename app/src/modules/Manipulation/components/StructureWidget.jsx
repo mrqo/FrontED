@@ -32,11 +32,18 @@ class StructureWidget extends Widget {
                     key={child.id + "_" + child.properties.name}
                     selected={this.state.selectedElement === child}
                     level={level}
-                    onClick={() => {
+                    onSelected={() => {
                         PubSub.publish(topic.ElemSelectionChanged, {
                             oldSel: null,
                             newSel: child
                         })
+                    }}
+                    onVisibilityChanged={(value) => {
+                        //console.log(child.id + " visibility: " + value);
+                        PubSub.publish(topic.ElemPropertyChanged, {
+                            key: 'visible',
+                            value: value
+                        });
                     }}
                     children={this._makeNodes(child, level + 1)}/>
             );  

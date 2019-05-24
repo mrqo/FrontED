@@ -29,6 +29,10 @@ class RenderElement extends React.Component {
     render() {
         const Tag = this.getTag(this.props.model.meta.type);
         const mdl = this.props.model;
+
+        if (!mdl.properties.visible) 
+            return null;
+
         const cam = this.props.camera;
         let width = mdl.properties.width == null ? 64 : mdl.properties.width; // weird hack because it is undefined
         if (width === "" || width < 0) width = "auto";

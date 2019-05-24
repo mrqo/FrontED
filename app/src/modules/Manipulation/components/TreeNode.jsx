@@ -8,6 +8,7 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import Adjust from '@material-ui/icons/Adjust';
 import ExpandLess from '@material-ui/icons/ArrowDropDown';
 import ExpandMore from '@material-ui/icons/ArrowRight';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -27,7 +28,7 @@ class TreeNode extends Widget {
         expanded: true,
         elementName: "",
         elementClass: "",
-        isVisible: true
+        visible: true
     };
 
     constructor(props) {
@@ -47,9 +48,10 @@ class TreeNode extends Widget {
                     button
                     dense={true}
                     onClick={() => {
-                        this.props.onClick();
+                        this.props.onSelected();
                     }}
                     style={{
+                        marginLeft: '4px',
                         paddingLeft: this.props.level * 10,
                         background: this.props.selected ? "#648FFF" : "none"
                     }}>
@@ -60,7 +62,7 @@ class TreeNode extends Widget {
                             ? <ExpandLess onClick={this.toggleExpanded.bind(this)}/>
                             : <ExpandMore onClick={this.toggleExpanded.bind(this)}/>
                         )
-                        : <ExpandLess style={{ opacity: 0 }}/> // to keep the same width for all nodes
+                        : <Adjust style={{ opacity: 0.2 }}/> // to keep the same width for all nodes
                     }
                     <ListItemText
                         inset 
@@ -79,14 +81,17 @@ class TreeNode extends Widget {
                             </Typography>
                         </div>   
                     } />
-                    <ListItemSecondaryAction>
-                        <Checkbox/>
+                    <ListItemSecondaryAction style={{marginRight:'6px'}}>
+                        {
+                            this.state.visible
+                            ? <Visibility    onClick={this.toggleVisible.bind(this)}/>
+                            : <VisibilityOff onClick={this.toggleVisible.bind(this)}/>
+                        }
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Collapse
                     in={this.state.expanded && this.hasChildren()}
-                    timeout="auto"
-                    >
+                    timeout="auto">
                         <List>
                             {this.props.children}
                         </List>
@@ -101,6 +106,11 @@ class TreeNode extends Widget {
 
     toggleExpanded() {
         this.setState({expanded: !this.state.expanded});
+    }
+    
+    toggleVisible() {
+        this.setState({visible: !this.state.visible}); // TODO: remove from state: 'visible' in state not needed
+        this.props.onVisibilityChanged(!this.state.visible);
     }
 }
 
