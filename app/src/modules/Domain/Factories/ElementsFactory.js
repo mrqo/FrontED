@@ -5,6 +5,8 @@ import { topic } from '../Enums/PubSubTopics';
 import { ContainerLayoutType } from '../Enums/ContainerLayoutTypes';
 
 class ElementsFactory {
+    static guidCounter = 1;
+
     createElement(type, parent, width, height) {
         switch (type) {
             case ElementType.Container: return this.createContainer(parent, width, height);
@@ -19,7 +21,7 @@ class ElementsFactory {
     createContainer(parent, width, height) {
         var container = this._createBoilerplate(parent, width, height);
 
-        container.id = "containter@" + this._makeUniqueIdentifier();
+        container.id = "container@" + this._makeUniqueIdentifier();
         container.properties.name = "Container";
         container.properties.layoutType = ContainerLayoutType.Free;
         container.meta.type = ElementType.Container;
@@ -111,7 +113,8 @@ class ElementsFactory {
     }
 
     _makeUniqueIdentifier() {
-        return 0;
+        ElementsFactory.guidCounter = ElementsFactory.guidCounter+1;
+        return ElementsFactory.guidCounter;
     }
 }
 
