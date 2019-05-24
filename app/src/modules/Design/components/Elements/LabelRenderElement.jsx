@@ -13,8 +13,8 @@ class LabelRenderElement extends React.Component {
                 x={0} 
                 y={0} 
                 align={"center"}
-                width={this.props.model.properties.width} 
-                height={this.props.model.properties.height}
+                width={this.props.width} 
+                height={this.props.height}
                 text={this.props.model.properties.text}
                 fill={this.props.model.properties.bgColor}
                 fontSize={this.scaled(this.props.model.properties.textSize)}/>
