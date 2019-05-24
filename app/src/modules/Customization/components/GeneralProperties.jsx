@@ -64,14 +64,6 @@ class GeneralProperties extends React.Component {
                         value={this.props.model.properties.name}
                         className={classes.textField}
                         onChange={this.onAliasNameChanged}/>
-
-                    <TextField 
-                        name="genColorNameField"
-                        type="color"
-                        label="Main color"
-                        value={this.props.model.properties.bgColor}
-                        className={classes.textField}
-                        onChange={this.onBgColorChanged}/>
                     
                     <div>
                         <TextField

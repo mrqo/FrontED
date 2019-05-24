@@ -34,6 +34,13 @@ class ButtonProperties extends React.Component {
                     Button
                 </FormLabel>
                 <FormGroup>
+                    <TextField 
+                        name="genColorNameField"
+                        type="color"
+                        label="Background color"
+                        value={this.props.model.properties.bgColor}
+                        className={classes.textField}
+                        onChange={this.onBgColorChanged}/>
                     <TextField
                         id="buttonTextField"
                         label="Text"
@@ -112,6 +119,10 @@ class ButtonProperties extends React.Component {
 
     onBorderColorChanged = (e) => {
         this.props.onChange("borderColor", e.target.value);
+    }
+
+    onBgColorChanged = (e) => {
+        this.props.onChange("bgColor", e.target.value);
     }
 
     onStrokeWidthChanged = (e) => {
