@@ -1,6 +1,6 @@
 from importlib import import_module
 from inspect import getargspec
-import abstract
+from . import abstract
 
 
 class Parser:
@@ -63,7 +63,7 @@ class HTMLParser(Parser):
             return self.import_cache[item]
         try:
             self.import_cache[item] = getattr(
-                import_module("html.objects"), item.capitalize()
+                import_module("ed.renderer.html.objects"), item.capitalize()
             )
         except Exception as E:
             print(E.__class__, str(E))

@@ -1,42 +1,42 @@
 from unittest import TestCase, main
-from parser import HTMLParser
+from .parser import HTMLParser
 
 JSONS = [
     {
-        'body': {
-            'children': [
+        "body": {
+            "children": [
                 {
-                    'div': {
-                        'styles': {
-                            'width': '100%'
+                    "div": {
+                        "styles": {
+                            "width": "100%"
                         },
-                        'children': [
+                        "children": [
                             {
-                                'text': {
-                                    'text': 'test-text'
+                                "text": {
+                                    "text": "test-text"
                                 },
                             },
                             {
-                                'text': {
-                                    'text': 'test-text2'
+                                "text": {
+                                    "text": "test-text2"
                                 }
                             }
                         ]
                     }
                 },
                 {
-                    'text': {
-                        'text': 'test-text3',
-                        'styles': {
-                            'color': 'red'
+                    "text": {
+                        "text": "test-text3",
+                        "styles": {
+                            "color": "red"
                         }
                     }
                 }
             ],
-            'styles': {
-                'width': '100%'
+            "styles": {
+                "width": "100%"
             },
-            'classes': ['test-class'],
+            "classes": ["test-class"],
         }
     }
 ]

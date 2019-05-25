@@ -1,4 +1,4 @@
-from abstract import Container, Object
+from ed.renderer.abstract import Container, Object
 
 
 class Body(Container):

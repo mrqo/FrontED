@@ -1,9 +1,6 @@
 ﻿# Backend
-Run run.py to run parser  
-
-
 To run wwwdaemon:  
-cd wwwdeamon  
+cd wwwdaemon  
 pip install -r requirements.txt  # or create virtualenv first  
 python manage.py runserver  
 http://127.0..0.1:8000/  
