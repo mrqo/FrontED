@@ -39,13 +39,10 @@ class StructureWidget extends Widget {
                         })
                     }}
                     onVisibilityChanged={(value) => {
-                        console.log(child.id + " visibility: " + value);
-                        PubSub.publish(topic.ElemPropertyChanged, {
-                            key: 'visible',
-                            value: value,
-                            model: child
-                        });
+                        //console.log(child.id + " visibility: " + value);
+                        child.setVisible(value);
                     }}
+                    properties={child.properties}
                     children={this._makeNodes(child, level + 1)}/>
             );  
         });
@@ -92,6 +89,7 @@ class StructureWidget extends Widget {
     };
 
     onModelChangedCb(msg, data) {
+        //console.log(msg);
         this.setState({model: data.model.getRoot()});
     }
     
@@ -100,6 +98,8 @@ class StructureWidget extends Widget {
             selectedElement: data.newSel
         });
     }
+    
+
 }
 
 export default StructureWidget;

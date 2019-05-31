@@ -83,7 +83,7 @@ class TreeNode extends Widget {
                     } />
                     <ListItemSecondaryAction style={{marginRight:'6px'}}>
                         {
-                            this.state.visible
+                            this.props.properties.visible
                             ? <Visibility    onClick={this.toggleVisible.bind(this)}/>
                             : <VisibilityOff onClick={this.toggleVisible.bind(this)}/>
                         }

@@ -20,7 +20,7 @@ class StructureController {
     onCreationRequestedCb(msg, data) {
         this.addElement(data.type);
     }
-
+    
     addElement(type, width, height) {
         var elem = this._addElement(type, this.selectedNode, width, height);
         

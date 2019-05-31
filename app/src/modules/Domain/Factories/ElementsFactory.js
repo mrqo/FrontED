@@ -115,6 +115,23 @@ class ElementsFactory {
             return _getRoot(model);
         }
 
+
+        model.setVisible = function(value) {
+          if (this.content)
+          {
+            for (var ch of this.content)
+            {
+              ch.setVisible(value);
+            }
+          }
+
+          PubSub.publish(topic.ElemPropertyChanged, {
+              key: 'visible',
+              value: value,
+              model: this
+          });
+        }.bind(model)
+
         return model;
     }
 

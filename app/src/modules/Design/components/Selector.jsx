@@ -33,6 +33,10 @@ class Selector extends React.Component
       var right = x + w;
       var down  = y + h;
 
+      // selector on all the children disabled 
+      // because we do not need that for now
+      // since we are not moving children with parent
+      /*
       e.content.map(child => {
         const chX = child.properties.x;
         const chY = child.properties.y;
@@ -45,6 +49,7 @@ class Selector extends React.Component
         if (right < chX+chW) right = chX+chW;
         if (down  < chY+chH) down  = chY+chH;
       });
+      */
 
       w = right - x;
       h = down  - y;
