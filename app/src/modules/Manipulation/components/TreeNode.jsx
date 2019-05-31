@@ -8,7 +8,8 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import Adjust from '@material-ui/icons/Adjust';
 import ExpandLess from '@material-ui/icons/ArrowDropDown';
 import ExpandMore from '@material-ui/icons/ArrowRight';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff, Delete } from '@material-ui/icons';
+import Duplicate from '@material-ui/icons/FlipToFront';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -82,6 +83,18 @@ class TreeNode extends Widget {
                         </div>   
                     } />
                     <ListItemSecondaryAction style={{marginRight:'6px'}}>
+                        {
+                            this.props.selected ? <Duplicate
+                                style={{marginRight:'6px'}}
+                                onClick={this.props.onDuplicateClicked}
+                            /> : null
+                        }
+                        {
+                            this.props.selected ? <Delete
+                                style={{marginRight:'6px'}}
+                                onClick={this.props.onDeleteClicked}
+                            /> : null
+                        }
                         {
                             this.props.properties.visible
                             ? <Visibility    onClick={this.toggleVisible.bind(this)}/>
