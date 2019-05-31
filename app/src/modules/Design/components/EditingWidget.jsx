@@ -154,6 +154,8 @@ class EditingWidget extends Widget {
     }
 
     onElemCreatedCb(msg, data) {
+        if (data.model) data = data.model;
+
         this.state.elements.push(data);
         this.setState({elements: this.state.elements});
     }

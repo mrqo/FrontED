@@ -19,6 +19,17 @@ class ElementsFactory {
         return this._createBoilerplate(parent, width, height);
     }
 
+    copyElement(origin) {
+        var newElement = this.createElement(origin.meta.type, 
+                                            origin.parent, 
+                                            origin.properties.width, 
+                                            origin.properties.height);
+
+        newElement.properties = JSON.parse(JSON.stringify(origin.properties));  
+        newElement.meta = JSON.parse(JSON.stringify(origin.meta));
+        return newElement;
+    }
+
     createContainer(parent, width, height) {
         var container = this._createBoilerplate(parent, width, height);
 
@@ -153,11 +164,11 @@ class ElementsFactory {
         }
 
         model.duplicate = function() {
-            /*var parent = model.getRoot();
-            var copy = JSON.parse(JSON.stringify(model));
-            parent.content.push(copy);
-            copy.commit();*/
-        }
+            var copy = this.copyElement(model);
+            model.parent.content.push(copy);
+            model.parent.commit();
+            PubSub.publish(topic.ElemCreated, copy);
+        }.bind(this)
 
         return model;
     }
