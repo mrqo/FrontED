@@ -30,7 +30,7 @@ class StructureController {
 
     _addElement(type, parent, width, height) {
         if (parent == null)
-            return false;
+            return null;
         
         var elem = this._elementsFactory.createElement(type, parent, width, height);
         parent.content.push(elem);

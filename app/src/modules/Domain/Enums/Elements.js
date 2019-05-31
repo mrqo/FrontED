@@ -4,6 +4,6 @@ export const ElementType = {
     Label: "label",
     Button: "button",
 
-    Unknown: "unk"
+    Unknown: "unknown"
 };
 

@@ -3,5 +3,6 @@ export const topic = {
     ElemPropertyChanged: 'ElemPropertyChanged',
     ElemCreationRequested: 'ElemCreationRequested',
     ElemCreated: 'ElemCreated',
+    ElemRemoved: 'ElemRemoved',
     ModelChanged: 'ModelChanged',
 }

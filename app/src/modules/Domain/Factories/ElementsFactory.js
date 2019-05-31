@@ -117,20 +117,47 @@ class ElementsFactory {
 
 
         model.setVisible = function(value) {
-          if (this.content)
-          {
-            for (var ch of this.content)
+            if (model.content)
             {
-              ch.setVisible(value);
+                for (var ch of model.content)
+                {
+                    ch.setVisible(value);
+                }
             }
-          }
 
-          PubSub.publish(topic.ElemPropertyChanged, {
-              key: 'visible',
-              value: value,
-              model: this
-          });
-        }.bind(model)
+            PubSub.publish(topic.ElemPropertyChanged, {
+                key: 'visible',
+                value: value,
+                model: model
+            });
+        }
+
+        model.remove = function() {
+            if (model.content)
+            {
+                for (var ch of model.content)
+                {
+                    PubSub.publish(topic.ElemRemoved, { model: ch } );
+                }
+            }
+
+            model.parent.content = model.parent.content.filter((value) => { return value != model; });
+            model.parent.commit();
+
+            PubSub.publish(topic.ElemSelectionChanged, {
+                oldSel: model,
+                newSel: model.parent.getRoot()
+            })
+           
+            PubSub.publish(topic.ElemRemoved, { model: model } );
+        }
+
+        model.duplicate = function() {
+            /*var parent = model.getRoot();
+            var copy = JSON.parse(JSON.stringify(model));
+            parent.content.push(copy);
+            copy.commit();*/
+        }
 
         return model;
     }

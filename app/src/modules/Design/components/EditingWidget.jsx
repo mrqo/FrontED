@@ -115,7 +115,11 @@ class EditingWidget extends Widget {
                   id="uiLayer"
                   ref="uiLayer"
                   listening={false}>
-                    <Selector element={this.state.selectedElement} camera={this.state.camera}/>
+                    {
+                        this.state.selectedElement ? 
+                            <Selector element={this.state.selectedElement} camera={this.state.camera}/>
+                            : null
+                    }
                 </Layer>
             </Stage>
           </div>
@@ -139,8 +143,8 @@ class EditingWidget extends Widget {
     }
     
     onModelChangedCb(msg, data) {
-        var idx = this.state.elements.indexOf(data);
-        this.state.elements[idx] = data;
+        var idx = this.state.elements.indexOf(data.model);
+        this.state.elements[idx] = data.model;
 
         this.setState({elements: this.state.elements});
     }
@@ -151,6 +155,19 @@ class EditingWidget extends Widget {
 
     onElemCreatedCb(msg, data) {
         this.state.elements.push(data);
+        this.setState({elements: this.state.elements});
+    }
+
+    onElementRemovedCb(msg, data) {
+        if (this.state.selectedElement == data.model)
+        {
+            this.state.selectedElement = null;
+            this.setState({selectedElement: null});
+        }
+
+        var idx = this.state.elements.indexOf(data.model);
+        this.state.elements.splice(idx, 1);
+
         this.setState({elements: this.state.elements});
     }
 }

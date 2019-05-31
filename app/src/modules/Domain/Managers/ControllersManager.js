@@ -56,6 +56,13 @@ class ControllersManager {
             topic.ElemSelectionChanged, 
             this.onSelectionChangedCb.bind(this)
         );
+
+        /*
+        this._elementDeletedCbToken = PubSub.subscribe(
+            topic.ElemRemoved,
+            this.onElementRemovedCb.bind(this)
+        );
+        */
     }
 
     // Has context of PropertiesController

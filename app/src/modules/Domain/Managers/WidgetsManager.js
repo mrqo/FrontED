@@ -58,6 +58,11 @@ class WidgetsManager {
             topic.ElemCreated,
             this.onElemCreatedCb.bind(this)
         );
+        
+        this._elementDeletedCbToken = PubSub.subscribe(
+            topic.ElemRemoved,
+            this.onElementRemovedCb.bind(this)
+        );
     }
 
     // Has context of PropertiesWidget

@@ -102,10 +102,13 @@ class PropertiesWidget extends Widget {
     }
 
     onSelectionChangedCb(msg, data) {
-        this.setState({
-            model: data.newSel,
-            modelType: data.newSel.meta.type
-        });
+        if (data.newSel)
+        {
+            this.setState({
+                model: data.newSel,
+                modelType: data.newSel.meta.type
+            });
+        }
     }
 
     onPropertyChanged(key, value) {

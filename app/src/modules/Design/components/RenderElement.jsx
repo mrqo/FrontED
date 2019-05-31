@@ -27,6 +27,10 @@ class RenderElement extends React.Component {
     }
 
     render() {
+        if (!this.props)            return null;
+        if (!this.props.model)      return null;
+        if (!this.props.model.meta) return null;
+
         const Tag = this.getTag(this.props.model.meta.type);
         const mdl = this.props.model;
 

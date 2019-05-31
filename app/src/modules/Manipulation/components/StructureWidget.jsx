@@ -42,6 +42,9 @@ class StructureWidget extends Widget {
                         //console.log(child.id + " visibility: " + value);
                         child.setVisible(value);
                     }}
+
+                    onDeleteClicked={() => { child.remove() }}
+                    onDuplicateClicked={() => { child.duplicate() }}
                     properties={child.properties}
                     children={this._makeNodes(child, level + 1)}/>
             );  

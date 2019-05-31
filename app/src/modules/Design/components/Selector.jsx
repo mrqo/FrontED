@@ -2,6 +2,7 @@ import React from 'react';
 //import { Stage, Layer, Rect, Text, Circle, Group, Image } from 'react-konva';
 import { Rect } from 'react-konva';
 //import Konva from 'konva';
+import { ElementType } from '../../Domain/Enums/Elements';
 
 class Selector extends React.Component
 {
@@ -13,6 +14,7 @@ class Selector extends React.Component
 
   render() {
     const e = this.props.element;
+    if (e.meta.type == ElementType.Unknown) return null;
     
     if (e)
     {
