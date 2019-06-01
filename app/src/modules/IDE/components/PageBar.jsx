@@ -103,7 +103,7 @@ class PageBar extends React.Component {
                 </Toolbar>
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
-                    handleClose={this.handleLoginClose}
+                    handleClose={this.handleLoginDialogClose}
                     handleLogin={this.handleLogin}
                 />
             </div>
@@ -131,12 +131,14 @@ class PageBar extends React.Component {
         this.setState({menuOpen: false});
     }
 
-    handleLoginClose = (e) => {
+    handleLoginDialogClose = (e) => {
         this.setState({loginDialogOpen: false});
     }
 
     handleLogin = (e, username, password) => {
-        
+        const isLoggedIn = SessionManager.login(username, password);
+        console.log("Is user logged in: ");
+        console.log(isLoggedIn);
     }
 }
 
