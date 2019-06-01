@@ -38,6 +38,19 @@ class PageBar extends React.Component {
         menuOpen: false,
     }
     
+    constructor(props) {
+        super(props);
+
+        this.handleNewProject = this.handleGenerateProject.bind(this);
+        this.handleSelectProject = this.handleSelectProject.bind(this);
+        this.handleSaveProject = this.handleSaveProject.bind(this);
+        this.handleGenerateProject = this.handleGenerateProject.bind(this);
+        this.handleMenuToggle = this.handleMenuToggle.bind(this);
+        this.handleMenuClose = this.handleMenuClose.bind(this);
+        this.handleLoginDialogClose = this.handleLoginDialogClose.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
     render() {
         const { classes } = this.props;
         
@@ -142,7 +155,7 @@ class PageBar extends React.Component {
         this.setState({loginDialogOpen: false});
     }
 
-    handleLogin = (e, username, password) => {
+    handleLogin(e, username, password) {
         SessionManager.login(username, password)
             .then(function(response) {
                 if(response) {
@@ -152,7 +165,7 @@ class PageBar extends React.Component {
                 } else {
                     // login unsucessful
                 }
-            })
+            }.bind(this))
     }
 }
 
