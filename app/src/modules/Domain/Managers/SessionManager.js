@@ -90,6 +90,33 @@ export function addProject(projectName, projectSource) {
     return fetch(`/ed/projects/`, requestOptions).then(handleResponse);
 }
 
+export function getProfile(projectName, projectSource) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+    };
+
+    return fetch(`/ed/projects/`, requestOptions)
+        .then(handleResponse)
+        .then(profile => {
+            if(profile["detail"] == "Authentication credentials were not provided.") {
+                return false;
+            } else {
+                /*
+                // response:
+                {
+                    "id": 1,
+                    "username": "guest",
+                    "first_name": "Guest",
+                    "last_name": "Guest",
+                    "email": ""
+                }
+                */
+                return profile;
+            }
+        });
+}
+
 export function saveProject(projectId, projectName, projectSource) {
     // zmien Name or Source w projekcie (opcja zapisu)
     const requestOptions = {
