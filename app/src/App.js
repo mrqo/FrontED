@@ -6,7 +6,7 @@ import ControlsWidget from './modules/Manipulation/components/ControlsWidget';
 import StructureWidget from './modules/Manipulation/components/StructureWidget';
 import EditingWidget from './modules/Design/components/EditingWidget';
 import PropertiesWidget from './modules/Customization/components/PropertiesWidget';
-
+import PageBar from './modules/IDE/components/PageBar';
 import ControllersManager from './modules/Domain/Managers/ControllersManager';
 import WidgetsManager from './modules/Domain/Managers/WidgetsManager';
 
@@ -28,6 +28,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="row">
+          <PageBar/>
+        </div>
         <div className="row">
           <div className="col-3 App-area">
             <div className="App-subarea">
