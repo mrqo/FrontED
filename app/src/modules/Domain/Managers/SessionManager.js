@@ -21,7 +21,7 @@ export function login(username, password) {
     const requestOptions = {
         method: 'POST',
         crossDomain: true,
-        headers: authHeader(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({login: username, password: password })
     };
 
