@@ -17,22 +17,22 @@ export function authHeader() {
 export function login(username, password) {
     const requestOptions = {
         method: 'POST',
+        crossDomain: true,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username, password })
+        body: JSON.stringify({login: username, password: password })
     };
 
-    return fetch(`127.0.0.1:8000/accounts/login`, requestOptions)
+    return fetch(`/accounts/login/`, requestOptions)
         .then(handleResponse)
-        .then(user => {
-            // login successful if there's a user in the response
-            console.log(user);
-            if (user) {
+        .then(detail => {
+            console.log(detail);
+            if (detail.detail == "Login successful") {
                 // store user details and basic auth credentials in local storage
                 // to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('user', JSON.stringify(user));
+                //user.authdata = window.btoa(username + ':' + password);
+                localStorage.setItem('user', JSON.stringify(detail.authdata));
             }
-            return user;
+            return detail;
         });
 }
 
@@ -40,20 +40,27 @@ export function logout() {
     localStorage.removeItem('user');
 }
 
-/*
-// GET example
-function getAll() {
+export function getProjects() {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`/users`, requestOptions).then(handleResponse);
+    return fetch(`/ed/projects/`, requestOptions).then(handleResponse);
 }
-*/
+
+export function getProject(project_id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`/ed/projects/${project_id}/`, requestOptions).then(handleResponse);
+}
 
 export function handleResponse(response) {
     return response.text().then(text => {
+        console.log(text);
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
