@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Adjust from '@material-ui/icons/Adjust';
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 import ExpandLess from '@material-ui/icons/ArrowDropDown';
 import ExpandMore from '@material-ui/icons/ArrowRight';
 import { Visibility, VisibilityOff, Delete } from '@material-ui/icons';
@@ -14,6 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core';
 
 import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
@@ -22,6 +24,27 @@ const styles = theme => ({
     root: {
         paddingLeft: theme.spacing.unit * 4,
     },
+
+    listItem: {
+        
+    },
+
+    icon: {
+        width: 16,
+        height: 16,
+        color: '#192A59',
+    },
+
+    iconSmall: {
+        marginLeft: 8,
+        marginRight: 8,
+        width: 8,
+        height: 8
+    },
+
+    text: {
+        paddingLeft: 7
+    }
 });
 
 class TreeNode extends Widget {
@@ -39,10 +62,6 @@ class TreeNode extends Widget {
     render() {
         const { classes } = this.props;
 
-        var textStyle = {
-            paddingLeft: '7px'
-        }
-
         return (
             <React.Fragment>
                 <ListItem 
@@ -51,9 +70,9 @@ class TreeNode extends Widget {
                     onClick={() => {
                         this.props.onSelected();
                     }}
+                    className={classes.listItem}
                     style={{
-                        marginLeft: '4px',
-                        paddingLeft: this.props.level * 10,
+                        paddingLeft: this.props.level * 10 + 8,
                         background: this.props.selected ? "#648FFF" : "none"
                     }}>
                     {
@@ -63,11 +82,11 @@ class TreeNode extends Widget {
                             ? <ExpandLess onClick={this.toggleExpanded.bind(this)}/>
                             : <ExpandMore onClick={this.toggleExpanded.bind(this)}/>
                         )
-                        : <Adjust style={{ opacity: 0.2 }}/> // to keep the same width for all nodes
+                        : <FiberManualRecord className={classes.iconSmall}/> // to keep the same width for all nodes
                     }
                     <ListItemText
                         inset 
-                        style={textStyle}
+                        className={classes.text}
                         primary={
                         <div>
                             <Typography
@@ -87,18 +106,20 @@ class TreeNode extends Widget {
                             this.props.selected ? <Duplicate
                                 style={{marginRight:'6px'}}
                                 onClick={this.props.onDuplicateClicked}
+                                className={classes.icon}
                             /> : null
                         }
                         {
                             this.props.selected ? <Delete
                                 style={{marginRight:'6px'}}
                                 onClick={this.props.onDeleteClicked}
+                                className={classes.icon}
                             /> : null
                         }
                         {
                             this.props.properties.visible
-                            ? <Visibility    onClick={this.toggleVisible.bind(this)}/>
-                            : <VisibilityOff onClick={this.toggleVisible.bind(this)}/>
+                            ? <Visibility    onClick={this.toggleVisible.bind(this)} className={classes.icon}/>
+                            : <VisibilityOff onClick={this.toggleVisible.bind(this)} className={classes.icon}/>
                         }
                     </ListItemSecondaryAction>
                 </ListItem>
@@ -127,4 +148,4 @@ class TreeNode extends Widget {
     }
 }
 
-export default TreeNode;
+export default withStyles(styles)(TreeNode);
