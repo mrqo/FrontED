@@ -37,7 +37,8 @@ export function login(username, password) {
                 return true;
             }
             return false;
-        });
+        })
+        .catch(error => false);
 }
 
 export function logout() {
@@ -96,7 +97,7 @@ export function getProfile(projectName, projectSource) {
         headers: authHeader(),
     };
 
-    return fetch(`/ed/projects/`, requestOptions)
+    return fetch(`/accounts/profile/`, requestOptions)
         .then(handleResponse)
         .then(profile => {
             if(profile["detail"] == "Authentication credentials were not provided.") {
@@ -114,7 +115,8 @@ export function getProfile(projectName, projectSource) {
                 */
                 return profile;
             }
-        });
+        })
+        .catch(err => false);
 }
 
 export function saveProject(projectId, projectName, projectSource) {

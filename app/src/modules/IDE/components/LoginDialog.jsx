@@ -51,8 +51,8 @@ class LoginDialog extends React.Component {
                 </Button>
                 <Button 
                     onClick={(e) => {
-                        const response = this.props.handleLogin(e, this.state.username, this.state.password);
-                        this.setState({displayError: !response});
+                        this.props.handleLogin(e, this.state.username, this.state.password)
+                            .then(response => this.setState({displayError: !response}));
                     }} 
                     color="primary">
                     Login

@@ -36,6 +36,9 @@ class PageBar extends React.Component {
     state = {
         loginDialogOpen: false,
         menuOpen: false,
+        isUserDataValid: false,
+        firstName: "",
+        lastName: ""
     }
     
     constructor(props) {
@@ -49,6 +52,7 @@ class PageBar extends React.Component {
         this.handleMenuClose = this.handleMenuClose.bind(this);
         this.handleLoginDialogClose = this.handleLoginDialogClose.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     render() {
@@ -68,30 +72,59 @@ class PageBar extends React.Component {
                     <Typography variant="h6" color="inherit" className={classes.grow}>
                         FrontED
                     </Typography>
-                    <Chip
-                        avatar={
-                            <Avatar>MI</Avatar>
-                        }
-                        label="Hi, Marek!"
-                        variant="outlined"
-                        className={classes.chip}
-                    />
-                    
-                    <button 
-                        className="btn btn-outline-primary"
-                        onClick={(e) => this.setState({loginDialogOpen: true})}>
-                        Login
-                    </button>
+
+                    {
+                        !this.state.isUserDataValid
+                            ? <button 
+                                className="btn btn-outline-primary"
+                                onClick={(e) => this.setState({loginDialogOpen: true})}>
+                                Login
+                            </button>
+                            : <div>
+                                <Chip
+                                    avatar={
+                                        <Avatar>{this.state.firstName[0] + this.state.lastName[0]}</Avatar>
+                                    }
+                                    label={"Logged in as " + this.state.firstName}
+                                    variant="outlined"
+                                    className={classes.chip}
+                                />
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={this.handleLogout}>
+                                    Log out
+                                </button>
+            
+                            </div>
+                    }
+   
                 </Toolbar>
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
                     handleClose={this.handleLoginDialogClose}
                     handleLogin={this.handleLogin}
-                />
-
-                
+                /> 
             </div>
         )
+    }
+
+    componentDidMount() {
+        this._fetchProfile();
+    }
+
+    _fetchProfile() {
+        SessionManager.getProfile()
+            .then(function (response) {
+                if (response == false) {
+                    this.setState({isUserDataValid: false});
+                } else {
+                    this.setState({
+                        isUserDataValid: true,
+                        firstName: response.first_name,
+                        lastName: response.last_name
+                    });
+                }
+            }.bind(this));
     }
 
     handleNewProject = (e) => { 
@@ -155,17 +188,22 @@ class PageBar extends React.Component {
         this.setState({loginDialogOpen: false});
     }
 
-    handleLogin(e, username, password) {
-        SessionManager.login(username, password)
+    handleLogin = (e, username, password) => {
+        return SessionManager.login(username, password)
             .then(function(response) {
-                if(response) {
+                if (response) {
                     // login sucessful
                     // probably web browser will remember everything properly
                     this.setState({loginDialogOpen: false});
-                } else {
-                    // login unsucessful
-                }
+                    this._fetchProfile();
+                } 
+                return response;
             }.bind(this))
+    }
+
+    handleLogout = (e) => {
+        SessionManager.logout();
+        this._fetchProfile();
     }
 }
 
