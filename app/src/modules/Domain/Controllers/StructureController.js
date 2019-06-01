@@ -1,6 +1,7 @@
-
 import PubSub from 'pubsub-js';
 import { topic } from '../Enums/PubSubTopics';
+import * as SessionManager from '../Managers/SessionManager';
+
 
 class StructureController {
     constructor(elementsFactory) {
@@ -10,7 +11,7 @@ class StructureController {
     }
 
     get selectedNode() {
-        return this._selectedNode; 
+        return this._selectedNode;
     }
 
     onSelectionChangedCb(msg, data) {
@@ -20,10 +21,25 @@ class StructureController {
     onCreationRequestedCb(msg, data) {
         this.addElement(data.type);
     }
-    
+
+    onSaveProjectCb(msg, data) {
+        console.log(msg);
+        console.log(data);
+        console.log(this._elementRoot);
+
+/*
+        // id, name, source
+        // remember to convert JSON SOURCE to String(JSON) source
+        SessionManager.saveProject(projectId, "changeNameToThis", "changeSourceToThis")
+        .then(function(response) {
+               // it returns the same as newProject: id, name, source
+        })
+        */
+    }
+
     addElement(type, width, height) {
         var elem = this._addElement(type, this.selectedNode, width, height);
-        
+
         PubSub.publish(topic.ElemCreated, elem);
         return elem;
     }
@@ -31,7 +47,7 @@ class StructureController {
     _addElement(type, parent, width, height) {
         if (parent == null)
             return null;
-        
+
         var elem = this._elementsFactory.createElement(type, parent, width, height);
         parent.content.push(elem);
         parent.commit();
@@ -39,7 +55,7 @@ class StructureController {
     }
 
     removeElement(elemId) {
-    
+
     }
 }
 

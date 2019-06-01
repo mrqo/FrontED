@@ -5,4 +5,5 @@ export const topic = {
     ElemCreated: 'ElemCreated',
     ElemRemoved: 'ElemRemoved',
     ModelChanged: 'ModelChanged',
+    SaveProject: 'SaveProject',
 }
