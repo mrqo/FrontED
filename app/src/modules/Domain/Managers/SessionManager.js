@@ -8,9 +8,12 @@ export function authHeader() {
     let user = JSON.parse(localStorage.getItem('user'));
 
     if (user && user.authdata) {
-        return { 'Authorization': 'Basic ' + user.authdata };
+        return {
+            'Authorization': 'Basic ' + user.authdata,
+            'Content-Type': 'application/json'
+        };
     } else {
-        return {};
+        return { 'Content-Type': 'application/json' };
     }
 }
 
@@ -18,7 +21,7 @@ export function login(username, password) {
     const requestOptions = {
         method: 'POST',
         crossDomain: true,
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader(),
         body: JSON.stringify({login: username, password: password })
     };
 
@@ -29,7 +32,7 @@ export function login(username, password) {
             if (detail.detail == "Login successful") {
                 // store user details and basic auth credentials in local storage
                 // to keep user logged in between page refreshes
-                //user.authdata = window.btoa(username + ':' + password);
+                detail.authdata = window.btoa(username + ':' + password);
                 localStorage.setItem('user', JSON.stringify(detail.authdata));
             }
             return detail;
@@ -37,10 +40,24 @@ export function login(username, password) {
 }
 
 export function logout() {
+    const requestOptions = {
+        method: 'POST',
+        crossDomain: true,
+        headers: authHeader(),
+        body: JSON.stringify({revoke_token: false})
+    };
     localStorage.removeItem('user');
+
+    return fetch(`/accounts/logout/`, requestOptions)
 }
 
 export function getProjects() {
+    // pobierz wszystkie projekty (wystarczy byc zalogowanym)
+    // zwraca JSON:
+    // [
+    //    {id: 1, name: "Test", source: "JSON_IN_STRING"},
+    // ]
+
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
@@ -50,12 +67,51 @@ export function getProjects() {
 }
 
 export function getProject(project_id) {
+    // pobierz pojedynczy projekt (podajac id)
+    // {id: 1, name: "Test", source: "JSON_IN_STRING"}
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
     return fetch(`/ed/projects/${project_id}/`, requestOptions).then(handleResponse);
+}
+
+export function addProject(projectName, projectSource) {
+    // opcja tworzenia nowego projektu
+    // projectSource to JSON ale przekonwertowany do String
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({name: projectName, source: projectName })
+    };
+
+    return fetch(`/ed/projects/`, requestOptions).then(handleResponse);
+}
+
+export function modifyProject(projectId, projectName, projectSource) {
+    // zmien Name or Source w projekcie (opcja zapisu)
+    const requestOptions = {
+        method: 'PUT',
+        headers: authHeader(),
+        body: JSON.stringify({name: projectName, source: projectName })
+    };
+
+    return fetch(`/ed/projects/${projectId}/`, requestOptions).then(handleResponse);
+}
+
+export function generateProject(projectId) {
+    // Konwertuj projekt do htmla (zwraca go)
+    // Przykladowa odpowiedz (html jest w kluczu "result")
+    // {
+    //     "result": "<body class=\"test-class\" >\n\n</body>"
+    // }
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`/ed/projects/render/${projectId}/`, requestOptions).then(handleResponse);
 }
 
 export function handleResponse(response) {
