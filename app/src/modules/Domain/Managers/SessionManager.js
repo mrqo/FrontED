@@ -5,7 +5,7 @@ export const userService = {
     logout,
 };
 
-function authHeader() {
+export function authHeader() {
     // return authorization header with basic auth credentials
     let user = JSON.parse(localStorage.getItem('user'));
 
@@ -16,7 +16,7 @@ function authHeader() {
     }
 }
 
-function login(username, password) {
+export function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,7 +38,7 @@ function login(username, password) {
         });
 }
 
-function logout() {
+export function logout() {
     localStorage.removeItem('user');
 }
 
@@ -54,7 +54,7 @@ function getAll() {
 }
 */
 
-function handleResponse(response) {
+export function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {

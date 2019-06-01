@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 import LoginDialog from './LoginDialog';
+import * as SessionManager from '../../Domain/Managers/SessionManager';
 
 const styles = theme => ({
     root: {
@@ -103,6 +104,7 @@ class PageBar extends React.Component {
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
                     handleClose={this.handleLoginClose}
+                    handleLogin={this.handleLogin}
                 />
             </div>
         )
@@ -131,6 +133,10 @@ class PageBar extends React.Component {
 
     handleLoginClose = (e) => {
         this.setState({loginDialogOpen: false});
+    }
+
+    handleLogin = (e, username, password) => {
+        
     }
 }
 
