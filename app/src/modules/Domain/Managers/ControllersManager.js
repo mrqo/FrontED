@@ -48,12 +48,17 @@ class ControllersManager {
             topic.ElemCreationRequested,
             this.onCreationRequestedCb.bind(this)
         );
+
+        this._saveProjectCbToken = PubSub.subscribe(
+            topic.SaveProject,
+            this.onSaveProjectCb.bind(this)
+        );
     }
 
     // Has context of DesignController
     _initDesignSubs() {
         this._selectionChangedCbToken = PubSub.subscribe(
-            topic.ElemSelectionChanged, 
+            topic.ElemSelectionChanged,
             this.onSelectionChangedCb.bind(this)
         );
 

@@ -6,7 +6,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-
+import PubSub from 'pubsub-js';
+import { topic } from '../../Domain/Enums/PubSubTopics';
 import Chip from '@material-ui/core/Chip';
 
 import LoginDialog from './LoginDialog';
@@ -43,7 +44,6 @@ class PageBar extends React.Component {
     
     constructor(props) {
         super(props);
-
         this.handleNewProject = this.handleGenerateProject.bind(this);
         this.handleSelectProject = this.handleSelectProject.bind(this);
         this.handleSaveProject = this.handleSaveProject.bind(this);
@@ -97,7 +97,12 @@ class PageBar extends React.Component {
             
                             </div>
                     }
-   
+                    
+                    <button 
+                        className="btn btn-outline-primary"
+                        onClick={this.handleSaveProject}>
+                        Save
+                    </button>
                 </Toolbar>
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
@@ -153,13 +158,13 @@ class PageBar extends React.Component {
     }
 
     handleSaveProject = (e) => {
-        let projectId = 1 // project is identified by ID
-        // id, name, source
-        // remember to convert JSON SOURCE to String(JSON) source
-        SessionManager.saveProject(projectId, "changeNameToThis", "changeSourceToThis")
-        .then(function(response) {
-               // it returns the same as newProject: id, name, source 
-        })
+        let projectId = 5 // project is identified by ID
+        let projectName = "TestProjectName" // pass project name, you can
+        // pass different project name when user want to change project name
+        PubSub.publish(topic.SaveProject, {
+            id: projectId,
+            name: projectName,
+        });
     }
 
     // no handler
