@@ -11,6 +11,7 @@ class LoginDialog extends React.Component {
     state = {
         username: '',
         password: '',
+        displayError: false,
     }
 
     render() {
@@ -19,6 +20,11 @@ class LoginDialog extends React.Component {
             <Dialog open={this.props.open} onClose={this.props.handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <DialogContent>
+                {
+                    this.state.displayError
+                        ? <p style={{color: 'red'}}>Wrong username or password.</p>
+                        : <div/>
+                }
                 <TextField
                     autoFocus
                     margin="dense"
@@ -45,7 +51,8 @@ class LoginDialog extends React.Component {
                 </Button>
                 <Button 
                     onClick={(e) => {
-                        this.props.handleLogin(e, this.state.username, this.state.password);
+                        const response = this.props.handleLogin(e, this.state.username, this.state.password);
+                        this.setState({displayError: !response});
                     }} 
                     color="primary">
                     Login
