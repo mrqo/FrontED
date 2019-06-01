@@ -110,16 +110,52 @@ class PageBar extends React.Component {
         )
     }
 
-    handleNewProject = (e) => {
-
+    handleNewProject = (e) => { 
+        // get NameProject from user
+        // it MUST be unique (per user ofc)
+        let nameProject = "FIXME:"
+        let sourceProject = "can not be blank!"; // just send some garbage like "test" if creating new project
+        SessionManager.addProject(nameProject, sourceProject)
+        .then(function(response) {
+               let id = response["id"]; // save this to handle generating later
+               let name = response["name"]; // save this too (to pass this on save)
+               let source = response["source"];
+        })
     }
 
     handleSelectProject = (e) => {
-
+        // get projects from database
+        SessionManager.getProjects()
+        .then(function(response) {
+            // returns list of projects, in this format:
+            // [
+            //     {id: 1, name: "TestName", source: "Not blank!"},
+            //     {id: 2, name: "TestName2", source: "Testing is the future"},
+            // ]
+        })
     }
 
     handleSaveProject = (e) => {
+        let projectId = 1 // project is identified by ID
+        // id, name, source
+        // remember to convert JSON SOURCE to String(JSON) source
+        SessionManager.saveProject(projectId, "changeNameToThis", "changeSourceToThis")
+        .then(function(response) {
+               // it returns the same as newProject: id, name, source 
+        })
+    }
 
+    // no handler
+    handleGenerateProject = (e) => {
+        let projectId = 1 // project is identified by ID
+        SessionManager.generateProject(projectId)
+        .then(function(response) {
+            console.log(response["result"])
+            // note that there is big change this will fail:
+            // if e.g.:
+            // json is invalid or
+            // backend can't handle this json
+        })
     }
 
     handleMenuToggle = (e) => {
@@ -136,9 +172,16 @@ class PageBar extends React.Component {
     }
 
     handleLogin = (e, username, password) => {
-        const isLoggedIn = SessionManager.login(username, password);
-        console.log("Is user logged in: ");
-        console.log(isLoggedIn);
+        SessionManager.login(username, password)
+            .then(function(response) {
+                if(response) {
+                    // login sucessful
+                    // probably web browser will remember everything properly
+                    this.setState({loginDialogOpen: false});
+                } else {
+                    // login unsucessful
+                }
+            })
     }
 }
 

@@ -34,8 +34,9 @@ export function login(username, password) {
                 // to keep user logged in between page refreshes
                 detail.authdata = window.btoa(username + ':' + password);
                 localStorage.setItem('user', JSON.stringify(detail.authdata));
+                return true;
             }
-            return detail;
+            return false;
         });
 }
 
@@ -89,7 +90,7 @@ export function addProject(projectName, projectSource) {
     return fetch(`/ed/projects/`, requestOptions).then(handleResponse);
 }
 
-export function modifyProject(projectId, projectName, projectSource) {
+export function saveProject(projectId, projectName, projectSource) {
     // zmien Name or Source w projekcie (opcja zapisu)
     const requestOptions = {
         method: 'PUT',
