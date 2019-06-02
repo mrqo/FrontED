@@ -48,16 +48,11 @@ class ControllersManager {
             topic.ElemCreationRequested,
             this.onCreationRequestedCb.bind(this)
         );
-
-        this._saveProjectCbToken = PubSub.subscribe(
-            topic.SaveProject,
-            this.onSaveProjectCb.bind(this)
-        );
     }
 
     // Has context of SolutionController
     _initSolutionSubs() {
-        this._onSaveCbToken = PubSub.subscribe(
+        this._saveProjectCbToken = PubSub.subscribe(
             topic.SaveProject,
             this.onSaveProjectCb.bind(this)
         );

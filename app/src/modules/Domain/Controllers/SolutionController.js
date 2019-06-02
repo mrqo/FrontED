@@ -1,3 +1,5 @@
+import CircularJSON from 'circular-json';
+
 import * as SessionManager from '../Managers/SessionManager';
 
 class SolutionController {
@@ -8,7 +10,13 @@ class SolutionController {
     }
 
     onSaveProjectCb(msg, data) {
-
+        console.log(data);
+        let jsonStringSource = CircularJSON.stringify(this._structureController.elementRoot);
+        
+        SessionManager.saveProject(data["id"], data["name"], jsonStringSource)
+        .then(function(response) {
+            console.log(response);
+        });
     }
 
     onGenerateProjectCb(msg, data) {

@@ -1,15 +1,15 @@
 import PubSub from 'pubsub-js';
 import { topic } from '../Enums/PubSubTopics';
 
-import CircularJSON from 'circular-json';
-import * as SessionManager from '../Managers/SessionManager';
-
-
 class StructureController {
     constructor(elementsFactory) {
         this._elementsFactory = elementsFactory;
         this._elementRoot = this._elementsFactory.createElement();
         this._selectedNode = this._elementRoot;
+    }
+
+    get elementRoot() {
+        return this._elementRoot;
     }
 
     get selectedNode() {
@@ -22,15 +22,6 @@ class StructureController {
 
     onCreationRequestedCb(msg, data) {
         this.addElement(data.type);
-    }
-
-    onSaveProjectCb(msg, data) {
-        console.log(data);
-        let jsonStringSource = CircularJSON.stringify(this._elementRoot);
-        SessionManager.saveProject(data["id"], data["name"], jsonStringSource)
-        .then(function(response) {
-            console.log(response);
-        })
     }
 
     addElement(type, width, height) {
