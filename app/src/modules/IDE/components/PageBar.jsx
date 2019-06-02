@@ -1,14 +1,24 @@
 import React from 'react';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { withStyles } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import CreateIcon from '@material-ui/icons/Create';
+import SaveIcon from '@material-ui/icons/Save';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import PageViewIcon from '@material-ui/icons/Pageview';
+
+import { withStyles, ListItemText } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import PubSub from 'pubsub-js';
 import { topic } from '../../Domain/Enums/PubSubTopics';
 import Chip from '@material-ui/core/Chip';
+import Popover from '@material-ui/core/Popover';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import LoginDialog from './LoginDialog';
 
@@ -39,17 +49,18 @@ class PageBar extends React.Component {
         menuOpen: false,
         isUserDataValid: false,
         firstName: "",
-        lastName: ""
+        lastName: "",
+        menuAnchorEl: null,
     }
     
     constructor(props) {
         super(props);
-        this.handleNewProject = this.handleGenerateProject.bind(this);  // FIXME: Marek, literowka?
+        this.handleMenuToggle = this.handleMenuToggle.bind(this);
+        this.handleMenuClose = this.handleMenuClose.bind(this);
+        this.handleNewProject = this.handleNewProject.bind(this);  // FIXME: Marek, literowka? [Marek]: poprawione:)
         this.handleSelectProject = this.handleSelectProject.bind(this);
         this.handleSaveProject = this.handleSaveProject.bind(this);
         this.handleGenerateProject = this.handleGenerateProject.bind(this);
-        this.handleMenuToggle = this.handleMenuToggle.bind(this);
-        this.handleMenuClose = this.handleMenuClose.bind(this);
         this.handleLoginDialogClose = this.handleLoginDialogClose.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
@@ -57,7 +68,7 @@ class PageBar extends React.Component {
 
     render() {
         const { classes } = this.props;
-        
+
         return (
             <div className={classes.root}>
                 <Toolbar variant="dense">
@@ -94,26 +105,57 @@ class PageBar extends React.Component {
                                     onClick={this.handleLogout}>
                                     Log out
                                 </button>
-            
                             </div>
                     }
-                    
-                    <button 
-                        className="btn btn-outline-primary"
-                        onClick={this.handleSaveProject}>
-                        Save
-                    </button>
-                    <button 
-                        className="btn btn-outline-primary"
-                        onClick={this.previewProject}>
-                        Preview
-                    </button>
                 </Toolbar>
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
                     handleClose={this.handleLoginDialogClose}
                     handleLogin={this.handleLogin}
                 /> 
+
+                <Popover 
+                    id="simple-menu" 
+                    anchorEl={this.state.menuAnchorEl} 
+                    open={Boolean(this.state.menuAnchorEl)} 
+                    onClose={this.handleMenuClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}>
+                    <List
+                        component="nav" 
+                        subheader={<ListSubheader>Project</ListSubheader>}>
+                        <ListItem button onClick={this.handleNewProject}>
+                            <ListItemIcon>
+                                <CreateIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="New"/>
+                        </ListItem>
+                        <ListItem button onClick={this.handleSelectProject}>
+                            <ListItemIcon>
+                                <CloudDownloadIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Load"/>
+                        </ListItem>
+                        <ListItem button onClick={this.handleSaveProject}>
+                            <ListItemIcon>
+                                <SaveIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Save"/>
+                        </ListItem>
+                        <ListItem button onClick={this.handlePreviewProject}>
+                            <ListItemIcon>
+                                <PageViewIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Preview"/>
+                        </ListItem>
+                    </List>
+                </Popover>
             </div>
         )
     }
@@ -135,6 +177,14 @@ class PageBar extends React.Component {
                     });
                 }
             }.bind(this));
+    }
+
+    handleMenuToggle = (event) => {
+        this.setState({menuAnchorEl: event.currentTarget});
+    }
+
+    handleMenuClose = () => {
+        this.setState({menuAnchorEl: null});
     }
 
     handleNewProject = (e) => { 
@@ -185,20 +235,11 @@ class PageBar extends React.Component {
         })
     }
 
-    previewProject = (e) => {
+    handlePreviewProject = (e) => {
         let projectId = 5; // project is identified by ID
         this.handleSaveProject();
         // we should have some wait here, because we have to refresh the website
         window.open(`http://127.0.0.1:8000/ed/projects/preview/${projectId}/html/`);
-    }
-
-    handleMenuToggle = (e) => {
-        //setAnchorEl(event.currentTarget);
-        this.setState({menuOpen: true});
-    }
-
-    handleMenuClose = (e) => {
-        this.setState({menuOpen: false});
     }
 
     handleLoginDialogClose = (e) => {
