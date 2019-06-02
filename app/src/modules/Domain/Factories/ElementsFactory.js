@@ -80,7 +80,9 @@ class ElementsFactory {
 
         image.id = "image@" + this._makeUniqueIdentifier();
         image.properties.name = "Image";
-        image.properties.src = "source";
+        image.properties.height = 64;
+        image.properties.width = 64;
+        image.properties.src = "https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png";
         image.meta.type = ElementType.Image;
         
         return image;

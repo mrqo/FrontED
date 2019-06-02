@@ -12,6 +12,9 @@ const styles = theme => ({
     textField: {
         marginTop: 10,
     },
+    textFieldContent: {
+        fontSize: 14
+    }
 });
 
 class ImageProperties extends React.Component {
@@ -30,28 +33,22 @@ class ImageProperties extends React.Component {
                 </FormLabel>
                 <FormGroup>
                     <TextField 
-                        id="imageSourceTextField"
-                        type="file"
+                        className={classes.textField}
                         onChange={this.onSourceChanged}
-                        label="Image source" />
-                    <TextField 
-                        id="imageTextTextField" 
-                        onChange={this.onDescriptionChanged}
-                        label="Description" />
+                        value={this.props.model.properties.src}
+                        label="Source"
+                        InputProps={{
+                            classes: {
+                                input: classes.textFieldContent
+                            }
+                        }}/>
                 </FormGroup>
             </FormControl>
         )
     }
     
     onSourceChanged = (e) => {
-        //TODO: test if it works
-        this.props.onChange("source", e.target.files[0]);
-    }
-    onDescriptionChanged = (e) => {
-        //TODO: test if it works
-        // <img alt=description>
-        this.props.onChange("description", e.target.value);
-        console.log(this.props.model.properties.image);
+        this.props.onChange("src", e.target.value);
     }
 }
 
