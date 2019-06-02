@@ -1,11 +1,15 @@
-from ed.renderer.abstract import Container, Object
+from ed.renderer.abstract import Container as AbstractContainer, Object
 
-
-class Body(Container):
-    PREFIX = "<body {classes} {styles}>"
-    POSTFIX = "</body>"
-    def __init__(self, *classes, **styles):
-        super().__init__(*classes, **styles)
+# Root in FrontEd
+class Unknown(AbstractContainer):
+    # Body
+    PREFIX = """<html><header>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+    </header>
+    <body {id} {properties}>"""
+    POSTFIX = "</body></html>"
+    def __init__(self, _id, properties):
+        super().__init__(_id, properties)
 
     @property
     def content(self):
@@ -22,30 +26,31 @@ class Body(Container):
         )
 
 
-class Div(Body):
-    PREFIX = "<div {classes} {styles}>"
+class Container(Unknown):
+    PREFIX = "<div {id} {properties}>"
     POSTFIX = "</div>"
 
 
 class Image(Object):
-    PREFIX = '<img src="{src}" {classes} {styles}>'
+    PREFIX = '<img src="{src}" {id} {properties}>'
     POSTFIX = '</img>'
-    def __init__(self, src, *classes, **styles):
-        super().__init__(*classes, **styles)
-        self.src = src
+    def __init__(self, _id, properties):
+        super().__init__(_id, properties)
+        self.src = properties["src"]
 
     @property
     def prefix(self):
-        return super().prefix().format(src=self.src)
+        # FIXME: self.src
+        return super().prefix.format(src=self.src)
 
 
-class Text(Object):
+class Label(Object):
     # easy to make simillar text formatting with help of inheritance
     PREFIX = ''
     POSTFIX = ''
-    def __init__(self, text, *classes, **styles):
-        super().__init__(*classes, **styles)
-        self.text = text
+    def __init__(self, _id, properties):
+        super().__init__(_id, properties)
+        self.text = properties["text"]
 
     @property
     def content(self):
@@ -53,11 +58,11 @@ class Text(Object):
 
 
 class Button(Object):
-    PREFIX = '<button type="button" {classes} {styles}>'
+    PREFIX = '<button type="button" {id} {properties}>'
     POSTFIX = '</button>'
-    def __init__(self, text, *classes, **styles):
-        super().__init__()
-        self.text = text
+    def __init__(self, _id, properties):
+        super().__init__(_id, properties)
+        self.text = properties["text"]
 
     @property
     def content(self):

@@ -44,7 +44,7 @@ class PageBar extends React.Component {
     
     constructor(props) {
         super(props);
-        this.handleNewProject = this.handleGenerateProject.bind(this);
+        this.handleNewProject = this.handleGenerateProject.bind(this);  // FIXME: Marek, literowka?
         this.handleSelectProject = this.handleSelectProject.bind(this);
         this.handleSaveProject = this.handleSaveProject.bind(this);
         this.handleGenerateProject = this.handleGenerateProject.bind(this);
@@ -102,6 +102,11 @@ class PageBar extends React.Component {
                         className="btn btn-outline-primary"
                         onClick={this.handleSaveProject}>
                         Save
+                    </button>
+                    <button 
+                        className="btn btn-outline-primary"
+                        onClick={this.previewProject}>
+                        Preview
                     </button>
                 </Toolbar>
                 <LoginDialog 
@@ -169,7 +174,7 @@ class PageBar extends React.Component {
 
     // no handler
     handleGenerateProject = (e) => {
-        let projectId = 1 // project is identified by ID
+        let projectId = 5; // project is identified by ID
         SessionManager.generateProject(projectId)
         .then(function(response) {
             console.log(response["result"])
@@ -178,6 +183,13 @@ class PageBar extends React.Component {
             // json is invalid or
             // backend can't handle this json
         })
+    }
+
+    previewProject = (e) => {
+        let projectId = 5; // project is identified by ID
+        this.handleSaveProject();
+        // we should have some wait here, because we have to refresh the website
+        window.open(`http://127.0.0.1:8000/ed/projects/preview/${projectId}/html/`);
     }
 
     handleMenuToggle = (e) => {

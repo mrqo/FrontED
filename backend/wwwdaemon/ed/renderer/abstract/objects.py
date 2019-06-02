@@ -1,24 +1,29 @@
+class SafeDict(dict):
+    def __missing__(self, key):
+        return '{' + key + '}'
+
 
 class Object:
     """
     Abstract object
     """
-    PREFIX = "<object {classes} {styles}>"
+    PREFIX = "<object {id} {properties}>"
     POSTFIX = "</object>"
-    def __init__(self, *classes, **styles):
-        self.classes = ' '.join(classes)
-        self.styles = ' '.join(["{}={}".format(k,v) for k, v in styles.items()])
+    def __init__(self, _id, _properties):
+        self._id = _id
+        self.properties = _properties
+
+    def get_properties(self):
+        return ""
 
     @property
     def prefix(self):
-        _return_prefix = self.PREFIX
-        if '{' in self.PREFIX:
-            _return_prefix = self.PREFIX.format(
-                classes='class="{}"'.format(self.classes) if self.classes else "",
-                styles='style="{}"'.format(self.styles) if self.styles else ""
+        return self.PREFIX.format_map(
+            SafeDict(
+                id='id="{}"'.format(self._id) if self._id else "",
+                properties='style="{}"'.format(self.get_properties()) if self.properties else ""
             )
-
-        return _return_prefix
+        )
 
     @property
     def content(self):
@@ -36,11 +41,14 @@ class Container(Object):
     """
     Abstract container e.g. html's div
     """
-    PREFIX = "<container {classes} {styles}>"
+    PREFIX = "<container {id} {properties}>"
     POSTFIX = "</container>"
     def __init__(self, *classes, **styles):
         super().__init__(*classes, **styles)
         self.children = []
+
+    def get_properties(self):
+        return ""
 
     def add_child(self, obj):
         self.children.append(obj)
