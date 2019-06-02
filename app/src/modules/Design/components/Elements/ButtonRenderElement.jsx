@@ -24,12 +24,16 @@ class ButtonRenderElement extends React.Component {
                     shadowBlur={this.props.model.properties.shadowBlur}
                     shadowColor={this.props.model.properties.shadowColor}/>
                 <Text
-                    x={0}
-                    y={this.props.height / 2}
-                    width={this.props.width}
-                    height={this.props.height / 8}
-                    align={"center"}
-                    verticalAlign={'middle'}
+                    x={4}
+                    y={4}
+                    width={this.props.width - 4}
+                    height={this.props.height}
+                    align={this.props.model.properties.contentHorAlignment}
+                    verticalAlign={
+                        this.props.model.properties.contentVerAlignment == 'center'
+                        ? 'middle'
+                        : this.props.model.properties.contentVerAlignment
+                    }
                     text={this.props.model.properties.text}
                     fill={this.props.model.properties.textColor}
                     fontSize={this.scaled(this.props.model.properties.textSize)}

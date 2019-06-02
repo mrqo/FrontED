@@ -12,7 +12,12 @@ class LabelRenderElement extends React.Component {
             <Text
                 x={0} 
                 y={0} 
-                align={"center"}
+                align={this.props.model.properties.contentHorAlignment}
+                verticalAlign={
+                    this.props.model.properties.contentVerAlignment == 'center'
+                    ? 'middle'
+                    : this.props.model.properties.contentVerAlignment
+                }
                 width={this.props.width} 
                 height={this.props.height}
                 text={this.props.model.properties.text}

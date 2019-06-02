@@ -130,25 +130,45 @@ class PageBar extends React.Component {
                     <List
                         component="nav" 
                         subheader={<ListSubheader>Project</ListSubheader>}>
-                        <ListItem button onClick={this.handleNewProject}>
+                        <ListItem 
+                            button
+                            onClick={(e) => {
+                                this.handleNewProject(e);
+                                this.handleMenuClose(e);
+                            }}>
                             <ListItemIcon>
                                 <CreateIcon/>
                             </ListItemIcon>
                             <ListItemText primary="New"/>
                         </ListItem>
-                        <ListItem button onClick={this.handleSelectProject}>
+                        <ListItem 
+                            button 
+                            onClick={(e) => {
+                                this.handleSelectProject(e);
+                                this.handleMenuClose(e);
+                            }}>
                             <ListItemIcon>
                                 <CloudDownloadIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Load"/>
                         </ListItem>
-                        <ListItem button onClick={this.handleSaveProject}>
+                        <ListItem 
+                            button 
+                            onClick={(e) => {
+                                this.handleSaveProject(e);
+                                this.handleMenuClose(e);
+                            }}>
                             <ListItemIcon>
                                 <SaveIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Save"/>
                         </ListItem>
-                        <ListItem button onClick={this.handlePreviewProject}>
+                        <ListItem 
+                            button
+                            onClick={(e) => {
+                                this.handlePreviewProject(e);
+                                this.handleMenuClose(e);
+                            }}>
                             <ListItemIcon>
                                 <PageViewIcon/>
                             </ListItemIcon>

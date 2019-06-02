@@ -81,6 +81,8 @@ class ElementsFactory {
         button.properties.shadowOffsetY = 5;
         button.properties.shadowBlur = 5;
         button.properties.shadowColor = "#aaaaaa";
+        button.properties.contentVerAlignment = 'center';
+        button.properties.contentHorAlignment = 'center';
         button.meta.type = ElementType.Button;
                 
         return button;
@@ -102,7 +104,9 @@ class ElementsFactory {
                 x: 0,
                 y: 0,
                 width: width,
-                height: height
+                height: height,
+                contentVerAlignment: 'top',
+                contentHorAlignment: 'left'
             },
             content: [],
             meta: {

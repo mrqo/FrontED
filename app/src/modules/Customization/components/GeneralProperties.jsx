@@ -8,7 +8,9 @@ import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import { FormatAlignLeftRounded, FormatAlignCenterRounded, FormatAlignRightRounded } from '@material-ui/icons';
+import { VerticalAlignBottomRounded, VerticalAlignCenterRounded, VerticalAlignTopRounded } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -27,6 +29,16 @@ const styles = theme => ({
     },
     switchLabel: {
         textAlign: 'left'
+    },
+    icon: {
+        width: 24,
+        height: 24,
+        color: '#192A59',
+    },
+    uncheckedIcon: {
+        width: 24,
+        height: 24,
+        color: '#cccccc'
     }
 });
 
@@ -56,14 +68,6 @@ class GeneralProperties extends React.Component {
                         value={this.props.model.properties.name}
                         className={classes.textField}
                         onChange={this.onNameChanged}/>
-
-                    <TextField 
-                        name="genAliasNameField"
-                        label="Alias name"
-                        placeholder="aliasName"
-                        value={this.props.model.properties.name}
-                        className={classes.textField}
-                        onChange={this.onAliasNameChanged}/>
                     
                     <div>
                         <TextField
@@ -113,24 +117,82 @@ class GeneralProperties extends React.Component {
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
                     
-                    {/*
-                        <FormControlLabel
-                        control={
-                            <Switch 
-                                checked={this.state.deriveStyleChecked}
-                                value="deriveStyleChecked"
-                                className={classes.switch}/>
-                        }
-                        label={
-                        <div 
-                            className={classes.switchLabel}>
-                            Inherit styles
+                    <div style={{marginTop: 10}} className="row">
+                        <div className="col">
+                            <Typography 
+                                style={{width: "100%"}} 
+                                variant="caption" 
+                                display="block" 
+                                gutterBottom>
+                                Horizontal align
+                            </Typography>
+                        
+                            <FormatAlignLeftRounded 
+                                className={
+                                    this.props.model.properties.contentHorAlignment == 'left'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }
+                                onClick={(e) => {
+                                    this.onHorizontalAlignmentChanged(e, 'left');
+                                }}/>
+                            <FormatAlignCenterRounded 
+                                className={
+                                    this.props.model.properties.contentHorAlignment == 'center'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }
+                                onClick={(e) => {
+                                    this.onHorizontalAlignmentChanged(e, 'center');
+                                }}/>
+                            <FormatAlignRightRounded 
+                                className={
+                                    this.props.model.properties.contentHorAlignment == 'right'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }
+                                onClick={(e) => {
+                                    this.onHorizontalAlignmentChanged(e, 'right');
+                                }}/>
                         </div>
-                        }
-                        labelPlacement="start"/>    
-                        */
-                    }
-
+                        <div className="col">
+                            <Typography 
+                                style={{width: "100%"}}
+                                variant="caption" 
+                                display="block" 
+                                gutterBottom>
+                                Vertical align
+                            </Typography>
+                        
+                            <VerticalAlignBottomRounded 
+                                onClick={(e) => {
+                                    this.onVerticalAlignmentChanged(e, 'bottom');
+                                }}
+                                className={
+                                    this.props.model.properties.contentVerAlignment == 'bottom'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }/>
+                            <VerticalAlignCenterRounded 
+                                className={
+                                    this.props.model.properties.contentVerAlignment == 'center'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }
+                                onClick={(e) => {
+                                    this.onVerticalAlignmentChanged(e, 'center');
+                                }}/>
+                            <VerticalAlignTopRounded 
+                                className={
+                                    this.props.model.properties.contentVerAlignment == 'top'
+                                    ? classes.icon
+                                    : classes.uncheckedIcon
+                                }
+                                onClick={(e) => {
+                                    this.onVerticalAlignmentChanged(e, 'top');
+                                }}/>
+                        </div>
+                    </div>
                 </FormGroup>
             </FormControl>
         );
@@ -190,6 +252,14 @@ class GeneralProperties extends React.Component {
         {
             this.props.onChange("y", e.target.value);
         }
+    }
+
+    onHorizontalAlignmentChanged = (e, alignment) => {
+        this.props.onChange("contentHorAlignment", alignment);
+    }
+
+    onVerticalAlignmentChanged = (e, alignment) => {
+        this.props.onChange("contentVerAlignment", alignment);
     }
 }
 
