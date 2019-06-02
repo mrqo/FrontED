@@ -124,7 +124,7 @@ export function saveProject(projectId, projectName, projectSource) {
     const requestOptions = {
         method: 'PUT',
         headers: authHeader(),
-        body: JSON.stringify({name: projectName, source: projectName })
+        body: JSON.stringify({name: projectName, source: projectSource })
     };
 
     return fetch(`/ed/projects/${projectId}/`, requestOptions).then(handleResponse);

@@ -1,0 +1,61 @@
+{
+    "content": [
+        {
+            "content": [
+                {
+                    "content": [],
+                    "id": "button@6",
+                    "meta": {
+                        "type": "button"
+                    },
+                    "parent": "~content~0",
+                    "properties": {
+                        "bgColor": "#ffffff",
+                        "borderColor": "#44cc44",
+                        "borderRadius": 3,
+                        "height": 60,
+                        "name": "Button",
+                        "shadowBlur": 5,
+                        "shadowColor": "#aaaaaa",
+                        "shadowOffsetX": 5,
+                        "shadowOffsetY": 5,
+                        "strokeWidth": 3,
+                        "text": "Button",
+                        "textColor": "#000000",
+                        "textSize": 13,
+                        "visible": true,
+                        "width": 120,
+                        "x": -61,
+                        "y": -108
+                    }
+                }
+            ],
+            "id": "container@4",
+            "meta": {
+                "type": "container"
+            },
+            "parent": "~",
+            "properties": {
+                "height": 60,
+                "layoutType": "Free",
+                "name": "Container",
+                "visible": true,
+                "width": 120,
+                "x": -92,
+                "y": -204
+            }
+        }
+    ],
+    "id": "2",
+    "meta": {
+        "type": "unknown"
+    },
+    "properties": {
+        "height": 60,
+        "name": "undefined_name",
+        "visible": true,
+        "width": 120,
+        "x": 0,
+        "y": 0
+    }
+}

@@ -1,5 +1,7 @@
 import PubSub from 'pubsub-js';
 import { topic } from '../Enums/PubSubTopics';
+
+import CircularJSON from 'circular-json';
 import * as SessionManager from '../Managers/SessionManager';
 
 
@@ -23,18 +25,12 @@ class StructureController {
     }
 
     onSaveProjectCb(msg, data) {
-        console.log(msg);
         console.log(data);
-        console.log(this._elementRoot);
-
-/*
-        // id, name, source
-        // remember to convert JSON SOURCE to String(JSON) source
-        SessionManager.saveProject(projectId, "changeNameToThis", "changeSourceToThis")
+        let jsonStringSource = CircularJSON.stringify(this._elementRoot);
+        SessionManager.saveProject(data["id"], data["name"], jsonStringSource)
         .then(function(response) {
-               // it returns the same as newProject: id, name, source
+            console.log(response);
         })
-        */
     }
 
     addElement(type, width, height) {
