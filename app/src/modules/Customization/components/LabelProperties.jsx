@@ -44,6 +44,7 @@ class LabelProperties extends React.Component {
                     <TextField
                         id="labelTextField"
                         label="Text"
+                        value={this.props.model.properties.text}
                         onChange={this.onTextChanged}
                         className={classes.textField}/>
                     <TextField
