@@ -15,6 +15,9 @@ const styles = theme => ({
     textField: {
         marginTop: 10,
     },
+    textFieldContent: {
+        fontSize: 14
+    }
 });
 
 class ButtonProperties extends React.Component {
@@ -39,7 +42,12 @@ class ButtonProperties extends React.Component {
                         label="Text"
                         value={this.props.model.properties.text}
                         onChange={this.onTextChanged}
-                        className={classes.textField}/>
+                        className={classes.textField}
+                        InputProps={{
+                            classes: {
+                                input: classes.textFieldContent
+                            }
+                        }}/>
 
                     <div>
                         <TextField
@@ -49,7 +57,12 @@ class ButtonProperties extends React.Component {
                             value={this.props.model.properties.textSize}
                             onChange={this.onTextSizeChanged}
                             className={classes.textField}
-                            style = {{width: "45%"}}/>
+                            style = {{width: "45%"}}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}/>
 
                         <TextField 
                             name="buttonTextColorNameField"
@@ -93,6 +106,11 @@ class ButtonProperties extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}
                             style = {{width: "45%"}}/>
 
                         <TextField
@@ -104,6 +122,11 @@ class ButtonProperties extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
                     
@@ -114,7 +137,12 @@ class ButtonProperties extends React.Component {
                             value={this.props.model.properties.shadowBlur}
                             onChange={this.onShadowBlurChanged}
                             className={classes.textField}
-                            style = {{width: "45%"}}/>
+                            style = {{width: "45%"}}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}/>
 
                         <TextField
                             type="color"
@@ -135,6 +163,11 @@ class ButtonProperties extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}
                             style = {{width: "45%"}}/>
 
                         <TextField
@@ -145,6 +178,11 @@ class ButtonProperties extends React.Component {
                             onChange={this.onShadowYChanged}
                             InputLabelProps={{
                                 shrink: true,
+                            }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
                             }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>

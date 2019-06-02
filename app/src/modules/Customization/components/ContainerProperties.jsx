@@ -5,9 +5,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -18,9 +17,9 @@ const styles = theme => ({
     container: {
         marginTop: 15,
     },
-    textField: {
-        marginTop: 10,
-    },
+    textFieldContent: {
+        fontSize: 14
+    }
 });
 
 class ContainerProperties extends React.Component {
@@ -30,18 +29,22 @@ class ContainerProperties extends React.Component {
         return (
             <FormControl
                 component="fieldset"
-                fullWidth={true}
-                className={classes.container}>
+                className={classes.container}
+                fullWidth>
                 <FormLabel component="legend">
                     Container
                 </FormLabel>
                 <FormGroup>
-                    <InputLabel htmlFor="select-container-type">Type</InputLabel>
+                    <Typography 
+                        style={{width: "100%"}} 
+                        variant="caption" 
+                        display="block" 
+                        gutterBottom>
+                        Type
+                    </Typography>
                     <Select
-                        input={<Input id="select-container-type" />}
                         onChange={this.onTypeChanged}
-                        value={this.props.model.properties.layoutType || ''}
-                    >
+                        value={this.props.model.properties.layoutType || ''}>
                         {
                             Object.keys(ContainerLayoutType).map(key => (
                                 <MenuItem key={key} value={key}>

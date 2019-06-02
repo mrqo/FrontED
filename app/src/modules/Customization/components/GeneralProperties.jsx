@@ -39,6 +39,9 @@ const styles = theme => ({
         width: 24,
         height: 24,
         color: '#cccccc'
+    },
+    textFieldContent: {
+        fontSize: 14
     }
 });
 
@@ -57,7 +60,7 @@ class GeneralProperties extends React.Component {
         return (
             <FormControl 
                 component="fieldset"
-                fullWidth={true}>
+                fullWidth>
                 <FormLabel component="legend">
                     General
                 </FormLabel>
@@ -67,7 +70,12 @@ class GeneralProperties extends React.Component {
                         label="Name"
                         value={this.props.model.properties.name}
                         className={classes.textField}
-                        onChange={this.onNameChanged}/>
+                        onChange={this.onNameChanged}
+                        InputProps={{
+                            classes: {
+                                input: classes.textFieldContent
+                            }
+                        }}/>
                     
                     <div>
                         <TextField
@@ -79,6 +87,11 @@ class GeneralProperties extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}
                             style = {{width: "45%"}}/>
 
                         <TextField
@@ -89,6 +102,11 @@ class GeneralProperties extends React.Component {
                             onChange={this.onHeightChanged}
                             InputLabelProps={{
                                 shrink: true,
+                            }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
                             }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
@@ -103,6 +121,11 @@ class GeneralProperties extends React.Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
+                            }}
                             style = {{width: "45%"}}/>
 
                         <TextField
@@ -113,6 +136,11 @@ class GeneralProperties extends React.Component {
                             onChange={this.onYChanged}
                             InputLabelProps={{
                                 shrink: true,
+                            }}
+                            InputProps={{
+                                classes: {
+                                    input: classes.textFieldContent
+                                }
                             }}
                             style = {{width: "45%", marginLeft: "10%"}}/>
                     </div>
