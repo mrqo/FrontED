@@ -7,9 +7,9 @@ import Widget from '../../Common/components/Widget';
 import '../../Common/components/Widget.css';
 
 import GeneralProperties from './GeneralProperties';
+import AppearanceProperties from './AppearanceProperties';
 import ImageProperties from './ImageProperties';
-import LabelProperties from './LabelProperties';
-import ButtonProperties from './ButtonProperties';
+import ContentProperties from './ContentProperties';
 import ContainerProperties from './ContainerProperties';
 
 import { ElementType } from '../../Domain/Enums/Elements';
@@ -36,11 +36,17 @@ class PropertiesWidget extends Widget {
                 //propGroups.push();
             }
             
-            if (this.state.modelType === ElementType.Label) {
+            if (this.state.modelType === ElementType.Label
+                || this.state.modelType === ElementType.Button) {
                 propGroups.push(
-                    <LabelProperties 
+                    <AppearanceProperties 
                         model={this.state.model} 
-                        key={this.state.model.id}
+                        onChange={this.onPropertyChanged}/>
+                );
+                
+                propGroups.push(
+                    <ContentProperties 
+                        model={this.state.model} 
                         onChange={this.onPropertyChanged}/>
                 );
             }
@@ -49,25 +55,20 @@ class PropertiesWidget extends Widget {
                 propGroups.push(
                     <ImageProperties 
                         model={this.state.model}
-                        key={this.state.model.id}
-                        onChange={this.onPropertyChanged}/>
-                );
-            }
-
-            if (this.state.modelType === ElementType.Button) {
-                propGroups.push(
-                    <ButtonProperties 
-                        model={this.state.model}
-                        key={this.state.model.id}
                         onChange={this.onPropertyChanged}/>
                 );
             }
 
             if (this.state.modelType == ElementType.Container) {
                 propGroups.push(
+                    <AppearanceProperties 
+                        model={this.state.model} 
+                        onChange={this.onPropertyChanged}/>
+                );
+
+                propGroups.push(
                     <ContainerProperties
                         model={this.state.model}
-                        key={this.state.model.id}
                         onChange={this.onPropertyChanged}/>
                 );
             }
@@ -77,7 +78,6 @@ class PropertiesWidget extends Widget {
                     { this.state.modelType !== ElementType.Unknown
                         ? <GeneralProperties
                             model={this.state.model}
-                            key={this.state.model.id}
                             onChange={this.onPropertyChanged}
                         />
                         : <div/>

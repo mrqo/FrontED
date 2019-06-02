@@ -1,10 +1,5 @@
 import React from 'react';
-
-import PubSub from 'pubsub-js';
-import { topic } from '../../Domain/Enums/PubSubTopics';
-
 import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -13,9 +8,6 @@ import { FormatAlignLeftRounded, FormatAlignCenterRounded, FormatAlignRightRound
 import { VerticalAlignBottomRounded, VerticalAlignCenterRounded, VerticalAlignTopRounded } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
-
-import { SketchPicker } from 'react-color';
-
 
 const styles = theme => ({
     container: {
@@ -48,10 +40,6 @@ const styles = theme => ({
 class GeneralProperties extends React.Component {
     state = {
         deriveStyle: false
-    }
-
-    constructor(props) {
-        super(props);
     }
 
     render() {
@@ -221,6 +209,8 @@ class GeneralProperties extends React.Component {
                                 }}/>
                         </div>
                     </div>
+                    
+                    
                 </FormGroup>
             </FormControl>
         );

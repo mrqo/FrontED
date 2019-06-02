@@ -1,83 +1,55 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 
-import { withStyles } from '@material-ui/core/styles';
-
+import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
     container: {
-        marginTop: 15,
+        display: 'flex',
+        flexWrap: 'wrap'
     },
     textField: {
+        marginLeft: 0,
+        marginRight: 0,
         marginTop: 10,
+    },
+    switchLabel: {
+        textAlign: 'left'
+    },
+    icon: {
+        width: 24,
+        height: 24,
+        color: '#192A59',
+    },
+    uncheckedIcon: {
+        width: 24,
+        height: 24,
+        color: '#cccccc'
     },
     textFieldContent: {
         fontSize: 14
     }
 });
 
-class ButtonProperties extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+class AppearanceProperties extends React.Component {
     render() {
         const { classes } = this.props;
 
         return (
             <FormControl
                 component="fieldset"
-                fullWidth={true}
+                fullWidth
                 className={classes.container}>
                 <FormLabel component="legend">
-                    Button
+                    Appearance
                 </FormLabel>
                 <FormGroup>
-                    <TextField
-                        id="buttonTextField"
-                        label="Text"
-                        value={this.props.model.properties.text}
-                        onChange={this.onTextChanged}
-                        className={classes.textField}
-                        InputProps={{
-                            classes: {
-                                input: classes.textFieldContent
-                            }
-                        }}/>
-
-                    <div>
-                        <TextField
-                            id="buttonTextSizeTextField"
-                            type="number"
-                            label="Font size"
-                            value={this.props.model.properties.textSize}
-                            onChange={this.onTextSizeChanged}
-                            className={classes.textField}
-                            style = {{width: "45%"}}
-                            InputProps={{
-                                classes: {
-                                    input: classes.textFieldContent
-                                }
-                            }}/>
-
+                <div>
                         <TextField 
-                            name="buttonTextColorNameField"
-                            type="color"
-                            label="Foreground color"
-                            value={this.props.model.properties.textColor}
-                            className={classes.textField}
-                            onChange={this.onTextColorChanged}
-                            style = {{width: "45%", marginLeft: "10%"}}/>
-                    </div>
-
-
-                    <div>
-                        <TextField 
-                            name="genColorNameField"
                             type="color"
                             label="Background color"
                             value={this.props.model.properties.bgColor}
@@ -86,7 +58,6 @@ class ButtonProperties extends React.Component {
                             style = {{width: "45%"}}/>
 
                         <TextField
-                            name="genColorNameField"
                             type="color"
                             label="Border color"
                             value={this.props.model.properties.borderColor}
@@ -191,18 +162,7 @@ class ButtonProperties extends React.Component {
         )
     }
 
-    onTextChanged = (e) => {
-        this.props.onChange("text", e.target.value);
-    }
-
-    onTextSizeChanged = (e) => {
-        this.props.onChange("textSize", e.target.value);
-    }
-
-    onTextColorChanged = (e) => {
-        this.props.onChange("textColor", e.target.value);
-    }
-
+    
     onBorderColorChanged = (e) => {
         this.props.onChange("borderColor", e.target.value);
     }
@@ -236,4 +196,4 @@ class ButtonProperties extends React.Component {
     }
 }
 
-export default withStyles(styles)(ButtonProperties);
+export default withStyles(styles)(AppearanceProperties);

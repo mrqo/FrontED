@@ -20,10 +20,12 @@ class ElementsFactory {
     }
 
     copyElement(origin) {
-        var newElement = this.createElement(origin.meta.type, 
-                                            origin.parent, 
-                                            origin.properties.width, 
-                                            origin.properties.height);
+        var newElement = this.createElement(
+            origin.meta.type, 
+            origin.parent, 
+            origin.properties.width, 
+            origin.properties.height
+        );
 
         newElement.properties = JSON.parse(JSON.stringify(origin.properties));  
         newElement.meta = JSON.parse(JSON.stringify(origin.meta));
@@ -36,6 +38,14 @@ class ElementsFactory {
         container.id = "container@" + this._makeUniqueIdentifier();
         container.properties.name = "Container";
         container.properties.layoutType = ContainerLayoutType.Free;
+        container.properties.bgColor = "#ffffff00";
+        container.properties.borderColor = "#ffffff00";
+        container.properties.strokeWidth = 0;
+        container.properties.borderRadius = 0;
+        container.properties.shadowOffsetX = 0;
+        container.properties.shadowOffsetY = 0;
+        container.properties.shadowBlur = 0;
+        container.properties.shadowColor = "#ffffff";
         container.meta.type = ElementType.Container;
 
         return container;
@@ -45,10 +55,20 @@ class ElementsFactory {
         var label = this._createBoilerplate(parent, width, height);
         
         label.id = "label@" + this._makeUniqueIdentifier();
+        label.properties.height = 20;
+        label.properties.width = 140;
         label.properties.name = "Label";
-        label.properties.text = "text";
+        label.properties.text = "Place for your text.";
+        label.properties.textColor = "#000000";
         label.properties.textSize = 13;
-        label.properties.bgColor = "#000000";
+        label.properties.bgColor = "#ffffff00";
+        label.properties.borderColor = "#ffffff00";
+        label.properties.strokeWidth = 0;
+        label.properties.borderRadius = 0;
+        label.properties.shadowOffsetX = 0;
+        label.properties.shadowOffsetY = 0;
+        label.properties.shadowBlur = 0;
+        label.properties.shadowColor = "#ffffff";
         label.meta.type = ElementType.Label;
 
         return label;
@@ -69,17 +89,19 @@ class ElementsFactory {
         var button = this._createBoilerplate(parent, width, height);
 
         button.id = "button@" + this._makeUniqueIdentifier();
+        button.properties.height = 60;
+        button.properties.width = 100;
         button.properties.name = "Button";
-        button.properties.text = "Button";
-        button.properties.textSize = 13;
-        button.properties.textColor = "#000000";
-        button.properties.bgColor = "#ffffff";
-        button.properties.borderColor = "#44cc44";
-        button.properties.strokeWidth = 3;
-        button.properties.borderRadius = 3;
+        button.properties.text = "Press";
+        button.properties.textSize = 20;
+        button.properties.textColor = "#ffffff";
+        button.properties.bgColor = "#266ee2";
+        button.properties.borderColor = "#266ee2";
+        button.properties.strokeWidth = 0;
+        button.properties.borderRadius = 6;
         button.properties.shadowOffsetX = 5;
         button.properties.shadowOffsetY = 5;
-        button.properties.shadowBlur = 5;
+        button.properties.shadowBlur = 6;
         button.properties.shadowColor = "#aaaaaa";
         button.properties.contentVerAlignment = 'center';
         button.properties.contentHorAlignment = 'center';
