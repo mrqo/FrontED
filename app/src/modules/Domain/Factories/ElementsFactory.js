@@ -61,6 +61,7 @@ class ElementsFactory {
         label.properties.text = "Place for your text.";
         label.properties.textColor = "#000000";
         label.properties.textSize = 13;
+        label.properties.fontFamily = 'Calibri';
         label.properties.bgColor = "#ffffff00";
         label.properties.borderColor = "#ffffff00";
         label.properties.strokeWidth = 0;
@@ -94,6 +95,7 @@ class ElementsFactory {
         button.properties.name = "Button";
         button.properties.text = "Press";
         button.properties.textSize = 20;
+        button.properties.fontFamily = 'Calibri';
         button.properties.textColor = "#ffffff";
         button.properties.bgColor = "#266ee2";
         button.properties.borderColor = "#266ee2";

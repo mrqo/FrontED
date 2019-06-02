@@ -37,6 +37,7 @@ class LabelRenderElement extends React.Component {
               text={this.props.model.properties.text}
               fill={this.props.model.properties.textColor}
               fontSize={this.scaled(this.props.model.properties.textSize)}
+              fontFamily={this.props.model.properties.fontFamily}
               scale={this.props.scale}/>
       </Group>
       );

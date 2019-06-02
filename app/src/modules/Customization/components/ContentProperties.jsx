@@ -49,6 +49,18 @@ class ContentProperties extends React.Component {
                             }
                         }}/>
 
+                    <TextField
+                        id="buttonTextField"
+                        label="Font family"
+                        value={this.props.model.properties.fontFamily}
+                        onChange={this.onFontFamilyChanged}
+                        className={classes.textField}
+                        InputProps={{
+                            classes: {
+                                input: classes.textFieldContent
+                            }
+                        }}/>
+
                     <div>
                         <TextField
                             id="buttonTextSizeTextField"
@@ -82,6 +94,10 @@ class ContentProperties extends React.Component {
         this.props.onChange("text", e.target.value);
     }
 
+    onFontFamilyChanged = (e) => {
+        this.props.onChange("fontFamily", e.target.value);
+    }
+    
     onTextSizeChanged = (e) => {
         this.props.onChange("textSize", e.target.value);
     }
