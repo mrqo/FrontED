@@ -6,4 +6,8 @@ export const topic = {
     ElemRemoved: 'ElemRemoved',
     ModelChanged: 'ModelChanged',
     SaveProject: 'SaveProject',
+    GenerateProjectRequested: 'GenerateProjectRequested',
+    NewProjectRequested: 'NewProjectRequested',
+    FetchProjectsListRequested: 'FetchProjectsListRequested',
+    PreviewProjectRequested: 'HandleProjectsRequested'
 }

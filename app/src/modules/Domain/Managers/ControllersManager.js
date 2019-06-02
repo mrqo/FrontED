@@ -5,7 +5,7 @@ import { topic } from '../Enums/PubSubTopics';
 
 import ElementsFactory from '../Factories/ElementsFactory';
 
-import DesignController from '../Controllers/DesignController';
+import SolutionController from '../Controllers/SolutionController';
 import PropertiesController from '../Controllers/PropertiesController';
 import StructureController from '../Controllers/StructureController';
 
@@ -15,12 +15,12 @@ class ControllersManager {
         this._elementsFactory = new ElementsFactory();
 
         this._structureController = new StructureController(this._elementsFactory);
-        this._designController = new DesignController(this._structureController);
+        this._solutionController = new SolutionController(this._structureController);
         this._propertiesController = new PropertiesController(this._structureController);
     }
 
-    get designController() {
-        return this._designController;
+    get solutionController() {
+        return this._solutionController;
     }
 
     get structureController() {
@@ -33,7 +33,7 @@ class ControllersManager {
 
     initSubscriptions() {
         this._initStructureSubs.bind(this._structureController)()
-        this._initDesignSubs.bind(this._designController)()
+        this._initSolutionSubs.bind(this._solutionController)()
         this._initPropertiesSubs.bind(this._propertiesController)()
     }
 
@@ -55,19 +55,32 @@ class ControllersManager {
         );
     }
 
-    // Has context of DesignController
-    _initDesignSubs() {
-        this._selectionChangedCbToken = PubSub.subscribe(
-            topic.ElemSelectionChanged,
-            this.onSelectionChangedCb.bind(this)
+    // Has context of SolutionController
+    _initSolutionSubs() {
+        this._onSaveCbToken = PubSub.subscribe(
+            topic.SaveProject,
+            this.onSaveProjectCb.bind(this)
         );
 
-        /*
-        this._elementDeletedCbToken = PubSub.subscribe(
-            topic.ElemRemoved,
-            this.onElementRemovedCb.bind(this)
+        this._onNewProjectCbToken = PubSub.subscribe(
+            topic.NewProjectRequested,
+            this.onNewProjectCb.bind(this)
         );
-        */
+
+        this._onFetchProjectsListCb = PubSub.subscribe(
+            topic.FetchProjectsListRequested,
+            this.onFetchProjectsListCb.bind(this)
+        );
+
+        this._onPreviewProjectCb = PubSub.subscribe(
+            topic.PreviewProjectRequested,
+            this.onPreviewProjectCb.bind(this)
+        );
+        
+        this._onGenerateProjectCb = PubSub.subscribe(
+            topic.GenerateProjectRequested,
+            this.onGenerateProjectCb.bind(this)
+        );
     }
 
     // Has context of PropertiesController
@@ -77,7 +90,7 @@ class ControllersManager {
             this.onSelectionChangedCb.bind(this)
         );
 
-        this.propertyChangedCbToken = PubSub.subscribe(
+        this._propertyChangedCbToken = PubSub.subscribe(
             topic.ElemPropertyChanged,
             this.onPropertyChangedCb.bind(this)
         )

@@ -192,29 +192,21 @@ class PageBar extends React.Component {
         // it MUST be unique (per user ofc)
         let nameProject = "FIXME:"
         let sourceProject = "can not be blank!"; // just send some garbage like "test" if creating new project
-        SessionManager.addProject(nameProject, sourceProject)
-        .then(function(response) {
-               let id = response["id"]; // save this to handle generating later
-               let name = response["name"]; // save this too (to pass this on save)
-               let source = response["source"];
-        })
+        
+        PubSub.publish(topic.NewProjectRequested, { 
+            nameProject: nameProject,
+            sourceProject: sourceProject,
+        });
     }
 
     handleSelectProject = (e) => {
-        // get projects from database
-        SessionManager.getProjects()
-        .then(function(response) {
-            // returns list of projects, in this format:
-            // [
-            //     {id: 1, name: "TestName", source: "Not blank!"},
-            //     {id: 2, name: "TestName2", source: "Testing is the future"},
-            // ]
-        })
+        PubSub.publish(topic.FetchProjectsListRequested, {});
     }
 
     handleSaveProject = (e) => {
         let projectId = 5 // project is identified by ID
         let projectName = "TestProjectName" // pass project name, you can
+
         // pass different project name when user want to change project name
         PubSub.publish(topic.SaveProject, {
             id: projectId,
@@ -225,21 +217,20 @@ class PageBar extends React.Component {
     // no handler
     handleGenerateProject = (e) => {
         let projectId = 5; // project is identified by ID
-        SessionManager.generateProject(projectId)
-        .then(function(response) {
-            console.log(response["result"])
-            // note that there is big change this will fail:
-            // if e.g.:
-            // json is invalid or
-            // backend can't handle this json
-        })
+        
+        PubSub.publish(topic.GenerateProjectRequested, {
+            projectId: projectId
+        });
     }
 
     handlePreviewProject = (e) => {
         let projectId = 5; // project is identified by ID
-        this.handleSaveProject();
+        this.handleSaveProject(e);
         // we should have some wait here, because we have to refresh the website
-        window.open(`http://127.0.0.1:8000/ed/projects/preview/${projectId}/html/`);
+        
+        PubSub.publish(topic.PreviewProjectRequested, {
+            projectId: projectId
+        });
     }
 
     handleLoginDialogClose = (e) => {
