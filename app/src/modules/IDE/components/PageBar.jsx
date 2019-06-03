@@ -21,6 +21,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import LoginDialog from './LoginDialog';
+import NewProjectDialog from './NewProjectDialog';
 
 import * as SessionManager from '../../Domain/Managers/SessionManager';
 
@@ -51,6 +52,8 @@ class PageBar extends React.Component {
         firstName: "",
         lastName: "",
         menuAnchorEl: null,
+        newProjectDialogOpen: false,
+        projectTitle: "",
     }
     
     constructor(props) {
@@ -83,6 +86,9 @@ class PageBar extends React.Component {
                     <Typography variant="h6" color="inherit" className={classes.grow}>
                         FrontED
                     </Typography>
+                    <Typography variant="h6" color="inherit" className={classes.grow}>
+                        {this.state.projectTitle}
+                    </Typography>
 
                     {
                         !this.state.isUserDataValid
@@ -112,6 +118,12 @@ class PageBar extends React.Component {
                     open={this.state.loginDialogOpen}
                     handleClose={this.handleLoginDialogClose}
                     handleLogin={this.handleLogin}
+                />
+
+                <NewProjectDialog 
+                    open={this.state.newProjectDialogOpen}
+                    handleClose={this.handleNewProjectDialogClose}
+                    handleCreate={this.handleCreate}
                 /> 
 
                 <Popover 
@@ -207,16 +219,12 @@ class PageBar extends React.Component {
         this.setState({menuAnchorEl: null});
     }
 
-    handleNewProject = (e) => { 
-        // get NameProject from user
-        // it MUST be unique (per user ofc)
-        let nameProject = "FIXME:"
-        let sourceProject = "can not be blank!"; // just send some garbage like "test" if creating new project
-        
-        PubSub.publish(topic.NewProjectRequested, { 
-            nameProject: nameProject,
-            sourceProject: sourceProject,
-        });
+    handleNewProject = (e) => {
+        this.setState({newProjectDialogOpen: true});
+    }
+    
+    handleNewProjectDialogClose = (e) => { 
+        this.setState({newProjectDialogOpen: false});
     }
 
     handleSelectProject = (e) => {
@@ -270,9 +278,43 @@ class PageBar extends React.Component {
             }.bind(this))
     }
 
+    handleCreate = (e, title, sourceProject) => {
+        // get NameProject from user
+        // it MUST be unique (per user ofc)
+        //let nameProject = "FIXME:"
+        //let sourceProject = "can not be blank!"; // just send some garbage like "test" if creating new project
+
+        // Geta data user projects names list
+        if(this.checkIfProjectExists(title)){
+            return false;
+        }
+        else{
+            this.setState({newProjectDialogOpen: false, projectTitle: title});
+            PubSub.publish(topic.NewProjectRequested, { 
+                nameProject: title,
+                sourceProject: sourceProject,
+            });
+            return true;
+        }
+    }
+
     handleLogout = (e) => {
         SessionManager.logout();
         this._fetchProfile();
+    }
+
+    // Easy checker for testing purposes
+    // Replace with something like 'if title in user['projects']'
+    checkIfProjectExists = (title) => {
+        if(title === "") return true;
+        switch (title) {
+            case "":
+            case "test":
+            case "projekt":                
+                return true;
+            default:
+                return false;
+        }
     }
 }
 
