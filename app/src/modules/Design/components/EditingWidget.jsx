@@ -65,11 +65,21 @@ class EditingWidget extends Widget {
         //console.log("updateElementPosition " + idx + ": " + x + ", " + y);
 
         const e = this.state.elements[idx];
+        let tempX = e.properties.x;
+        let tempY = e.properties.y;
+
         e.properties.x = x;
         e.properties.y = y;
         e.commit();
 
         this.state.elements[idx] = e;
+
+        for (let i = 0; i < this.state.elements.length; i++) {
+            const element = this.state.elements[i];
+            if(element.parent.id === e.id){
+                this.updateElementPosition(i, e.properties.x + (element.properties.x - tempX), e.properties.y + (element.properties.y - tempY))
+            }
+        }
 
         this.setState( { elements: this.state.elements } );
     }
