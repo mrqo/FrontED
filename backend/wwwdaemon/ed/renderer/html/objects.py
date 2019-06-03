@@ -154,7 +154,7 @@ class Label(Container):
 
 
 # Button!
-class Button(Label):
+class Button(Container):
     PREFIX = '<div {id} {divStyle}><button type="button" {style}>'
     POSTFIX = '</div>'
     def __init__(self, _id, properties):
@@ -208,5 +208,13 @@ class Button(Label):
         return ";".join(_styles)
 
     @property
+    def prefix(self):
+        return self.PREFIX.format(
+            id='id="{}"'.format(self._id) if self._id else "",
+            divStyle='style="{}"'.format(self.get_styles("div-style")),
+            style='style="{}"'.format(self.get_styles()),
+        )
+
+    @property
     def content(self):
-        return self.text + "</button>" + super().content[len(self.text):]
+        return self.text + "</button>" + super().content
