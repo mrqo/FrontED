@@ -20,7 +20,7 @@ class WorkspaceSheet extends React.Component {
           x={cam.transformX(x)}
           y={cam.transformY(y - 35)}
           align={"left"}
-          text={"New project (1920x1080)"}
+          text={this.getTitle()}
           fontSize={cam.scale(25)}
           opacity={0.2}
           fontFamily={"calibri"}
@@ -38,6 +38,28 @@ class WorkspaceSheet extends React.Component {
       </Group>
 
     )
+  }
+
+  getTitle() {
+      // format of resulting string
+      const format = "${name} (${width}x${height})";
+
+      // fallback project name (when missing)
+      const defaultProjectName = "Project";
+      
+      let projectName = this.props.projectName ? this.props.projectName : defaultProjectName;
+      let width       = this.props.width  ? this.props.width  : 0;
+      let height      = this.props.height ? this.props.height : 0;
+
+      var str = format
+                    .replace("${name}", projectName)
+                    .replace("${width}", width)
+                    .replace("${height}", height);
+      
+      if (str == format) 
+          return "";
+
+      return str;
   }
 }
 
