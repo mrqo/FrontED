@@ -19,16 +19,22 @@ class ElementsFactory {
         return this._createBoilerplate(parent, width, height);
     }
 
-    copyElement(origin) {
+    copyElement(origin, parent) {
+        console.log("Copying " +  origin.meta.type);
         var newElement = this.createElement(
             origin.meta.type, 
-            origin.parent, 
+            parent ? parent : origin.parent, 
             origin.properties.width, 
             origin.properties.height
         );
 
+        console.log("new id: " + newElement.id);
+
         newElement.properties = JSON.parse(JSON.stringify(origin.properties));  
         newElement.meta = JSON.parse(JSON.stringify(origin.meta));
+
+        origin.content.map((el) => { newElement.content.push(this.copyElement(el, newElement)) });
+
         return newElement;
     }
 
@@ -198,6 +204,7 @@ class ElementsFactory {
             model.parent.content.push(copy);
             model.parent.commit();
             PubSub.publish(topic.ElemCreated, copy);
+            copy.content.map((el) => PubSub.publish(topic.ElemCreated, el));
         }.bind(this)
 
         return model;
