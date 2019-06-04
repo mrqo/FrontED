@@ -16,54 +16,49 @@ class NewProjectDialog extends React.Component {
 
     render() {
         return (
-            <div>
-            <Dialog open={this.props.open} onClose={this.props.handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">New Project</DialogTitle>
+            <Dialog 
+                open={this.props.open} 
+                onClose={this.props.handleClose} 
+                aria-labelledby="form-dialog-title">
+                <DialogTitle>New Project</DialogTitle>
                 <DialogContent>
-                {
-                    this.state.displayError
-                        ? <p style={{color: 'red'}}>Project with this name already esists :(.</p>
-                        : <div/>
-                }
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="New Project Name"
-                    ///type="text"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({title: e.target.value})}
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    id="projectSource"
-                    label="New Project sourceProject"
-                    ///type="text"
-                    value={this.state.sourceProject}
-                    onChange={(e) => this.setState({sourceProject: e.target.value})}
-                    fullWidth
-                />
+                    {
+                        this.state.displayError
+                            ? <p style={{color: 'red'}}>Project with this name already exists.</p>
+                            : <div/>
+                    }
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="New Project Name"
+                        ///type="text"
+                        value={this.state.title}
+                        onChange={(e) => this.setState({title: e.target.value})}
+                        fullWidth
+                    />
+                    <TextField
+                        margin="dense"
+                        label="New Project sourceProject"
+                        ///type="text"
+                        value={this.state.sourceProject}
+                        onChange={(e) => this.setState({sourceProject: e.target.value})}
+                        fullWidth
+                    />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={this.props.handleClose} color="primary">
-                    Cancel
-                </Button>
-                <Button 
-                    //onClick={(e) => {
-                    //    this.props.handleCreate(e, this.state.title)
-                    //        .then(response => this.setState({displayError: !response}));
-                    //}} 
-                    onClick={(e) => {
-                        let res = this.props.handleCreate(e, this.state.title, this.state.projectSource);
-                        this.setState({displayError: !res});
-                    }} 
-                    color="primary">
-                    Create
-                </Button>
+                    <Button onClick={this.props.handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={(e) => {
+                            let res = this.props.handleCreate(e, this.state.title, this.state.projectSource);
+                            this.setState({displayError: !res});
+                        }} 
+                        color="primary">
+                        Create
+                    </Button>
                 </DialogActions>
             </Dialog>
-            </div>
         );
     }
 }
