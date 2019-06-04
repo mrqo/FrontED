@@ -7,6 +7,11 @@ class Camera
       y: 0
     }
     this.zoom = 1.0
+
+    this.stagePosition = {
+      x: 0,
+      y: 0
+    }
   }
 
   scale(v) {

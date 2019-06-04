@@ -74,8 +74,8 @@ class EditingWidget extends Widget {
         const width  = this.refs.container.offsetWidth;
         const height = this.refs.container.offsetHeight;
 
-        const newStageWidth  = width - this.state.stageMarginX*2;
-        const newStageHeight = height - this.state.stageMarginY*2
+        const newStageWidth  = width - this.state.stageMarginX * 2;
+        const newStageHeight = height - this.state.stageMarginY * 2
 
         this.state.camera.position.x = -newStageWidth/2+this.state.sheetWidth/2.;
         this.state.camera.position.y = -newStageHeight/2.+this.state.sheetHeight/2.;
@@ -109,6 +109,16 @@ class EditingWidget extends Widget {
         this.setState( { elements: this.state.elements } );
     }
 
+    dragEnd(ev) {
+        //console.info(ev);
+        if (ev.target.parent == null)
+        {
+            this.state.camera.stagePosition.x = ev.target.x();
+            this.state.camera.stagePosition.y = ev.target.y();
+            console.log(ev.target.x() + "; " + ev.target.y());
+        }
+    }
+
     getContent() {
         return (
           <div
@@ -122,6 +132,7 @@ class EditingWidget extends Widget {
                 className="widget-content"
                 ref="stage"
                 draggable={true}
+                onDragEnd={this.dragEnd.bind(this)}
             >
                   
                 <Layer
@@ -165,6 +176,7 @@ class EditingWidget extends Widget {
     getFooter() {
         return (
             <div className="widget-footer">
+              //{this.state.camera.position.x + "; " + this.state.camera.position.y}
               Zoom: {this.state.camera ? (this.state.camera.zoom*100).toFixed(0) : 0}%               
               <Button onClick={() => this.zoom(0.1)  } style={{ color: "white", padding: "0" }}>+</Button>
               <Button onClick={() => this.zoom(-0.1) } style={{ color: "white", padding: "0" }}>-</Button>

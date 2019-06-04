@@ -94,10 +94,10 @@ class RenderElement extends React.Component {
         const currY = this.props.model.properties.y;
 
         if (this.props.keysPressed.ctrl) {
-            pos.x = this.props.camera.transformX(currX);
+            pos.x = this.props.camera.stagePosition.x + this.props.camera.transformX(currX);
         }
         if (this.props.keysPressed.shift) {
-            pos.y = this.props.camera.transformY(currY);
+            pos.y = this.props.camera.stagePosition.y + this.props.camera.transformY(currY);
         }
         if (this.props.keysPressed.alt) {
             let width = this.props.model.properties.width;
