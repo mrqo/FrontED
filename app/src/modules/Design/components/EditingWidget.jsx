@@ -27,7 +27,11 @@ class EditingWidget extends Widget {
         sheetWidth: 400,
         sheetHeight: 600,
         elements: [],
-        selectedElement: null
+        selectedElement: null,
+    }
+
+    keysPressed = {
+        alt: false, ctrl: false, shift: false
     }
 
     constructor(props) {
@@ -40,12 +44,30 @@ class EditingWidget extends Widget {
         window.addEventListener("resize", this.windowResized.bind(this));
 
         this.refs.stage.on("mousedown", this.mouseDown.bind(this));
+        this.refs.stage.container().tabIndex = 1;
+        this.refs.stage.container().addEventListener("keydown", this.keyDown.bind(this));
+        this.refs.stage.container().addEventListener("keyup", this.keyUp.bind(this));
     }
 
     mouseDown(ev) {
         //console.log(ev);
+        this.refs.stage.container().focus();
         //console.log(this);
         ev.evt.preventDefault();
+    }
+    
+    keyDown(ev) {
+        //console.log(ev);
+        this.keysPressed.alt   = ev.altKey;
+        this.keysPressed.shift = ev.shiftKey;
+        this.keysPressed.ctrl  = ev.ctrlKey;
+    }
+
+    keyUp(ev) {
+        //console.log(ev);
+        this.keysPressed.alt   = ev.altKey;
+        this.keysPressed.shift = ev.shiftKey;
+        this.keysPressed.ctrl  = ev.ctrlKey;
     }
 
     windowResized() {
@@ -119,6 +141,7 @@ class EditingWidget extends Widget {
                                   updateElementPosition={this.updateElementPosition.bind(this)}
                                   camera={this.state.camera} 
                                   model={element}
+                                  keysPressed={this.keysPressed}
                               />
                             
                         )

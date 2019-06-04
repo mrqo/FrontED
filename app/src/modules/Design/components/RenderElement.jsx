@@ -51,7 +51,8 @@ class RenderElement extends React.Component {
               onDragEnd= {this.onDrag}
               onClick={this.onClick}
               x={cam.transformX(mdl.properties.x)}
-              y={cam.transformY(mdl.properties.y)}>
+              y={cam.transformY(mdl.properties.y)}
+              dragBoundFunc={this.dragBoundFunc.bind(this)}>
               <Tag
                   width={cam.scale(width)}
                   height={cam.scale(height)}
@@ -64,10 +65,14 @@ class RenderElement extends React.Component {
     }
 
     onDrag = (e) => {
+        //let newX = this.props.model.properties.x;
+        //let newY = this.props.model.properties.y;
+
+        let newX = this.props.camera.untransformX(e.target.x());
+        let newY = this.props.camera.untransformY(e.target.y());
+
         this.props.updateElementPosition(
-            this.props.idx,
-            this.props.camera.untransformX(e.target.x()),
-            this.props.camera.untransformY(e.target.y())
+            this.props.idx, newX, newY
         )
         // Selecting element in Design view
         PubSub.publish(topic.ElemSelectionChanged, {
@@ -82,6 +87,30 @@ class RenderElement extends React.Component {
             oldSel: null,
             newSel: this.props.model
         })
+    }
+
+    dragBoundFunc(pos) {
+        const currX = this.props.model.properties.x;
+        const currY = this.props.model.properties.y;
+
+        if (this.props.keysPressed.ctrl) {
+            pos.x = this.props.camera.transformX(currX);
+        }
+        if (this.props.keysPressed.shift) {
+            pos.y = this.props.camera.transformY(currY);
+        }
+        if (this.props.keysPressed.alt) {
+            let width = this.props.model.properties.width;
+            let height = this.props.model.properties.height;
+            
+            if (!width || width <= 0) width = 1;
+            if (!height || height <= 0) height = 1;
+
+            pos.x = Math.round(pos.x / width) * width;           
+            pos.y = Math.round(pos.y / height) * height;           
+        }
+
+        return pos;
     }
 }
 
