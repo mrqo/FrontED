@@ -15,17 +15,18 @@ import RenderElement from './RenderElement';
 import Selector from './Selector';
 
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class EditingWidget extends Widget {
     state = {
         widgetName: "Design",
-        stageWidth: 400,
-        stageHeight: 320,
+        stageWidth: 1000,
+        stageHeight: 1000,
         stageMarginX: 0,
         stageMarginY: 8,
         camera: new Camera(),
-        sheetWidth: 400,
-        sheetHeight: 600,
+        sheetWidth: 1366,
+        sheetHeight: 768,
         elements: [],
         selectedElement: null,
     }
@@ -75,10 +76,12 @@ class EditingWidget extends Widget {
         const height = this.refs.container.offsetHeight;
 
         const newStageWidth  = width - this.state.stageMarginX * 2;
-        const newStageHeight = height - this.state.stageMarginY * 2
+        const newStageHeight = height - this.state.stageMarginY * 2;
 
-        this.state.camera.position.x = -newStageWidth/2+this.state.sheetWidth/2.;
-        this.state.camera.position.y = -newStageHeight/2.+this.state.sheetHeight/2.;
+        const zoom = this.state.camera.zoom;
+
+        this.state.camera.position.x = -newStageWidth/2. + this.state.sheetWidth / 2. * zoom;
+        this.state.camera.position.y = -newStageHeight/2. + this.state.sheetHeight / 2. * zoom;
         this.setState( {
             camera: this.state.camera,
             stageWidth:  newStageWidth, 
@@ -176,12 +179,27 @@ class EditingWidget extends Widget {
     getFooter() {
         return (
             <div className="widget-footer">
+              <TextField value={this.state.camera.position.x} onChange={(val)=>{this.setCameraPositionX(val);}}/>
+              <TextField value={this.state.camera.position.y} onChange={(val)=>{this.setCameraPositionY(val);}}/>
               Zoom: {this.state.camera ? (this.state.camera.zoom*100).toFixed(0) : 0}%               
               <Button onClick={() => this.zoom(0.1)  } style={{ color: "white", padding: "0" }}>+</Button>
               <Button onClick={() => this.zoom(-0.1) } style={{ color: "white", padding: "0" }}>-</Button>
             </div>
         );
     }
+
+    setCameraPositionX(e)
+    {
+        this.state.camera.position.x = e.target.value;
+        this.setState({camera:this.state.camera});
+    }
+
+    setCameraPositionY(e)
+    {
+        this.state.camera.position.y = e.target.value;
+        this.setState({camera:this.state.camera});
+    }
+    
 
     zoom(amount)
     {
