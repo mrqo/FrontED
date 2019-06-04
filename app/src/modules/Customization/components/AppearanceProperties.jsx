@@ -172,15 +172,18 @@ class AppearanceProperties extends React.Component {
     }
 
     onStrokeWidthChanged = (e) => {
-        this.props.onChange("strokeWidth", parseInt(e.target.value));
+        const value = Math.max(parseInt(e.target.value), 0);
+        this.props.onChange("strokeWidth", value);
     }
 
     onBorderRadiusChanged = (e) => {
-        this.props.onChange("borderRadius", parseInt(e.target.value));
+        const value = Math.max(parseInt(e.target.value), 0);
+        this.props.onChange("borderRadius", value);
     }
 
     onShadowBlurChanged = (e) => {
-        this.props.onChange("shadowBlur", parseInt(e.target.value));
+        const value = Math.max(parseInt(e.target.value), 0);
+        this.props.onChange("shadowBlur", value);
     }
     
     onShadowColorChanged = (e) => {
