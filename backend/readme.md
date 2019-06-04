@@ -1,6 +1,7 @@
 ﻿# Backend
 To run wwwdaemon:  
-cd wwwdaemon  
 pip install -r requirements.txt  # or create virtualenv first  
+cd wwwdaemon  
 python manage.py runserver  
-http://127.0.0.1:8000/  
+
+# Server is started on port 8000
