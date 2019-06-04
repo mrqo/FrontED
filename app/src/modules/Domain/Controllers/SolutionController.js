@@ -1,4 +1,7 @@
 import CircularJSON from 'circular-json';
+import PubSub from 'pubsub-js';
+
+import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import * as SessionManager from '../Managers/SessionManager';
 
@@ -39,6 +42,12 @@ class SolutionController {
             //     {id: 1, name: "TestName", source: "Not blank!"},
             //     {id: 2, name: "TestName2", source: "Testing is the future"},
             // ]
+            console.log(response);
+            if (response == false) {
+                PubSub.publish(topic.FetchProjectsListFailed, {});
+            } else {
+                PubSub.publish(topic.FetchProjectsListCompleted, response);
+            }
         });
     }
 

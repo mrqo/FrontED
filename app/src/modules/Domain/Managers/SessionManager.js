@@ -65,7 +65,15 @@ export function getProjects() {
         headers: authHeader()
     };
 
-    return fetch(`/ed/projects/`, requestOptions).then(handleResponse);
+    return fetch(`/ed/projects/`, requestOptions)
+    .then(handleResponse)
+    .catch(error => false)
+    .then(response => {
+        if (response["detail"] == "Authentication credentials were not provided.")
+            return false;
+        
+        return response;
+    });
 }
 
 export function getProject(project_id) {
@@ -100,7 +108,7 @@ export function getProfile(projectName, projectSource) {
     return fetch(`/accounts/profile/`, requestOptions)
         .then(handleResponse)
         .then(profile => {
-            if(profile["detail"] == "Authentication credentials were not provided.") {
+            if (profile["detail"] == "Authentication credentials were not provided.") {
                 return false;
             } else {
                 /*

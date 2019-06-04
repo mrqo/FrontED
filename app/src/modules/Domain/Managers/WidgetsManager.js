@@ -14,16 +14,33 @@ class WidgetsManager {
 
     initSubscriptions(widget) {
         if (widget instanceof ControlsWidget) {
-            this._initControlsSubs.bind(widget)()
+            this._initControlsSubs.bind(widget)();
         } else if (widget instanceof StructureWidget) {
-            this._initStructureSubs.bind(widget)()
+            this._initStructureSubs.bind(widget)();
         } else if (widget instanceof EditingWidget) {
-            this._initEditingSubs.bind(widget)()
+            this._initEditingSubs.bind(widget)();
         } else if (widget instanceof PropertiesWidget) {
-            this._initPropertiesSubs.bind(widget)()
+            this._initPropertiesSubs.bind(widget)();
         } else {
-            console.log("Could not match widget.")
+            // PageBar is exported with styles, so we cannot 
+            // check if it is an istance of PageBar...
+            // hack, but well...
+            this._initPageBarSubs.bind(widget)();
+            //console.log("Could not match widget.");
         }
+    }
+
+    // Has context of PageBar
+    _initPageBarSubs() {
+        this._fetchProjectsCompletedCbToken = PubSub.subscribe(
+            topic.FetchProjectsListCompleted,
+            this.onFetchProjectsListCompletedCb.bind(this)
+        );
+
+        this._fetchProjectsFailedCbToken = PubSub.subscribe(
+            topic.FetchProjectsListFailed,
+            this.onFetchProjectsListFailedCb.bind(this)
+        );
     }
 
     // Has context of ControlsWidget
@@ -81,4 +98,4 @@ class WidgetsManager {
     }
 }
 
-export default WidgetsManager
+export default WidgetsManager;

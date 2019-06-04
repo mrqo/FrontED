@@ -9,6 +9,7 @@
     "@material/card": "^1.0.1",
     "axios": "^0.18.0",
     "circular-json": "^0.5.9",
+    "clsx": "^1.0.4",
     "contentful": "^7.5.0",
     "electron": "^1.4.14",
     "konva": "^3.2.5",
