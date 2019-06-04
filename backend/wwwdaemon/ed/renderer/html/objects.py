@@ -51,7 +51,7 @@ class Container(Unknown):
                 "bgColor": "background-color: {value}",
                 "borderRadius": "border-radius: {value}px",
                 "contentVerAlignment": "vertical-align: {value}",
-                "contentHorAligment": "text-align: {value}",
+                "contentHorAlignment": "text-align: {value}",
                 "height": "height: {value}px",
                 "width": "width: {value}px"
             }
@@ -169,18 +169,17 @@ class Label(Unknown):
         self.propertiesMapper = {
             "style": {
                 "fontFamily": "fony-family: '{value}'",
-                "bgColor": "background-color: {value}",
-                "contentHorAligment": "text-align: {value}",
                 "textColor": "color:{value}",
                 "textSize": "font-size:{value}px",
-                "height": "height: {value}px",
-                "width": "width: {value}px"
             },
             "div-style": {
+                "bgColor": "background-color: {value}",
                 "borderColor": "border-color: {value}",
                 "borderRadius": "border-radius: {value}px",
                 "strokeWidth" :"border: {value}px solid",
-                "contentVerAlignment": "vertical-align: {value}",
+                "contentHorAlignment": "display:flex;justify-content: {value}",
+                "height": "height: {value}px",
+                "width": "width: {value}px"
             }
         }
 
@@ -212,6 +211,12 @@ class Label(Unknown):
             # absolute
             if self.x is not None or self.y is not None:
                 _styles.append("position: absolute; left: {}px; top: {}px".format(self.x or 0, self.y or 0))
+            # vertical alignment
+            valign = self.properties.get("contentVerAlignment", None)
+            if valign:
+                _styles.append("display:flex;align-items: {value}".format(
+                    value={"top": "baseline", "center": "center", "bottom": "end"}.get(valign, "baseline")
+                ))
 
         return ";".join(_styles)
 
@@ -240,7 +245,7 @@ class Button(Unknown):
             "style": {
                 "fontFamily": "fony-family: '{value}'",
                 "bgColor": "background-color: {value}",
-                "contentHorAligment": "text-align: {value}",
+                "contentHorAlignment": "display:flex;justify-content: {value}",
                 "textColor": "color:{value}",
                 "textSize": "font-size:{value}px",
                 "height": "height: {value}px",
@@ -248,7 +253,6 @@ class Button(Unknown):
                 "borderRadius": "border-radius: {value}px",
             },
             "div-style": {
-                "contentVerAlignment": "vertical-align: {value}",
             }
         }
 
@@ -276,6 +280,12 @@ class Button(Unknown):
             if shadowOffsetX or shadowOffsetY:
                 _styles.append("box-shadow: {}px {}px {}px {}".format(
                     shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor
+                ))
+            # vertical alignment
+            valign = self.properties.get("contentVerAlignment", None)
+            if valign:
+                _styles.append("display:flex;align-items: {value}".format(
+                    value={"top": "baseline", "center": "center", "bottom": "end"}.get(valign, "baseline")
                 ))
         elif default_style == "div-style":
             # absolute
