@@ -29,6 +29,7 @@ class EditingWidget extends Widget {
         sheetHeight: 768,
         elements: [],
         selectedElement: null,
+        debug: false
     }
 
     keysPressed = {
@@ -179,8 +180,14 @@ class EditingWidget extends Widget {
     getFooter() {
         return (
             <div className="widget-footer">
-              <TextField value={this.state.camera.position.x} onChange={(val)=>{this.setCameraPositionX(val);}}/>
-              <TextField value={this.state.camera.position.y} onChange={(val)=>{this.setCameraPositionY(val);}}/>
+              { 
+                  this.state.debug ? 
+                      <React.Fragment>
+                      <TextField value={this.state.camera.position.x} onChange={(val)=>{this.setCameraPositionX(val);}}/> 
+                      <TextField value={this.state.camera.position.y} onChange={(val)=>{this.setCameraPositionY(val);}}/>
+                      </React.Fragment>
+                  : null
+              }
               Zoom: {this.state.camera ? (this.state.camera.zoom*100).toFixed(0) : 0}%               
               <Button onClick={() => this.zoom(0.1)  } style={{ color: "white", padding: "0" }}>+</Button>
               <Button onClick={() => this.zoom(-0.1) } style={{ color: "white", padding: "0" }}>-</Button>
