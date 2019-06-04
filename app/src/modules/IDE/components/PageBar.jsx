@@ -22,6 +22,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import LoginDialog from './LoginDialog';
 import NewProjectDialog from './NewProjectDialog';
+import SelectProjectDialog from './SelectProjectDialog';
 
 import * as SessionManager from '../../Domain/Managers/SessionManager';
 
@@ -46,13 +47,15 @@ const styles = theme => ({
 
 class PageBar extends React.Component {
     state = {
-        loginDialogOpen: false,
         menuOpen: false,
+        loginDialogOpen: false,
+        newProjectDialogOpen: false,
+        loadProjectDialogOpen: false,
+
         isUserDataValid: false,
         firstName: "",
         lastName: "",
-        menuAnchorEl: null,
-        newProjectDialogOpen: false,
+        menuAnchorEl: null,     
         projectTitle: "",
     }
     
@@ -117,14 +120,17 @@ class PageBar extends React.Component {
                 <LoginDialog 
                     open={this.state.loginDialogOpen}
                     handleClose={this.handleLoginDialogClose}
-                    handleLogin={this.handleLogin}
-                />
+                    handleLogin={this.handleLogin}/>
 
                 <NewProjectDialog 
                     open={this.state.newProjectDialogOpen}
                     handleClose={this.handleNewProjectDialogClose}
-                    handleCreate={this.handleCreate}
-                /> 
+                    handleCreate={this.handleCreate}/> 
+
+                <SelectProjectDialog
+                   open={this.state.loadProjectDialogOpen}
+                   handleClose={this.handleSelectProjectDialogClose}
+                   handleSelect={this.handleSelectProjectDialogLoad}/>
 
                 <Popover 
                     id="simple-menu" 
@@ -228,7 +234,8 @@ class PageBar extends React.Component {
     }
 
     handleSelectProject = (e) => {
-        PubSub.publish(topic.FetchProjectsListRequested, {});
+        //PubSub.publish(topic.FetchProjectsListRequested, {});
+        this.setState({loadProjectDialogOpen: true});
     }
 
     handleSaveProject = (e) => {
@@ -278,6 +285,11 @@ class PageBar extends React.Component {
             }.bind(this))
     }
 
+    handleLogout = (e) => {
+        SessionManager.logout();
+        this._fetchProfile();
+    }
+
     handleCreate = (e, title, sourceProject) => {
         // get NameProject from user
         // it MUST be unique (per user ofc)
@@ -298,9 +310,12 @@ class PageBar extends React.Component {
         }
     }
 
-    handleLogout = (e) => {
-        SessionManager.logout();
-        this._fetchProfile();
+    handleSelectProjectDialogClose = (e) => {
+        this.setState({loadProjectDialogOpen: false});
+    }
+
+    handleSelectProjectDialogLoad = (e, projectId) => {
+
     }
 
     // Easy checker for testing purposes
@@ -316,6 +331,8 @@ class PageBar extends React.Component {
                 return false;
         }
     }
+
+
 }
 
 export default withStyles(styles)(PageBar);

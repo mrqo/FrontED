@@ -20,43 +20,43 @@ class LoginDialog extends React.Component {
             <Dialog open={this.props.open} onClose={this.props.handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <DialogContent>
-                {
-                    this.state.displayError
-                        ? <p style={{color: 'red'}}>Wrong username or password.</p>
-                        : <div/>
-                }
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Username"
-                    type="email"
-                    value={this.state.username}
-                    onChange={(e) => this.setState({username: e.target.value})}
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    id="name"
-                    label="Password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={(e) => this.setState({password: e.target.value})}
-                    fullWidth
-                />
+                    {
+                        this.state.displayError
+                            ? <p style={{color: 'red'}}>Wrong username or password.</p>
+                            : <div/>
+                    }
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Username"
+                        type="email"
+                        value={this.state.username}
+                        onChange={(e) => this.setState({username: e.target.value})}
+                        fullWidth
+                    />
+                    <TextField
+                        margin="dense"
+                        id="name"
+                        label="Password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={(e) => this.setState({password: e.target.value})}
+                        fullWidth
+                    />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={this.props.handleClose} color="primary">
-                    Cancel
-                </Button>
-                <Button 
-                    onClick={(e) => {
-                        this.props.handleLogin(e, this.state.username, this.state.password)
-                            .then(response => this.setState({displayError: !response}));
-                    }} 
-                    color="primary">
-                    Login
-                </Button>
+                    <Button onClick={this.props.handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={(e) => {
+                            this.props.handleLogin(e, this.state.username, this.state.password)
+                                .then(response => this.setState({displayError: !response}));
+                        }} 
+                        color="primary">
+                        Login
+                    </Button>
                 </DialogActions>
             </Dialog>
             </div>
