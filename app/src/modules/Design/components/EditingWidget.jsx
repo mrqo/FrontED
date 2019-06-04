@@ -39,9 +39,6 @@ class EditingWidget extends Widget {
         this.windowResized();
         window.addEventListener("resize", this.windowResized.bind(this));
 
-        this.state.camera.position.x = -this.state.stageWidth;
-        this.state.camera.position.y = -this.state.stageHeight;
-
         this.refs.stage.on("mousedown", this.mouseDown.bind(this));
     }
 
@@ -55,9 +52,15 @@ class EditingWidget extends Widget {
         const width  = this.refs.container.offsetWidth;
         const height = this.refs.container.offsetHeight;
 
+        const newStageWidth  = width - this.state.stageMarginX*2;
+        const newStageHeight = height - this.state.stageMarginY*2
+
+        this.state.camera.position.x = -newStageWidth/2+this.state.sheetWidth/2.;
+        this.state.camera.position.y = -newStageHeight/2.+this.state.sheetHeight/2.;
         this.setState( {
-            stageWidth:  width - this.state.stageMarginX*2,
-            stageHeight: height - this.state.stageMarginY*2
+            camera: this.state.camera,
+            stageWidth:  newStageWidth, 
+            stageHeight: newStageHeight
         });
     }
 
@@ -139,7 +142,7 @@ class EditingWidget extends Widget {
     getFooter() {
         return (
             <div className="widget-footer">
-              Zoom: {(this.state.camera.zoom*100).toFixed(0)}%               
+              Zoom: {this.state.camera ? (this.state.camera.zoom*100).toFixed(0) : 0}%               
               <Button onClick={() => this.zoom(0.1)  } style={{ color: "white", padding: "0" }}>+</Button>
               <Button onClick={() => this.zoom(-0.1) } style={{ color: "white", padding: "0" }}>-</Button>
             </div>

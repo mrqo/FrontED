@@ -10,10 +10,14 @@ import { Rect } from 'react-konva';
 class WorkspaceSheet extends React.Component {
   render() {
     const cam = this.props.camera;
+    //const x = -this.props.width / 2.;
+    //const y = -this.props.height / 2.;
+    const x = 0;
+    const y = 0;
     return (
       <Rect
-        x={cam.transformX(-this.props.width / 2.)}
-        y={cam.transformY(-this.props.height / 2.)}
+        x={cam.transformX(x)}
+        y={cam.transformY(y)}
         width={cam.scale(this.props.width)}
         height={cam.scale(this.props.height)}
         shadowOpacity={0.2}
