@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="row">
-          <PageBar manager={this._controllersManager}/>
+          <PageBar manager={this._widgetsManager}/>
         </div>
         <div className="row">
           <div className="col-3 App-area">

@@ -1,4 +1,6 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
+import { topic } from '../../Domain/Enums/PubSubTopics';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,21 +10,21 @@ import CreateIcon from '@material-ui/icons/Create';
 import SaveIcon from '@material-ui/icons/Save';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import PageViewIcon from '@material-ui/icons/Pageview';
-
-import { withStyles, ListItemText } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import PubSub from 'pubsub-js';
-import { topic } from '../../Domain/Enums/PubSubTopics';
 import Chip from '@material-ui/core/Chip';
 import Popover from '@material-ui/core/Popover';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Snackbar from '@material-ui/core/Snackbar';
+
+import { withStyles, ListItemText } from '@material-ui/core';
 
 import LoginDialog from './LoginDialog';
 import NewProjectDialog from './NewProjectDialog';
 import SelectProjectDialog from './SelectProjectDialog';
+import SnackbarContentWrapper from './SnackbarContentWrapper';
 
 import * as SessionManager from '../../Domain/Managers/SessionManager';
 
@@ -31,6 +33,7 @@ const styles = theme => ({
         flexGrow: 1,
         marginLeft: 0,
         marginRight: 0,
+        width: "100%",
     },
     grow: {
         flexGrow: 1,
@@ -52,7 +55,13 @@ class PageBar extends React.Component {
         newProjectDialogOpen: false,
         loadProjectDialogOpen: false,
 
+        errorSnackbarOpen: false,
+        errorSnackbarCaption: " Error",
+        successSnacbarOpen: false,
+        successSnackbarCaption: " Success",
+        
         isUserDataValid: false,
+
         firstName: "",
         lastName: "",
         menuAnchorEl: null,     
@@ -61,6 +70,7 @@ class PageBar extends React.Component {
     
     constructor(props) {
         super(props);
+
         this.handleMenuToggle = this.handleMenuToggle.bind(this);
         this.handleMenuClose = this.handleMenuClose.bind(this);
         this.handleNewProject = this.handleNewProject.bind(this);  // FIXME: Marek, literowka? [Marek]: poprawione:)
@@ -70,6 +80,11 @@ class PageBar extends React.Component {
         this.handleLoginDialogClose = this.handleLoginDialogClose.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        
+        this.onFetchProjectsListCompletedCb = this.onFetchProjectsListCompletedCb.bind(this);
+        this.onFetchProjectsListFailedCb = this.onFetchProjectsListFailedCb.bind(this);
+
+        this.props.manager.initSubscriptions(this);
     }
 
     render() {
@@ -97,6 +112,7 @@ class PageBar extends React.Component {
                         !this.state.isUserDataValid
                             ? <button 
                                 className="btn btn-outline-primary"
+                                style={{textAlign: 'right'}}
                                 onClick={(e) => this.setState({loginDialogOpen: true})}>
                                 Login
                             </button>
@@ -194,6 +210,18 @@ class PageBar extends React.Component {
                         </ListItem>
                     </List>
                 </Popover>
+                
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.errorSnackbarOpen}
+                    autoHideDuration={6000}>
+                    <SnackbarContentWrapper
+                        variant={'error'}
+                        message={this.state.errorSnackbarCaption}/>
+                </Snackbar>
             </div>
         )
     }
@@ -234,8 +262,7 @@ class PageBar extends React.Component {
     }
 
     handleSelectProject = (e) => {
-        //PubSub.publish(topic.FetchProjectsListRequested, {});
-        this.setState({loadProjectDialogOpen: true});
+        PubSub.publish(topic.FetchProjectsListRequested, {});
     }
 
     handleSaveProject = (e) => {
@@ -291,16 +318,10 @@ class PageBar extends React.Component {
     }
 
     handleCreate = (e, title, sourceProject) => {
-        // get NameProject from user
-        // it MUST be unique (per user ofc)
-        //let nameProject = "FIXME:"
-        //let sourceProject = "can not be blank!"; // just send some garbage like "test" if creating new project
-
-        // Geta data user projects names list
-        if(this.checkIfProjectExists(title)){
+        if (this.checkIfProjectExists(title)) {
             return false;
         }
-        else{
+        else {
             this.setState({newProjectDialogOpen: false, projectTitle: title});
             PubSub.publish(topic.NewProjectRequested, { 
                 nameProject: title,
@@ -312,10 +333,22 @@ class PageBar extends React.Component {
 
     handleSelectProjectDialogClose = (e) => {
         this.setState({loadProjectDialogOpen: false});
+        
     }
 
     handleSelectProjectDialogLoad = (e, projectId) => {
+        
+    }
 
+    onFetchProjectsListCompletedCb = (msg, data) => {
+        this.setState({loadProjectDialogOpen: true});
+    }
+
+    onFetchProjectsListFailedCb = (msg, data) => {
+        this.setState({
+            errorSnackbarCaption: " Could not fetch projects data.",
+            errorSnackbarOpen: true
+        });
     }
 
     // Easy checker for testing purposes
@@ -331,8 +364,6 @@ class PageBar extends React.Component {
                 return false;
         }
     }
-
-
 }
 
 export default withStyles(styles)(PageBar);
