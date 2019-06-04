@@ -10,21 +10,31 @@ class Unknown(AbstractContainer):
     POSTFIX = "</body></html>"
     def __init__(self, _id, properties):
         super().__init__(_id, properties)
+        self.x, self.y = properties.get("x", None), properties.get("y", None)
+        if self.x is not None:
+            self.x = int(self.x)
+        if self.y is not None:
+            self.y = int(self.y)
 
     @property
     def content(self):
+        return ""
+
+    @property
+    def children_rendered(self):
         return "\n".join([child.render() for child in self.children])
 
     def render(self):
         """
         return prefix + content + postfix
         """
-        return "{prefix}\n{content}\n{postfix}".format(
+        # RealShit all divs are empty xD
+        return "{prefix}\n{content}\n{postfix}\n{children}".format(
             prefix=self.prefix,
             content=self.content,
-            postfix=self.postfix
+            postfix=self.postfix,
+            children=self.children_rendered
         )
-
 
 # DIV!
 class Container(Unknown):
@@ -35,7 +45,6 @@ class Container(Unknown):
         super().__init__(_id, properties)
         self._id = _id
         self.properties = properties
-        self.x, self.y = properties.get("x", None), properties.get("y", None)
 
         self.propertiesMapper = {
             "style": {
@@ -98,7 +107,6 @@ class Image(Unknown):
         super().__init__(_id, properties)
         self._id = _id
         self.src = properties.pop("src", "")
-        self.x, self.y = properties.get("x", None), properties.get("y", None)
 
         self.propertiesMapper = {
             "style": {
@@ -158,8 +166,6 @@ class Label(Unknown):
         self._id = _id
         self.properties = properties
         self.text = properties["text"]
-        print(properties)
-        self.x, self.y = properties.get("x", None), properties.get("y", None)
         self.propertiesMapper = {
             "style": {
                 "fontFamily": "fony-family: '{value}'",
@@ -229,7 +235,6 @@ class Button(Unknown):
     def __init__(self, _id, properties):
         super().__init__(_id, properties)
         self.text = properties["text"]
-        self.x, self.y = properties.get("x", None), properties.get("y", None)
 
         self.propertiesMapper = {
             "style": {
