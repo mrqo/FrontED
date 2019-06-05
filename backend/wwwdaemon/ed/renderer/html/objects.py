@@ -28,7 +28,7 @@ class Unknown(AbstractContainer):
         """
         return prefix + content + postfix
         """
-        # RealShit all divs are empty xD
+        # RealShit all divs are empty xD XDD
         return "{prefix}\n{content}\n{postfix}\n{children}".format(
             prefix=self.prefix,
             content=self.content,
@@ -168,7 +168,7 @@ class Label(Unknown):
         self.text = properties["text"]
         self.propertiesMapper = {
             "style": {
-                "fontFamily": "fony-family: '{value}'",
+                "fontFamily": "font-family: '{value}'",
                 "textColor": "color:{value}",
                 "textSize": "font-size:{value}px",
             },
@@ -243,7 +243,7 @@ class Button(Unknown):
 
         self.propertiesMapper = {
             "style": {
-                "fontFamily": "fony-family: '{value}'",
+                "fontFamily": "font-family: '{value}'",
                 "bgColor": "background-color: {value}",
                 "contentHorAlignment": "display:flex;justify-content: {value}",
                 "textColor": "color:{value}",
